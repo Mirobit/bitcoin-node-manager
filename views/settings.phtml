@@ -1,0 +1,80 @@
+<div class="">
+
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Settings</h3>
+        </div>
+    </div>
+
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-12">
+        <?php if(!empty($error)){ ?> <div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <?= $error ?> </div><?php }
+        if(!empty($message)){ ?> <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <?= $message ?> </div><?php } ?>
+    </div>  
+</div>
+<div class="row">
+  
+  <div class="col-md-4 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><i class="fa fa-globe"></i> Geo Tracing <small></small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+      
+        <div class="alert alert-warning" role="alert">If Geo Tracing is activated, <b>ip-api.com</b> is used to determine peer geo data (ISP, Country and City). For each new peer the data is requested
+        once and stored as long as the peer is connected. The API is limited to 150 requests per minute (Up to 100 IPs per request). Page reloads have almost no effect on the limit since peer geo data is temporarily stored.
+        Therefore it is highly unlikley to run in any troubles.<br /><br /></div>
+        
+        
+        <form class="form-horizontal form-label-left" style="align:left;" action="?p=settings&c=geosave&t=<?= $_SESSION["csfrToken"] ?>" method="POST">                   
+            
+            <div class="form-group" style="padding-left:10px;">
+                <label>
+                    <input type="checkbox" name="geopeers" id="geopeers" class="js-switch" <?php if($geoPeers == "true") echo "checked "; ?>/> Geo Tracing
+                </label>
+            </div>
+          
+            <div class="form-group" style="padding-left:10px;">
+                <button type="submit" class="btn btn-success">Change</button>                       
+            </div>  
+        </form> 
+      </div>
+    </div>
+  </div>
+  
+</div><!-- End Row-->
+
+</div>
+</div>
+<!-- /page content -->
+
+<!-- footer content -->
+<?php include('views/footer.phtml') ?>
+<!-- /footer content -->
+</div>
+</div>
+
+<!-- jQuery -->
+<script src="assets/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="assets/js/bootstrap.min.js"></script>
+<!-- Switchery -->
+<script src="assets/js/switchery.min.js"></script>
+
+
+<!-- Custom Theme Scripts -->
+<script src="assets/js/custom.min.js"></script>
+
+
+</body>
+</html>

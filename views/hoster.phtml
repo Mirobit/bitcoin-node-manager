@@ -1,0 +1,132 @@
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Hoster Manager</h3>
+        </div>
+    </div>
+        
+            <div class="clearfix"></div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <?php if(!empty($error)){ ?> <div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?= $error ?> </div><?php }
+                if(!empty($message)){ ?> <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?= $message ?> </div><?php } ?>
+            </div>  
+            
+            <div class="clearfix"></div>
+            <!-- Content -->                   
+            <div class="row">
+            <!-- Hoster List -->
+              <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Hoster <small>List</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <?php
+					$i = 1;
+					$count = count($content);
+					$split = round($count/2)+1;
+                    foreach($content as $h){ 
+						if($i == 1 OR $i == $split){
+							echo '<div class="col-md-6 col-sm-6 col-xs-12">';
+						}
+					?>
+<a href="?p=hoster&c=remove&n=<?= $h ?>&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-times" style="color:darkred;"></i></a> <?= $h ?><br /> 
+                    <?php 
+						$i++;
+						if($i == $split OR $i == $count+1){
+							echo "</div>";
+						}
+					} ?>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            <!-- End Hoster List -->
+            <!-- Hoster Info -->
+              <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Info <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    List of ISPs that are recognized by the Bitcoin Node Manager as webhoster. All "hosted" peers are tagged with a small cloud icon next to the ISP name.
+					<br><br>So you can easily distinguish between private and hosted peers.<br><br>
+					The more webhoster you add, the better the dectection works. If you want to add a new webhoster that a peer is using, simply click <i>Add Hoster (ISP)</i> in the <i>Manage</i> drop-down menu next to the peer.
+					Or add the webhoster manually below.
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            <!-- End Hoster Info -->            
+            <!-- Add Hoster -->
+              <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Add Hoster <small></small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                  
+                    <form class="form-inline" method="GET">
+                        <input type="hidden" name="p" value="hoster" />
+                        <input type="hidden" name="c" value="add" />
+						<input type="hidden" name="t" value="<?= $_SESSION["csfrToken"] ?>" />                     
+                        
+                        <div class="input-group">
+                            <input class="form-control" type="text" id="n" name="n" placeholder="Hoster" maxlength="35" size="20">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </span>
+                        </div>                        
+                    </form>
+                    
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            <!-- End Add Hoster -->        
+					</div>
+    </div>
+  </div>
+</div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <?php include('views/footer.phtml') ?>
+        <!-- /footer content -->
+        
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/assets/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="assets/js/custom.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<footer>
+<div class="pull-right">
+<i class="fa fa-bitcoin orange"></i> <a href="https://github.com/mirobit/bitcoin-node-manager"> Node Manger v0.2.0</a> - © 2017
+</div>
+<div class="clearfix"></div>
+</footer>
+<script type="text/javascript">
+	<?php
+	if($this->section === "main"){
+		$section = "";
+	}else{
+		$section = "?p=".$this->section;
+	}
+	?>
+    window.history.pushState("", "", "<?= $section ?>");
+</script>
