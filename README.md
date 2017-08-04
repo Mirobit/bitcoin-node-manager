@@ -2,9 +2,13 @@
 
 Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for your Bitcoin node.
 
+## Demo
+
+I set up a [live demo](http://94.156.174.45/bnmdemo). The password is `test`. All control functionality is disabled and all peer IPs are censored.
+
 ## Features
 
-* General extensive dashboard with general information about the node, connected peers and the blockchain
+* Extensive dashboard with general information about the node, connected peers and the blockchain
 * Create rules to manage your peers
 	* Ban, disconnect or log peers that waste ressources, are slow or run alternative clients (e.g. BCash)
 	* Set gobal events that trigger the execution of rules
@@ -19,10 +23,6 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 * Overview of the last received blocks
 * Overview of the last received forks (orphaned blocks / alternative chains)
 * Overview of the memory pool and containing transactions
-
-## Demo
-
-I set up a [live demo](http://94.156.174.45/bnmdemo). The password is `test`. All control functionality is disabled and all peer IPs are censored.
 
 ## Requirements
 
