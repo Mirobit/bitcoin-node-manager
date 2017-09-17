@@ -139,8 +139,9 @@ In the last fourth row you need to speficy the global trigger event if you check
                             <div id="clientselectiond" name="clientselectiond" style="display: none;">
                                 <select id="clientselection" name="clientselection[]" multiple="multiple">
 									<option <?php echo ((!empty($content['editRule']->clientArr) && in_array("ABC",$content['editRule']->clientArr)) ? "selected" : "") ?> value="ABC">ABC (Bcash)</option>
-                                    <option <?php echo ((!empty($content['editRule']->clientArr) && in_array("ABC",$content['editRule']->clientArr)) ? "selected" : "") ?> value="BUCash">Unlimited Cash (Bcash)</option>
+                                    <option <?php echo ((!empty($content['editRule']->clientArr) && in_array("BUCash",$content['editRule']->clientArr)) ? "selected" : "") ?> value="BUCash">Unlimited Cash (Bcash)</option>
                                     <option <?php echo ((!empty($content['editRule']->clientArr) && in_array("Classic",$content['editRule']->clientArr)) ? "selected" : "") ?> value="Classic">Classic (Bcash)</option>
+                                    <option <?php echo ((!empty($content['editRule']->clientArr) && in_array("Segwit2X",$content['editRule']->clientArr)) ? "selected" : "") ?> value="Segwit2X">btc1 (Segwit2X)</option>
                                     <option <?php echo ((!empty($content['editRule']->clientArr) && in_array("XT",$content['editRule']->clientArr)) ? "selected" : "") ?> value="XT">XT</option>    
                                     <option <?php echo ((!empty($content['editRule']->clientArr) && in_array("Unlimited",$content['editRule']->clientArr)) ? "selected" : "") ?> value="Unlimited">Unlimited</option>     
 									<option <?php echo ((!empty($content['editRule']->clientArr) && in_array("bcoin",$content['editRule']->clientArr)) ? "selected" : "") ?> value="bcoin">bcoin</option>

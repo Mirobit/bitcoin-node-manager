@@ -254,6 +254,8 @@ function getCleanClient($client){
 	
 	if(preg_match("/^Satoshi:([0]\.[0-9]{1,2}\.[0-9]{1,2})/",$client, $matches)) {
 		$client = "Core ".$matches[1];
+	}elseif(preg_match("/^Satoshi:([1]\.[0-9]{1,2}\.[0-9]{1,2})/",$client, $matches)) {
+		$client = "btc1 ".$matches[1];
 	}elseif(preg_match("/MultiBitHD:([0-9]\.[0-9]{1,2}\.[0-9]{1,2})/i",$client, $matches)){
 		$client = "MultiBit HD ".$matches[1];
 	}elseif(preg_match("/MultiBit:([0-9]\.[0-9]{1,2}\.[0-9]{1,2})/i",$client, $matches)){
