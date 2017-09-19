@@ -108,7 +108,7 @@ function checkIpPort($ip){
 }
 
 function checkBool($bool){
-	if($bool == true OR $bool == false){
+	if(is_bool($bool)){
 		return $bool;
 	}else{
 		return false;

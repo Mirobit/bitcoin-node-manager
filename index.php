@@ -359,8 +359,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
             // Write new settings in config.php
             if (file_exists('config.php')){
                 $conf = file_get_contents('config.php');
-                $conf = preg_replace("/geoPeers = (true|false);/", 'geoPeers = '.$geoPeers.';', $conf);
-                $conf = preg_replace("/geoNode = (true|false);/", 'geoNode = '.$geoNode.';', $conf);
+                $conf = preg_replace("/geoPeers = (true|false);/i", 'geoPeers = '.$geoPeers.';', $conf);
                 file_put_contents('config.php', $conf);
                 $message = "Setings succesfully saved";
             }else{

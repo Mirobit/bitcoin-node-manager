@@ -3,10 +3,6 @@
 namespace App;
 
 class Node {
-	public $country;
-	public $countryCode;
-	public $city;
-	public $isp;
 	public $blockHeight;
 	public $pruMode;
 	public $chain;
