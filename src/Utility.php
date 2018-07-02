@@ -179,9 +179,9 @@ function getDateTime($timestamp){
 	return $date;
 }
 
-function checkMemPoolLimited($fee){
+function checkMemPoolLimited($memPoolFee, $relayTxFee){
     $result = false;
-    if($fee != 0){
+    if($memPoolFee > $relayTxFee){
         $result = true;
     }
     return $result;

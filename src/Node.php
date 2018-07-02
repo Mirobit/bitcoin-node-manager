@@ -80,7 +80,7 @@ class Node {
 		$this->mempoolUsage = bytesToMb($mempoolInfo["usage"]);
 		$this->maxMempool = bytesToMb($mempoolInfo["maxmempool"]);
 		$this->mempoolUsageP = calcMpUsage($this->mempoolUsage,$this->maxMempool);
-		$this->mempoolLimited = checkMemPoolLimited($this->mempoolMinFee);
+		$this->mempoolLimited = checkMemPoolLimited($this->mempoolMinFee, $this->minRelayFee);
         // Traffic
 		$this->tIn = round(bytesToMb($tInfo["totalbytesrecv"])/1000,2);
 		$this->tOut = round(bytesToMb($tInfo["totalbytessent"])/1000,2);
