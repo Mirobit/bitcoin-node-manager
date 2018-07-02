@@ -6,7 +6,7 @@ function getServices($hex){
     $bit = base_convert($hex, 16, 2);
     $services = [];
     
-    // 1 = Network, 2 = Getutxo, 3 = Bloom, 4 = Witness, 5 = Xthin, 6 = Cash, 7 = Segwit2X
+    // 1 = Network, 2 = Getutxo, 3 = Bloom, 4 = Witness, 5 = Xthin, 6 = Cash, 7 = Segwit2X, 10 = Network Limited
     // No services
     if($bit === "0"){
         $services['None'] = "None";
@@ -17,7 +17,7 @@ function getServices($hex){
     $bit = sprintf('%010d', $bit);    
 
     if(substr($bit, -1) == 1){
-        $services['Network'] = "NE";
+        $services['Network'] = "N";
     }
     if(substr($bit, -2, 1) == 1){
         $services['Getutxo'] = "GT";
@@ -36,7 +36,10 @@ function getServices($hex){
     }
     if(substr($bit, -8, 1) == 1){
         $services['Segwit2X'] = "2X";
-    }    
+    }
+    if(substr($bit, -11, 1) == 1){
+        $services['Network Limited'] = "NL";
+    }     
     
     // Unknown services
     if(empty($services)){
