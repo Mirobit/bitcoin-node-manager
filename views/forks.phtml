@@ -14,12 +14,12 @@
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                       <span class="count_top"><i class="fa fa-code-fork" style="color:orange;"></i> Last Fork</span>
-                      <div class="count"><?= number_format($content["blocks"][1]['height']) ?></div>
+                      <div class="count"><?= $content["blocks"][1]['height'] ?></div>
                       <span class="count_bottom"><span><?= $content["blocks"][1]['timeago'] ?></span><?php if(!empty($content["blocks"][1]['timeago'])) echo " days ago" ?></span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                       <span class="count_top"><i class="fa fa-code-fork" style="color:lightgreen;"></i> Last Block Main Chain</span>
-                      <div class="count"><?= number_format($content["blocks"][0]['height']) ?></div>
+                      <div class="count"><?= $content["blocks"][0]['height'] ?></div>
                       <span class="count_bottom"><span><?= $content["blocks"][0]['timeago'] ?></span> days ago</span>
 					</div>
                   </div>
