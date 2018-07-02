@@ -1,10 +1,9 @@
 # Bitcoin Node Manager Beta
 
+![](https://i.imgur.com/Uc9TLOk.png)
+
 Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for your Bitcoin node.
 
-## Demo
-
-I set up a [live demo](http://94.156.174.45/bnmdemo). The password is `test`. All control functionality is disabled and all peer IPs are censored.
 
 ## Features
 
