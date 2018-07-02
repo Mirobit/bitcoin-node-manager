@@ -23,11 +23,6 @@
                       <span class="count_bottom"><span class="orange" ><?= $content["avgFee"] ?></span> avg. fees per block</span>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                      <span class="count_top"><i class="fa fa-hourglass-start"></i> Segwit Support</span>
-                      <div class="count"><?= $content["segwitPer"] ?><small> %</small></div>
-					  <span class="count_bottom"><span><?= $content["segwitCount"] ?></span> blocks</span>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                       <span class="count_top"><i class="fa fa-line-chart" style="color:lightblue;"></i> Transactions</span>
                       <div class="count"><?= number_format($content["totalTx"]) ?></div>
 					  <span class="count_bottom"><span style="color:lightblue;" ><?= $content["avgTxSize"] ?></span> KB avg. TX size</span>

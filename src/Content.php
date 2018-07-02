@@ -158,9 +158,6 @@ function createBlocksContent(){
 		$content["totalFees"] += $content["blocks"][$block["height"]]["fees"];
 		$content["blocks"][$block["height"]]["txcount"] = count($block["tx"]);
 		$content["totalTx"] += $content["blocks"][$block["height"]]["txcount"];
-		if(substr($block["versionHex"], -1)){
-			$content["segwitCount"]++;
-		}
 		$blockHash = $block["previousblockhash"];
 	}
 	$content["avgTxSize"] = round(($content["totalSize"]/($content["totalTx"]))/1000,2);
@@ -168,7 +165,6 @@ function createBlocksContent(){
 	$content["totalSize"] = round($content["totalSize"]/1000000,2);
 	$content["avgFee"] = round($content["totalFees"]/Config::DISPLAY_BLOCKS,2);
 	$content["totalFees"] = round($content["totalFees"],2);
-	$content["segwitPer"] = ($content["segwitCount"]/Config::DISPLAY_BLOCKS)*100;
 	$content["numberOfBlocks"] = Config::DISPLAY_BLOCKS;
 	$content["timeframe"] = round(end($content["blocks"])["timeago"]/60,0);
 

@@ -152,6 +152,25 @@ function checkString($string){
 	}
 }
 
+function checkSegWitTx($size, $vsize){
+	$segwit = false;
+	if($size != $vsize){
+		$segwit = true;
+	}
+	
+	return $segwit;
+}
+
+function getSegWitTx($txs){
+	$i = 0;
+	foreach($txs as $tx){
+		if(checkSegWitTx($tx["size"], $tx["vsize"])){
+			$i++;
+		}
+	}
+	return $i;
+}
+
 function checkHosted($hoster){
 	$hosterList = json_decode(file_get_contents('data/hoster.json'), true);
 	if (in_array($hoster, $hosterList) OR preg_match("/server/i",$hoster)){
