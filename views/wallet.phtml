@@ -74,7 +74,6 @@
 						<?php $i = 0;
 							  foreach($content['utxo'] as $key => $utxo){ ?>
 									<tr>
-										<td>1</td>
 										<td><small><?= number_format($utxo["amount"],8) ?></small></td>
 										<td><small><?= $utxo["address"] ?></small></td>  
 										<td><small><?= $utxo["hash"] ?></small></td>  
@@ -93,10 +92,9 @@
 													<span class="sr-only">Toggle Dropdown</span>
 												</button>
 												<ul class="dropdown-menu">
-													<li><a href="https://utxochain.info/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> utxochain.info</a></li>
-													<li><a href="https://utxoexplorer.com/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-search-plus fa-lg" style="color:lightblue"></i> Bitcoin utxo Explorer</a></li>
-													<li><a href="https://live.utxocypher.com/btc/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-search-minus fa-lg" style="color:lightblue"></i> utxoCypher</a></li>
-													<li><a href="https://duckduckgo.com/?q=<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:lightblue"></i> DuckDuckGo</a></li>
+												<li><a href="https://blockchain.com/btc/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Blockchain.com</a></li>
+												<li><a href="https://live.blockcypher.com/btc/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> BlockCypher</a></li>
+												<li><a href="https://www.smartbit.com.au/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Smartbit</a></li>
 												</ul>
 											</div>										   
 										</td> 
