@@ -74,6 +74,7 @@
 						<?php $i = 0;
 							  foreach($content['utxo'] as $key => $utxo){ ?>
 									<tr>
+										<td><?= $key+1 ?></td>
 										<td><small><?= number_format($utxo["amount"],8) ?></small></td>
 										<td><small><?= $utxo["address"] ?></small></td>  
 										<td><small><?= $utxo["hash"] ?></small></td>  
