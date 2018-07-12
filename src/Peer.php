@@ -23,7 +23,7 @@ class Peer{
 	public $minPing; // int (seconds)
 	public $version; // int
 	public $client; // string
-    public $orgClient; // string
+	public $orgClient; // string
 	public $spv; // bool
 	public $snoopy; // bool
 	public $altClient; // bool
@@ -76,7 +76,7 @@ class Peer{
 		}
 		$this->version = checkInt($peer["version"]);
 		$this->client = getCleanClient($peer["subver"]);
-        $this->orgClient = htmlspecialchars($peer["subver"]);
+		$this->orgClient = htmlspecialchars($peer["subver"]);
 		$this->spv = checkSPV($this->client);
 		$this->snoopy = checkSnooping($this->client);
 		$this->altClient = checkAltClient($this->client);

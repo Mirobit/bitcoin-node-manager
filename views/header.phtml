@@ -1,70 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
 	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="referrer" content="no-referrer"> 
-    
-    <title><?=$title?> - Bitcoin Node Manager</title>
-    
-    <link href="assets/images/favicon.ico" rel="icon">
-    
-    <!-- Bootstrap -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/buttons.bootstrap.min.css" rel="stylesheet"> 
-    <!-- JQVMap -->
-    <link href="assets/css/jqvmap.min.css" rel="stylesheet">
-    <!-- Switchery -->
-    <link href="assets/css/switchery.min.css" rel="stylesheet">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="referrer" content="no-referrer"> 
 
-    <link href="assets/css/bootstrap-multiselect.css" rel="stylesheet">
-    <!-- Custom Theme Style -->
-    <link href="assets/css/custom.css" rel="stylesheet">
+	<title><?=$title?> - Bitcoin Node Manager</title>
+
+	<link href="assets/images/favicon.ico" rel="icon">
+
+	<!-- Bootstrap -->
+	<link href="assets/css/bootstrap.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet">
+	<!-- Datatables -->
+	<link href="assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/buttons.bootstrap.min.css" rel="stylesheet"> 
+	<!-- JQVMap -->
+	<link href="assets/css/jqvmap.min.css" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="assets/css/switchery.min.css" rel="stylesheet">
+
+	<link href="assets/css/bootstrap-multiselect.css" rel="stylesheet">
+	<!-- Custom Theme Style -->
+	<link href="assets/css/custom.css" rel="stylesheet">
   </head>
 
   <body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border-bottom: 1px solid #416182;">
-                <a href="index.php" class="site_title"><i class="fa fa-btc fa-lg" style="color:orange"></i> <span>Node Manager</span></a>
-            </div>
-            <hr>
-            <div class="clearfix"></div>
+	<div class="container body">
+	  <div class="main_container">
+		<div class="col-md-3 left_col">
+		  <div class="left_col scroll-view">
+			<div class="navbar nav_title" style="border-bottom: 1px solid #416182;">
+				<a href="index.php" class="site_title"><i class="fa fa-btc fa-lg" style="color:orange"></i> <span>Node Manager</span></a>
+			</div>
+			<hr>
+			<div class="clearfix"></div>
 
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <ul class="nav side-menu">
-                  <a href="?p=main" <?php if($this->section=="main") echo 'class="active"'; ?>><i class="fa fa-home"></i> Main </a>
-                  <a href="?p=peers" <?php if($this->section=="peers") echo 'class="active"'; ?>><i class="fa fa-list"></i> Peers </a>
-                    <ul class="nav child_menu" style="display: block;">
-                      <li <?php if($this->section=="rules") echo 'class="current-page"'; ?>><a href="?p=rules">Rules</a></li>
-                      <li <?php if($this->section=="hoster") echo 'class="active"'; ?>><a href="?p=hoster">Hoster</a></li>
-                    </ul>
-                  <a href="?p=banlist" <?php if($this->section=="banlist") echo 'class="active"'; ?>><i class="fa fa-ban"></i> Ban List </a>
-                  <a href="?p=blocks" <?php if($this->section=="blocks") echo 'class="active"'; ?>><i class="fa fa-cube"></i> Blocks</a>
+			<!-- sidebar menu -->
+			<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+			  <div class="menu_section">
+				<ul class="nav side-menu">
+				  <a href="?p=main" <?php if($this->section=="main") echo 'class="active"'; ?>><i class="fa fa-home"></i> Main </a>
+				  <a href="?p=wallet" <?php if($this->section=="wallet") echo 'class="active"'; ?>><i class="fa fa-money"></i> Wallet </a>
+				  <a href="?p=peers" <?php if($this->section=="peers") echo 'class="active"'; ?>><i class="fa fa-list"></i> Peers </a>
+					<ul class="nav child_menu" style="display: block;">
+					  <li <?php if($this->section=="rules") echo 'class="current-page"'; ?>><a href="?p=rules">Rules</a></li>
+					  <li <?php if($this->section=="hoster") echo 'class="active"'; ?>><a href="?p=hoster">Hoster</a></li>
+					</ul>
+				  <a href="?p=banlist" <?php if($this->section=="banlist") echo 'class="active"'; ?>><i class="fa fa-ban"></i> Ban List </a>
+				  <a href="?p=blocks" <?php if($this->section=="blocks") echo 'class="active"'; ?>><i class="fa fa-cube"></i> Blocks</a>
 				  <ul class="nav child_menu" style="display: block;">
-                      <li <?php if($this->section=="forks") echo 'class="active"'; ?>><a href="?p=forks">Forks</a></li>
-                   </ul>
+					  <li <?php if($this->section=="forks") echo 'class="active"'; ?>><a href="?p=forks">Forks</a></li>
+				   </ul>
 				  <a href="?p=mempool" <?php if($this->section=="mempool") echo 'class="active"'; ?>><i class="fa fa-database"></i> Memory Pool </a>
-                  <a href="?p=settings" <?php if($this->section=="settings") echo 'class="active"'; ?>><i class="fa fa-cog"></i> Settings </a>
-                  <a href="?p=about" <?php if($this->section=="about") echo 'class="active"'; ?>><i class="fa fa-info"></i> About </a>
-                </ul>
-              </div>
-            </div>
-            <!-- /sidebar menu -->
+				  <a href="?p=settings" <?php if($this->section=="settings") echo 'class="active"'; ?>><i class="fa fa-cog"></i> Settings </a>
+				  <a href="?p=about" <?php if($this->section=="about") echo 'class="active"'; ?>><i class="fa fa-info"></i> About </a>
+				</ul>
+			  </div>
+			</div>
+			<!-- /sidebar menu -->
 
-          </div>
-        </div>
+		  </div>
+		</div>
 
-        <!-- page content -->
-        <div class="right_col" role="main" style="min-height:100%;">
+		<!-- page content -->
+		<div class="right_col" role="main" style="min-height:100%;">

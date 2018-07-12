@@ -1,186 +1,186 @@
  <!-- Top Info Bar -->
  <div class="panel panel-default">  
-    <div class="panel-body">
+	<div class="panel-body">
 
-      <div class="row tile_count">
-        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-ban"></i> Banned Peers</span>
-          <div class="count"><?= $content['totalBans'] ?></div>
-          <span class="count_bottom"><i class="red"><i class="fa fa-plus"></i><?= $content['lastCount'] ?></i> Last 24h</span>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-refresh"></i> Auto Banned</span>
-          <div class="count"><?= $content['autoCount'] ?></div>
-          <span class="count_bottom"><span class="blue" ><?= $content['autoPer'] ?>%</span> of Bans</span>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-user"></i> Manually Banned</span>
-          <div class="count"><?= $content['userCount'] ?></div>
-          <span class="count_bottom"><span class="blue"><?= $content['userPer'] ?>%</span> of Bans</span>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-clock-o"></i> Average Ban Time</span>
-          <div class="count"><?= $content['avgTime'] ?> <small>days</small></div>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-cog"></i> Settings in Core</span>
-          <div class="count"><?= $content['settCore'] ?> <small>days</small></div>
-          <span class="count_bottom"><i class="blue"><?= $content['settCoreMode'] ?></i></span>
-        </div>
-      </div>
-      </div>
+	  <div class="row tile_count">
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		  <span class="count_top"><i class="fa fa-ban"></i> Banned Peers</span>
+		  <div class="count"><?= $content['totalBans'] ?></div>
+		  <span class="count_bottom"><i class="red"><i class="fa fa-plus"></i><?= $content['lastCount'] ?></i> Last 24h</span>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		  <span class="count_top"><i class="fa fa-refresh"></i> Auto Banned</span>
+		  <div class="count"><?= $content['autoCount'] ?></div>
+		  <span class="count_bottom"><span class="blue" ><?= $content['autoPer'] ?>%</span> of Bans</span>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		  <span class="count_top"><i class="fa fa-user"></i> Manually Banned</span>
+		  <div class="count"><?= $content['userCount'] ?></div>
+		  <span class="count_bottom"><span class="blue"><?= $content['userPer'] ?>%</span> of Bans</span>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		  <span class="count_top"><i class="fa fa-clock-o"></i> Average Ban Time</span>
+		  <div class="count"><?= $content['avgTime'] ?> <small>days</small></div>
+		</div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+		  <span class="count_top"><i class="fa fa-cog"></i> Settings in Core</span>
+		  <div class="count"><?= $content['settCore'] ?> <small>days</small></div>
+		  <span class="count_bottom"><i class="blue"><?= $content['settCoreMode'] ?></i></span>
+		</div>
+	  </div>
+	  </div>
  </div>
 <!-- Top Info Bar End-->
 
-    <div class="clearfix"></div>
-    <div class="col-md-3 col-sm-3 col-xs-12">
-          <?php if(!empty($error)){ ?> <div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <?= $error ?> </div><?php }
-          if(!empty($message)){ ?> <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <?= $message ?> </div><?php } ?>
-    </div>
-    <div class="row">
-      <!-- Ban List -->
-      <div class="col-md-9 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Banned Peers <small></small></h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li><a class="close-link"><i class="fa fa-close"></i></a>
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <table id="bannedpeers" class="table table-striped table-bordered table-valign">
-              <thead>
-                <tr>
-                  <th>IP</th>
-                  <th>Date Banned</th>
-                  <th>Banned Until</th>
-                  <th>Duration (d)</th>                  
-                  <th>Reason</th>
-                  <th style="width:17%;">Control</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $i = 0;
-                      foreach($content['banList'] as $ban){ 
-                      ?>
-                            <tr>
-                                <td> <?= $ban['address'] ?></td>
-                                <td> <?= $ban['ban_created'] ?></td>   
-                                <td> <?= $ban['banned_until'] ?></td>
-                                <td> <?= $ban['ban_duration'] ?></td>
-                                <td> <?= $ban['ban_reason'] ?></td>
-                                <td>
-                                    <a class="btn btn-default btn-xs" href="?p=banlist&c=unban&ip=<?= $ban['address'] ?>&t=<?= $_SESSION["csfrToken"] ?>"><!--<i class="fa fa-check fa-lg" style="color:green"></i> -->Unban</a>
-                                    <div class="btn-group" style="padding:0px 0px 5px 3px;">
-                                        <button type="button" class="btn btn-default btn-xs">Whois</button>
-                                        <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="caret"></span>
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="http://ip-api.com/#<?= $ban['address'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:darkblue"></i> Whois</a></li>
-                                            <li><a href="https://bitnodes.21.co/nodes/?q=<?= $ban['address'] ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:lightblue"></i> Bitnodes</a></li>
-                                            <li><a href="https://duckduckgo.com/?q=<?= $ban['address'] ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:grey"></i> DuckDuckGo</a></li>                                            
-                                            <li><a href="https://www.abuseipdb.com/check/<?= $ban['address'] ?>" target="_blank"><i class="fa fa-search-minus fa-lg" style="color:darkred"></i> AbuseIP DB</a></li>
-                                        </ul>
-                                        </div>
-                                </td>                                           
-                            </tr>
-                <?php } ?>                        
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <!-- Ban List Table End -->
-      
-      <!-- Ban Control Box --> 
-        <div class="col-md-3 col-sm-5 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>Restore List <small></small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>                            
-                </div>
-                <form enctype="multipart/form-data" action="?p=banlist&c=importbanlist&t=<?= $_SESSION["csfrToken"] ?>" method="POST">
-                  <div class="form-group">
-                    <p class="help-block">Import a prevoiously exported CSV file to restore the ban list. Only for files created via the Export button on the left. Original ban time is added to the time of import.</p>
-                    <input type="file" maxlength="10" name="banlist">                           
-                  </div>                          
-                  <button type="submit" class="btn btn-dark" style="padding-left:6px;"><i class="fa fa-upload"></i> Upload</button>
-                  
-                </form>
-            </div>
-      </div>
-      <!-- Ban Control Box End --> 
-      
-       <!-- Ban List Clear Box --> 
-        <div class="col-md-3 col-sm-3 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>Clear List <small></small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>                            
-                </div>
-                <p class="help-block">Clears the complete ban list. You can restore the list above with a backup.</p>                     
-                <button type="submit" onclick="clearList()" class="btn btn-dark" style="padding-left:6px;"><i class="fa fa-eraser"></i> Clear</button>
-                  
-            </div>
-      </div>
-      <!-- Ban List Clear Box End --> 
-      
-      <!-- Ban IpTables Export Box --> 
-        <div class="col-md-3 col-sm-4 col-xs-12" style="float:right;">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>Iptables Rules <small></small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>                            
-                </div>
-                <p class="help-block">You can directly block connections from banned peers with iptables. This may saves Bitcoin Core ressources.<br />
-                Make sure to clear the Bitcoin Core ban list after you updated iptables to avoid duplicates on iptables.</p>                     
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target=".bs-example-modal-ms" style="padding-left:6px;"><i class="fa fa-list-alt"></i> Rules</button>
+	<div class="clearfix"></div>
+	<div class="col-md-3 col-sm-3 col-xs-12">
+		  <?php if(!empty($error)){ ?> <div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <?= $error ?> </div><?php }
+		  if(!empty($message)){ ?> <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <?= $message ?> </div><?php } ?>
+	</div>
+	<div class="row">
+	  <!-- Ban List -->
+	  <div class="col-md-9 col-sm-12 col-xs-12">
+		<div class="x_panel">
+		  <div class="x_title">
+			<h2>Banned Peers <small></small></h2>
+			<ul class="nav navbar-right panel_toolbox">
+			  <li><a class="close-link"><i class="fa fa-close"></i></a>
+			  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			  </li>
+			  </li>
+			</ul>
+			<div class="clearfix"></div>
+		  </div>
+		  <div class="x_content">
+			<table id="bannedpeers" class="table table-striped table-bordered table-valign">
+			  <thead>
+				<tr>
+				  <th>IP</th>
+				  <th>Date Banned</th>
+				  <th>Banned Until</th>
+				  <th>Duration (d)</th>				  
+				  <th>Reason</th>
+				  <th style="width:17%;">Control</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<?php $i = 0;
+					  foreach($content['banList'] as $ban){ 
+					  ?>
+							<tr>
+								<td> <?= $ban['address'] ?></td>
+								<td> <?= $ban['ban_created'] ?></td>   
+								<td> <?= $ban['banned_until'] ?></td>
+								<td> <?= $ban['ban_duration'] ?></td>
+								<td> <?= $ban['ban_reason'] ?></td>
+								<td>
+									<a class="btn btn-default btn-xs" href="?p=banlist&c=unban&ip=<?= $ban['address'] ?>&t=<?= $_SESSION["csfrToken"] ?>"><!--<i class="fa fa-check fa-lg" style="color:green"></i> -->Unban</a>
+									<div class="btn-group" style="padding:0px 0px 5px 3px;">
+										<button type="button" class="btn btn-default btn-xs">Whois</button>
+										<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="caret"></span>
+											<span class="sr-only">Toggle Dropdown</span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a href="http://ip-api.com/#<?= $ban['address'] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:darkblue"></i> Whois</a></li>
+											<li><a href="https://bitnodes.21.co/nodes/?q=<?= $ban['address'] ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:lightblue"></i> Bitnodes</a></li>
+											<li><a href="https://duckduckgo.com/?q=<?= $ban['address'] ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:grey"></i> DuckDuckGo</a></li>											
+											<li><a href="https://www.abuseipdb.com/check/<?= $ban['address'] ?>" target="_blank"><i class="fa fa-search-minus fa-lg" style="color:darkred"></i> AbuseIP DB</a></li>
+										</ul>
+										</div>
+								</td>										   
+							</tr>
+				<?php } ?>						
+			  </tbody>
+			</table>
+		  </div>
+		</div>
+	  </div>
+	  <!-- Ban List Table End -->
+	  
+	  <!-- Ban Control Box --> 
+		<div class="col-md-3 col-sm-5 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Restore List <small></small></h2>
+					<ul class="nav navbar-right panel_toolbox">
+						<li><a class="close-link"><i class="fa fa-close"></i></a>
+						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+						</li>
+						</li>
+					</ul>
+					<div class="clearfix"></div>							
+				</div>
+				<form enctype="multipart/form-data" action="?p=banlist&c=importbanlist&t=<?= $_SESSION["csfrToken"] ?>" method="POST">
+				  <div class="form-group">
+					<p class="help-block">Import a prevoiously exported CSV file to restore the ban list. Only for files created via the Export button on the left. Original ban time is added to the time of import.</p>
+					<input type="file" maxlength="10" name="banlist">						   
+				  </div>						  
+				  <button type="submit" class="btn btn-dark" style="padding-left:6px;"><i class="fa fa-upload"></i> Upload</button>
+				  
+				</form>
+			</div>
+	  </div>
+	  <!-- Ban Control Box End --> 
+	  
+	   <!-- Ban List Clear Box --> 
+		<div class="col-md-3 col-sm-3 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Clear List <small></small></h2>
+					<ul class="nav navbar-right panel_toolbox">
+						<li><a class="close-link"><i class="fa fa-close"></i></a>
+						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+						</li>
+						</li>
+					</ul>
+					<div class="clearfix"></div>							
+				</div>
+				<p class="help-block">Clears the complete ban list. You can restore the list above with a backup.</p>					 
+				<button type="submit" onclick="clearList()" class="btn btn-dark" style="padding-left:6px;"><i class="fa fa-eraser"></i> Clear</button>
+				  
+			</div>
+	  </div>
+	  <!-- Ban List Clear Box End --> 
+	  
+	  <!-- Ban IpTables Export Box --> 
+		<div class="col-md-3 col-sm-4 col-xs-12" style="float:right;">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Iptables Rules <small></small></h2>
+					<ul class="nav navbar-right panel_toolbox">
+						<li><a class="close-link"><i class="fa fa-close"></i></a>
+						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+						</li>
+						</li>
+					</ul>
+					<div class="clearfix"></div>							
+				</div>
+				<p class="help-block">You can directly block connections from banned peers with iptables. This may saves Bitcoin Core ressources.<br />
+				Make sure to clear the Bitcoin Core ban list after you updated iptables to avoid duplicates on iptables.</p>					 
+				<button type="button" class="btn btn-dark" data-toggle="modal" data-target=".bs-example-modal-ms" style="padding-left:6px;"><i class="fa fa-list-alt"></i> Rules</button>
 
-                <div class="modal fade bs-example-modal-ms" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                    <div class="modal-dialog modal-ms" role="document">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <div class="panel">
+				<div class="modal fade bs-example-modal-ms" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+					<div class="modal-dialog modal-ms" role="document">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<div class="panel">
 <pre style="margin:7px;">
 <?php foreach($content['banList'] as $ban){
 echo ($ban['ipv6'] ? "ip6tables" : "iptables"). " -I INPUT -s ".$ban['address']." -j DROP<br/>";
 } ?>
 </pre>
-                        </div>
-                    </div>
-                </div>
-            </div>                          
-        </div>
-    
-      <!-- Ban IpTables Export Box End --> 
-      
-      </div>
-    </div>
+						</div>
+					</div>
+				</div>
+			</div>						  
+		</div>
+	
+	  <!-- Ban IpTables Export Box End --> 
+	  
+	  </div>
+	</div>
   </div>
 </div>
 <!-- /page content -->
@@ -213,32 +213,32 @@ $(document).ready(function() {
 
 var handleDataTableButtons = function() {
   if ($("#bannedpeers").length) {
-    $("#bannedpeers").DataTable({
-      dom: '<"dataTables_exportbtn"B>ft',
-      paging:   false,
-      order: [[ 1, "desc" ]],
-      bInfo: false,
-      buttons: [
-        {
-          text: 'Export',
-          extend: "csv",
-          className: "btn-sm btn-dark",
+	$("#bannedpeers").DataTable({
+	  dom: '<"dataTables_exportbtn"B>ft',
+	  paging:   false,
+	  order: [[ 1, "desc" ]],
+	  bInfo: false,
+	  buttons: [
+		{
+		  text: 'Export',
+		  extend: "csv",
+		  className: "btn-sm btn-dark",
 		  exportOptions: {
 			columns: [0,1,2]
-	      }
-        },
-      ],
-      responsive: true
-    });
+		  }
+		},
+	  ],
+	  responsive: true
+	});
   }
 };
 
 TableManageButtons = function() {
   "use strict";
   return {
-    init: function() {
-      handleDataTableButtons();
-    }
+	init: function() {
+	  handleDataTableButtons();
+	}
   };
 }();
 
@@ -246,7 +246,7 @@ TableManageButtons.init();
 });
 
 function clearList() {
-    if (window.confirm('Please confirm deleting the complete banlist')) {
+	if (window.confirm('Please confirm deleting the complete banlist')) {
 		window.location.href='?p=banlist&c=clearlist&t=<?= $_SESSION["csfrToken"] ?>';
 	};
 }
