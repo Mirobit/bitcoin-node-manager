@@ -260,13 +260,14 @@ function createMempoolContent(){
 }
 
 function createUnspentContent(){
-	global $bitcoind;
-
-	// Count forks in last 24h
-	$timeAgo = time()-86400;
-	$content["recentForks"] = 0;
-
-	$unspents = $bitcoind->listunspent();
+	global $bitcoind, $error;
+	
+	try{
+		$unspents = $bitcoind->listunspent();
+	}catch(\Exception $e){
+		$error = "Wallet disabled!";
+		return "";
+	}
 	$i = 0;
 	$lastTime = 0;
 

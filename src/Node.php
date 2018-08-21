@@ -41,6 +41,7 @@ class Node {
 	public $hashRate; // Int: current network hash rate
 	public $mNetTime; // Int: current network mediatime
 	public $softForks; // Arr: List of current forks
+	public $walActive; // Bool: if wallet enabled
 	public $walVer; // Arr: Wallet Version
 	public $walBal; // Arr: Wallet balance
 	public $walUbal; // Arr: Wallet unconfirmed balance
@@ -54,7 +55,6 @@ class Node {
 		$mempoolInfo = $bitcoind->getmempoolinfo();
 		$blockchainInfo = $bitcoind->getblockchaininfo();
 		$miningInfo = $bitcoind->getmininginfo();
-		$walletInfo = $bitcoind->getwalletinfo();
 		$tInfo = $bitcoind->getnettotals();
 		
 		$this->blockHeight = checkInt($blockchainInfo["blocks"]);
@@ -113,12 +113,18 @@ class Node {
 		// Blockchain -> Soft forks
 		$this->softForks = checkSoftFork($blockchainInfo["bip9_softforks"]);	
 		// Wallet Function
-		$this->walVer = checkInt($walletInfo["walletversion"]);	
-		$this->walBal = checkInt($walletInfo["balance"]);	
-		$this->waluBal = checkInt($walletInfo["unconfirmed_balance"]);	
-		$this->waliBal = checkInt($walletInfo["immature_balance"]);	
-		$this->walTxcount = checkInt($walletInfo["txcount"]);	
-		$this->walUnspent = checkInt($walletInfo["txcount"]);	
+		try{
+			$walletInfo = $bitcoind->getwalletinfo();
+			$this->walVer = checkInt($walletInfo["walletversion"]);	
+			$this->walBal = checkInt($walletInfo["balance"]);	
+			$this->waluBal = checkInt($walletInfo["unconfirmed_balance"]);	
+			$this->waliBal = checkInt($walletInfo["immature_balance"]);	
+			$this->walTxcount = checkInt($walletInfo["txcount"]);	
+			$this->walUnspent = checkInt($walletInfo["txcount"]);
+			$this->walActive = true;		
+		}catch(\Exception $e){
+			$this->walActive = false;
+		}
 		
 	}
 }
