@@ -3,14 +3,24 @@
 		<div class="panel-body">
 			<div class="row tile_count">
 				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					<span class="count_top"><i class="fa fa-database"></i> TX in Mempool</span>
-					<div class="count"><?= number_format($content['node']->mempoolTx) ?></div>
-					<span class="count_bottom"><i class="<?= $content['node']->mempoolUsageP['color'] ?>"><i class="fa <?= $content['node']->mempoolUsageP['icon'] ?>"></i> <?= $content['node']->mempoolUsageP['value'] ?>%</i> Usage</span>
+					<span class="count_top"><i class="fa fa-money"></i> Balance</span>
+					<div class="count"><?= number_format($content['node']->walBal,8) ?></div>
 				</div>
 				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					<span class="count_top"><i class="fa <?= $content['node']->mempoolUsageP['icon'] ?>"></i> Usage</span>
-					<div class="count"><?= $content['node']->mempoolUsage ?> MB</div>
-					<span class="count_bottom">of max. <?= $content['node']->maxMempool ?> MB</span>
+					<span class="count_top"><i class="fa fa-plane"></i> Unconfirmed Balance</span>
+					<div class="count"><?= number_format($content['node']->waluBal,8) ?></div>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<span class="count_top"><i class="fa fa-clock-o"></i> Immature Balance</span>
+					<div class="count"><?= number_format($content['node']->waliBal,8) ?></div>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<span class="count_top"><i class="fa fa-database"></i> Wallet Version</span>
+					<div class="count"><?= $content['node']->walVer ?></div>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<span class="count_top"><i class="fa fa-database"></i> TXCount</span>
+					<div class="count"><?= $content['node']->walTxcount ?></div>
 				</div>
 			</div>
 		</div>
@@ -46,24 +56,35 @@
 					  <thead>
 						<tr>
 						  <th>ID</th>
-						  <th>Time</th>
-						  <th>Size (B)</th>
-						  <th>Fee</th>
-						  <th>Fee rate</th>
-						  <th>Descendants</th>
-						  <th style="width:7%;">Control</th>
+						  <th>Amount</th>
+						  <th>Address</th>
+						  <th>TXID</th>
+						  <th>Vout</th>
+						  <th>Account</th>
+						  <th>scriptPubKey</th>
+						  <th>Confs</th>
+						  <th>Sendable</th>
+						  <th>Solvable</th>
+						  <th>Safe</th>
+						  <th>Info</th>
+
 						</tr>
 					  </thead>
 					  <tbody>
 						<?php $i = 0;
-							  foreach($content['txs'] as $key => $tx){ ?>
+							  foreach($content['utxo'] as $key => $utxo){ ?>
 									<tr>
-										<td style="padding-right:0px;"><?= $key ?></td>
-										<td><?= date("Y-m-d H:i:s", $tx['time']) ?></td>   
-										<td><?= $tx['size'] ?></td>
-										<td><?= sprintf('%.8F', $tx['fee']) ?></td>
-										<td><?= sprintf('%.8F', round((1000/$tx["size"])*$tx["fee"], 8)) ?></td>
-										<td><?= $tx['descendantcount'] ?></td>										
+										<td><?= $key+1 ?></td>
+										<td><small><?= number_format($utxo["amount"],8) ?></small></td>
+										<td><small><?= $utxo["address"] ?></small></td>  
+										<td><small><?= $utxo["hash"] ?></small></td>  
+										<td><small><?= $utxo["vout"] ?></small></td>  
+										<td><small><?= $utxo["account"] ?></small></td>
+										<td><small><?= $utxo["scriptpubkey"] ?></small></td>  	
+										<td><small><?= $utxo["confs"] ?></small></td>  	
+										<td><small><?= $utxo["spendable"] ?></small></td>  	
+										<td><small><?= $utxo["solvable"] ?></small></td>  	
+										<td><small><?= $utxo["safe"] ?></small></td>
 										<td> 
 											<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
 												<button type="button" class="btn btn-default btn-xs">Details</button>
@@ -72,14 +93,13 @@
 													<span class="sr-only">Toggle Dropdown</span>
 												</button>
 												<ul class="dropdown-menu">
-													<li><a href="https://blockchain.info/tx/<?= $key ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Blockchain.info</a></li>
-													<li><a href="https://blockexplorer.com/tx/<?= $key ?>" target="_blank"><i class="fa fa-search-plus fa-lg" style="color:lightblue"></i> Bitcoin Block Explorer</a></li>
-													<li><a href="https://live.blockcypher.com/btc/tx/<?= $key ?>" target="_blank"><i class="fa fa-search-minus fa-lg" style="color:lightblue"></i> BlockCypher</a></li>
-													<li><a href="https://duckduckgo.com/?q=<?= $key ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:lightblue"></i> DuckDuckGo</a></li>
+												<li><a href="https://blockchain.com/btc/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Blockchain.com</a></li>
+												<li><a href="https://live.blockcypher.com/btc/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> BlockCypher</a></li>
+												<li><a href="https://www.smartbit.com.au/tx/<?= $utxo["hash"] ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Smartbit</a></li>
 												</ul>
 											</div>										   
-										</td>										   
-								  </tr> 
+										</td> 
+									</tr>
 						<?php } ?>						
 					  </tbody>
 					</table>

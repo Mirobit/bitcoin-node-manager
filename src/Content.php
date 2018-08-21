@@ -18,119 +18,119 @@ function createMainContent(){
 		$content['map'] = createMapJs($peerCount);
 	}
 	$content['geo'] = Config::PEERS_GEO;
-    $content['nPeers'] = $newPeersCount;
-    $content['chartData'] = getTopClients($peers);
+	$content['nPeers'] = $newPeersCount;
+	$content['chartData'] = getTopClients($peers);
 
 	// Current peers traffic
 	$content['trafcin'] = round($trafficCIn/1000, 2);
 	$content['trafcout'] = round($trafficCOut/1000, 2);
 
-    return $content;
-    
+	return $content;
+	
 }
 
 function createPeerContent(){
 	global $trafficC, $trafficCIn, $trafficCOut, $bitcoind, $newPeersCount;
 
-    $peers = getPeerData();
-    $netinfo = $bitcoind->getnettotals();
+	$peers = getPeerData();
+	$netinfo = $bitcoind->getnettotals();
 
-    $content = getMostPop($peers);
-    $content['peers'] = $peers;
-    $content['tPeers'] = count($peers);
-    $content['nPeers'] = $newPeersCount;
-    $content['segWitP'] = round($content['segWitC']/$content['tPeers'],2)*100;
-    $content['cTraf'] = round($trafficC/1000,2);
+	$content = getMostPop($peers);
+	$content['peers'] = $peers;
+	$content['tPeers'] = count($peers);
+	$content['nPeers'] = $newPeersCount;
+	$content['segWitP'] = round($content['segWitC']/$content['tPeers'],2)*100;
+	$content['cTraf'] = round($trafficC/1000,2);
 	$content['trafcin'] = round($trafficCIn/1000,2);
 	$content['trafcout'] = round($trafficCOut/1000,2);
-    $content['tTraf'] = ($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])/1000000000;
-    $content['cTrafP'] = round($content['cTraf']/$content['tTraf'],2)*100;
+	$content['tTraf'] = ($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])/1000000000;
+	$content['cTrafP'] = round($content['cTraf']/$content['tTraf'],2)*100;
 	$content['geo'] = Config::PEERS_GEO;
 
-    return $content;
+	return $content;
 }
 
 function createBanListContent(){
-    global $bitcoind, $error;
+	global $bitcoind, $error;
 
-    $banlist = $bitcoind->listbanned();
+	$banlist = $bitcoind->listbanned();
 
-    $content = [];
-    $lastCount = 0;
-    $autoCount = 0;
-    $autoPerc = 0;
-    $userCount = 0;
-    $userPerc  = 0;
-    $avgTime = 0;
-    $settCore = 0;
+	$content = [];
+	$lastCount = 0;
+	$autoCount = 0;
+	$autoPerc = 0;
+	$userCount = 0;
+	$userPerc  = 0;
+	$avgTime = 0;
+	$settCore = 0;
 
-    // Total Bans
-    $totalBans = count($banlist);
+	// Total Bans
+	$totalBans = count($banlist);
 
-    foreach($banlist as &$ban){
-         // In last 25h
-        if($ban['ban_created'] >= time()-24*3600){
-            $lastCount++;
-        }
-         // Auto/User Ban Count
-        $ban['ban_reason'] = getBanReason($ban['ban_reason']);
-        if($ban['ban_reason'] == "Auto"){
-            $autoCount++;
-        }else{
-            $userCount++;
-        }
+	foreach($banlist as &$ban){
+		 // In last 25h
+		if($ban['ban_created'] >= time()-24*3600){
+			$lastCount++;
+		}
+		 // Auto/User Ban Count
+		$ban['ban_reason'] = getBanReason($ban['ban_reason']);
+		if($ban['ban_reason'] == "Auto"){
+			$autoCount++;
+		}else{
+			$userCount++;
+		}
 
-        // Sum up all ban time
-        $avgTime += $ban['banned_until']-$ban['ban_created'];
+		// Sum up all ban time
+		$avgTime += $ban['banned_until']-$ban['ban_created'];
 
-        // Calculate Core ban time settings (only done once)
-        if($settCore == 0){
-            if($ban['ban_reason'] == "Auto"){
-               $settCore = (int)$ban['banned_until'] - (int)$ban['ban_created'];
-            }
-        }
+		// Calculate Core ban time settings (only done once)
+		if($settCore == 0){
+			if($ban['ban_reason'] == "Auto"){
+			   $settCore = (int)$ban['banned_until'] - (int)$ban['ban_created'];
+			}
+		}
 
-        $ban['ban_duration'] = round(($ban['banned_until'] - $ban['ban_created'])/86400,1);
-        $ban['ban_created'] = getDateTime($ban['ban_created']);
-        $ban['banned_until'] = getDateTime($ban['banned_until']);
-        if(!checkIpBanList($ban['address'])){
-            $error = "Invalid ban list IP";
-            return false;
-        }
+		$ban['ban_duration'] = round(($ban['banned_until'] - $ban['ban_created'])/86400,1);
+		$ban['ban_created'] = getDateTime($ban['ban_created']);
+		$ban['banned_until'] = getDateTime($ban['banned_until']);
+		if(!checkIpBanList($ban['address'])){
+			$error = "Invalid ban list IP";
+			return false;
+		}
 		$ban['ipv6'] = checkIfIpv6($ban['address']);
-    }
+	}
 
-    // Calculate and format avergae ban time
-    $content['avgTime'] = round($avgTime/(86400*$totalBans),0);
+	// Calculate and format avergae ban time
+	$content['avgTime'] = round($avgTime/(86400*$totalBans),0);
 
-    // Calculate percentage auto/user bans
-    $content['autoCount'] = $autoCount;
-    $content['userCount'] = $userCount;
-    $content['autoPer'] = round($autoCount/$totalBans,2)*100;
-    $content['userPer'] = round($userCount/$totalBans,2)*100;
+	// Calculate percentage auto/user bans
+	$content['autoCount'] = $autoCount;
+	$content['userCount'] = $userCount;
+	$content['autoPer'] = round($autoCount/$totalBans,2)*100;
+	$content['userPer'] = round($userCount/$totalBans,2)*100;
 
-    $content['totalBans'] = $totalBans;
-    $content['lastCount'] = $lastCount;
+	$content['totalBans'] = $totalBans;
+	$content['lastCount'] = $lastCount;
 
-    // Setting Core Setting and check if default
-    $content['settCore'] = $settCore/86400;
-    if($content['settCore'] != 1){
-        $content['settCoreMode'] = "Custom";
-    }else{
-       $content['settCoreMode'] = "Default";
-    }
+	// Setting Core Setting and check if default
+	$content['settCore'] = $settCore/86400;
+	if($content['settCore'] != 1){
+		$content['settCoreMode'] = "Custom";
+	}else{
+	   $content['settCoreMode'] = "Default";
+	}
 
-    // List of all banned peers
-    $content['banList'] = $banlist;
-    
+	// List of all banned peers
+	$content['banList'] = $banlist;
+	
 
-    return $content;
+	return $content;
 }
 
 function createBlocksContent(){
-    global $bitcoind;
+	global $bitcoind;
 
-    $content = [];
+	$content = [];
 	$content["totalTx"] = 0;
 	$content["totalFees"] = 0;
 	$content["totalSize"] = 0;
@@ -259,4 +259,36 @@ function createMempoolContent(){
 	return $content;
 }
 
+function createUnspentContent(){
+	global $bitcoind, $error;
+	
+	try{
+		$unspents = $bitcoind->listunspent();
+	}catch(\Exception $e){
+		$error = "Wallet disabled!";
+		return "";
+	}
+	$i = 0;
+	$lastTime = 0;
+
+	foreach($unspents as $unspent){
+
+	$content["utxo"][$i]["hash"] = $unspent["txid"];
+	$content["utxo"][$i]["vout"] = $unspent["vout"];
+	$content["utxo"][$i]["address"] = $unspent["address"];
+	$content["utxo"][$i]["account"] = $unspent["account"];
+	$content["utxo"][$i]["scriptpubkey"] = $unspent["scriptPubKey"];
+	$content["utxo"][$i]["amount"] = $unspent["amount"];
+	$content["utxo"][$i]["confs"] = $unspent["confirmations"];
+	$content["utxo"][$i]["spendable"] = $unspent["spendable"];
+	$content["utxo"][$i]["solvable"] = $unspent["solvable"];
+	$content["utxo"][$i]["safe"] = $unspent["safe"];
+	$content['node'] = new Node();
+
+	$i++;
+	
+	
+	}
+	return $content;
+}
 ?>

@@ -335,11 +335,18 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 	$data = array('section' => 'mempool', 'title' => 'Memory Pool', 'content' => $content);  
  
  
-// Wallet Page
+// Blocks Page 
 }elseif($_GET['p'] == "wallet") {
+	
+	if(isset($_GET['e']) AND ctype_digit($_GET['id'])){
+		$end = $_GET['e'];
+	}else{
+		$end = Config::DISPLAY_TXS;
+	}
 	
 	$content = createUnspentContent();
 	$data = array('section' => 'wallet', 'title' => 'Wallet Overview', 'content' => $content);  
+ 
  
 // Blocks Page 
 }elseif($_GET['p'] == "blocks") {
