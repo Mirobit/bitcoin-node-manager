@@ -65,9 +65,11 @@ class Node {
 		foreach($ipAddresses as $ipAddress){
 			if(preg_match("/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/", $ipAddress["address"])){
 				$this->ipv4 = $ipAddress["address"];
-			}elseif(preg_match("/^[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}$/", $ipAddress["address"])){
+			}
+			if(preg_match("/^[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}$/", $ipAddress["address"])){
 				$this->ipv6 = $ipAddress["address"];
-			}elseif(preg_match("/^[0-9a-z]{16}\.onion$/", $ipAddress["address"])){
+			}
+			if(preg_match("/^[0-9a-z]{16}\.onion$/", $ipAddress["address"])){
 				$this->tor = $ipAddress["address"];
 			}		
 		}
