@@ -35,7 +35,7 @@ class Rule {
 
 		if(isset($data['clientselection'])){
 			foreach($data['clientselection'] as $c){
-				if(preg_match("/^\s{0,1}SPV|\s{0,1}Unlimited|\s{0,1}Classic|\s{0,1}XT|\s{0,1}ABC|\s{0,1}BUCash|\s{0,1}bcoin|\s{0,1}Segwit2X$/", $c)){
+				if(preg_match("/^\s{0,1}SPV|\s{0,1}Unlimited|\s{0,1}Classic|\s{0,1}XT|\s{0,1}ABC|\s{0,1}BUCash|\s{0,1}bcoin$/", $c)){
 				$this->clientArr[] = $c;  
 				$this->clientStr .= $c.", ";
 				}
@@ -124,9 +124,6 @@ class Rule {
 					case "client":
 						foreach($rule->clientArr as $client){
 							if($client == "SPV" AND $peer->spv){
-								$result = true;
-								break;
-							}elseif($client == "Segwit2X" AND isset($peer->services['Segwit2X'])){
 								$result = true;
 								break;
 							}elseif(preg_match("/".$client."/i", $peer->orgClient)) {
