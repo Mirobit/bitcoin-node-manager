@@ -35,7 +35,7 @@ class Rule {
 
 		if(isset($data['clientselection'])){
 			foreach($data['clientselection'] as $c){
-				if(preg_match("/^\s{0,1}SPV|\s{0,1}Unlimited|\s{0,1}Classic|\s{0,1}XT|\s{0,1}ABC|\s{0,1}BUCash|\s{0,1}bcoin$/", $c)){
+				if(preg_match("/^\s{0,1}SPV|\s{0,1}Unlimited|\s{0,1}ABC|\s{0,1}bcoin$/", $c)){
 				$this->clientArr[] = $c;  
 				$this->clientStr .= $c.", ";
 				}

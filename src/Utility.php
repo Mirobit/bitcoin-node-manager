@@ -292,7 +292,7 @@ function getCleanClient($client){
 }
 
 function checkSPV($client){	
-	if (preg_match('/MultiBit|bitcoinj|bread Wallet/i',$client)){
+	if (preg_match('/MultiBit|bitcoinj|bread/i',$client)){
 		return true;
 	}else{
 		return false;
@@ -300,7 +300,7 @@ function checkSPV($client){
 }
 
 function checkSnooping($client){	
-	if (preg_match('/Snoopy|Coinscope/i',$client)){
+	if (preg_match('/Snoopy|Coinscope|bitnodes/i',$client)){
 		return true;
 	}else{
 		return false;
