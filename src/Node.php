@@ -66,7 +66,7 @@ class Node {
 			if(preg_match("/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/", $ipAddress["address"])){
 				$this->ipv4 = $ipAddress["address"];
 			}
-			if(preg_match("/^[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}:[0-9a-z]{0,4}$/", $ipAddress["address"])){
+			if(preg_match("/^[0-9a-z]{1,4}(:[0-9a-z]{0,4}){0,6}$/", $ipAddress["address"])){
 				$this->ipv6 = $ipAddress["address"];
 			}
 			if(preg_match("/^[0-9a-z]{16}\.onion$/", $ipAddress["address"])){
