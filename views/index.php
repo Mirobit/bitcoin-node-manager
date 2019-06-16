@@ -335,7 +335,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 	$data = array('section' => 'mempool', 'title' => 'Memory Pool', 'content' => $content);  
  
  
-// Blocks Page 
+// Wallet Page 
 }elseif($_GET['p'] == "wallet") {
 	
 	if(isset($_GET['e']) AND ctype_digit($_GET['id'])){
