@@ -59,6 +59,14 @@ function getVoting($hex){
 	return $vote;
 }
 
+function checkAsicBoost($versionHex){
+	if($versionHex[0] == "3" || $versionHex[2] == "8" || $versionHex[2] == "4" || $versionHex[2] == "c" || $versionHex[4] == "e") {
+		return true;
+	}else{
+		return false;
+	}
+}
+
 function checkInt($int){
 	if(!is_numeric($int)){
 		$int = 0;

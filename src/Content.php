@@ -145,6 +145,7 @@ function createBlocksContent(){
 		$content["totalSize"] += $block["size"];
 		$content["blocks"][$block["height"]]["versionhex"] = $block["versionHex"];
 		$content["blocks"][$block["height"]]["voting"] = getVoting($block["versionHex"]);
+		$content["blocks"][$block["height"]]["asicboost"] = checkAsicBoost($block["versionHex"]);
 		$content["blocks"][$block["height"]]["time"] = getDateTime($block["time"]);
 		$content["blocks"][$block["height"]]["mediantime"] = getDateTime($block["mediantime"]);
 		$content["blocks"][$block["height"]]["timeago"] = round((time() - $block["time"])/60);
