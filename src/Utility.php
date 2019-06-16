@@ -50,23 +50,11 @@ function getServices($hex){
 }
 
 function getVoting($hex){
-	switch ($hex) {
-	case "20000000":
-		$vote = "";
-		break;
-	case "20000002":
+	if($hex[7] == 2) {
 		$vote['Segwit'] = true;
-		break;
-	case "20000010":
+	}
+	if($hex[6] == 1) {
 		$vote['BIP91'] = true;
-		break;		
-	case "20000012":
-		$vote['Segwit'] = true;
-		$vote['BIP91'] = true;
-		break;	
-	default:
-		$vote['Unknown'] = true;
-		break;
 	}
 	return $vote;
 }
