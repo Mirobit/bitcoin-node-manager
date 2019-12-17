@@ -74,7 +74,7 @@ function createBanListContent(){
 		}
 		 // Auto/User Ban Count
 		$ban['ban_reason'] = getBanReason($ban['ban_reason']);
-		if($ban['ban_reason'] == "Auto"){
+		if($ban['ban_reason'] == "Core"){
 			$autoCount++;
 		}else{
 			$userCount++;
@@ -85,7 +85,7 @@ function createBanListContent(){
 
 		// Calculate Core ban time settings (only done once)
 		if($settCore == 0){
-			if($ban['ban_reason'] == "Auto"){
+			if($ban['ban_reason'] == "Core"){
 			   $settCore = (int)$ban['banned_until'] - (int)$ban['ban_created'];
 			}
 		}

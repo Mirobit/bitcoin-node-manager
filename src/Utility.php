@@ -192,6 +192,11 @@ function bytesToMb($size, int $round = 1){
 	return $size;
 }
 
+function bytesToGb($size, int $round = 1){
+	$size = round(checkInt($size) / 1000000000,$round);
+	return $size;
+}
+
 function getDateTime($timestamp){
 	$date = date("Y-m-d H:i:s",$timestamp);	
 	return $date;
@@ -257,7 +262,7 @@ function getBanReason($banreason){
 			$banreason = 'User';
 			break;
 		case "node misbehaving":
-			$banreason = 'Auto';
+			$banreason = 'Core';
 			break;
 		default:
 			$banreason = 'Unknown';

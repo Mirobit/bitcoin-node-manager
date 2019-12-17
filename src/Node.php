@@ -37,6 +37,7 @@ class Node {
 	public $bHeight; // Int: current block height (as far as node knows)
 	public $bHeightAgo; // Int: Minutes since last received block
 	public $hHeight; // Int: current max header height (blocks not download by node)
+	public $bcSize; // Int: in GB soze of blockchain
 	public $diff; // Int: current network difficulty
 	public $hashRate; // Int: current network hash rate
 	public $mNetTime; // Int: current network mediatime
@@ -97,8 +98,8 @@ class Node {
 		$this->tLimitSet = getTrafficLimitSet($tInfo["uploadtarget"]["target"]);
 		$this->tLimited = checkBool($tInfo["uploadtarget"]["target_reached"]);
 		$this->tMax = bytesToMb($tInfo["uploadtarget"]["target"]);
-		$this->tUsed = round($this->tMax - bytesToMb($tInfo["uploadtarget"]["bytes_left_in_cycle"]),0);
-		$this->tTimeLeft = round(checkInt($tInfo["uploadtarget"]["time_left_in_cycle"])/60,1); // In minutes
+		$this->tUsed = round($this->tMax - bytesToMb($tInfo["uploadtarget"]["bytes_left_in_cycle"]), 0);
+		$this->tTimeLeft = round(checkInt($tInfo["uploadtarget"]["time_left_in_cycle"])/60, 1); // In minutes
 		if($this->tLimitSet){
 			$this->tLimitP = ceil(($this->tUsed/$this->tMax)*100);
 		}
@@ -107,8 +108,8 @@ class Node {
 		$this->hHeight = checkInt($blockchainInfo["headers"]);
 		
 		$blockInfo = $bitcoind->getblock($blockchainInfo["bestblockhash"]);
-		$this->bHeightAgo = round((time()-checkInt($blockInfo["time"]))/60,1);
-		
+		$this->bHeightAgo = round((time()-checkInt($blockInfo["time"]))/60, 1);
+		$this->bcSize = bytesToGb($blockchainInfo["size_on_disk"], 1);
 		$this->diff = checkInt($blockchainInfo["difficulty"]);
 		$this->hashRate = round(checkInt($miningInfo["networkhashps"])/1000000000000000000,3);
 		$this->mNetTime = getDateTime($blockchainInfo["mediantime"]);
