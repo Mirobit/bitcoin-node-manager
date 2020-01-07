@@ -1,11 +1,42 @@
-Bitcoin Node Manager Changelog
-===================
-## 0.4.4 Beta -  2020-01-07
+# Bitcoin Node Manager Changelog
+
+## 0.4.0 Beta - 2020-01-07
+
+## New
+
+-   Display blockchain size on main page
+
+### Improved
+
+-   New icons for some information
+-   Add tooltips for peer icons
+-   Simplify wallet code
+
 ### Maintenance
-## 0.3.0 Beta - 2019-06-16 
-### AsicBoost dectection + Maintenance
-## 0.2.1 Beta - 2018-07-12 
-### New Wallet Overview
-## 0.2.0 Beta - 2017-08-03
+
+## 0.3.0 Beta - 2019-06-16
+
+## New
+
+-   AsicBoost dectection for blocks
+-   Icon for monitoring/spying nodes (like bitnodes)
+
+### Improved
+
+-   Remove duplicate files
+-   Simplify code
+
+### Fixed
+
+-   Ipv6 detection
+-   Multiple IPs
+
+## 0.2.0 Beta - 2018-07-12
+
+### New
+
+-   Wallet Overview
+
+## 0.1.0 Beta - 2017-08-03
 
 ### First Release
