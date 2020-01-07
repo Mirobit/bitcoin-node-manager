@@ -78,7 +78,7 @@
 							  foreach($content['blocks']  as $key => $block){ ?>
 									<tr>
 										<td><?= $key ?></td>
-										<td><?php if($block['asicboost']){ ?><i class="fa fa-tachometer" data-toggle="tooltip" data-html="true" data-placement="right" title="Miner uses overt AsicBoost"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= $block["hash"] ?></td>  
+										<td><?php if($block['asicboost']){ ?><i class="fa fa-tachometer" title="Miner uses overt AsicBoost"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= $block["hash"] ?></td>  
 										<td><?= $block["time"] ?> <small>(<?= $block["timeago"] ?> m ago)</small></td>  
 										<td><?= $block["size"] ?></td>
 										<td><?= $block["fees"] ?></td>  	
