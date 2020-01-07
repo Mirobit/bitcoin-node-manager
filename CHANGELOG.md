@@ -2,7 +2,7 @@
 
 ## 0.4.0 Beta - 2020-01-07
 
-## New
+### New
 
 -   Display blockchain size on main page
 
@@ -11,12 +11,11 @@
 -   New icons for some information
 -   Add tooltips for peer icons
 -   Simplify wallet code
-
-### Maintenance
+-   Update hoster list
 
 ## 0.3.0 Beta - 2019-06-16
 
-## New
+### New
 
 -   AsicBoost dectection for blocks
 -   Icon for monitoring/spying nodes (like bitnodes)
