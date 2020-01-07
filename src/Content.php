@@ -260,7 +260,7 @@ function createMempoolContent(){
 	return $content;
 }
 
-function createUnspentContent(){
+function createWalletContent(){
 	global $bitcoind, $error;
 	
 	try{
@@ -273,23 +273,22 @@ function createUnspentContent(){
 	$lastTime = 0;
 
 	foreach($unspents as $unspent){
+		$content["utxo"][$i]["hash"] = $unspent["txid"];
+		$content["utxo"][$i]["vout"] = $unspent["vout"];
+		$content["utxo"][$i]["address"] = $unspent["address"];
+		$content["utxo"][$i]["account"] = $unspent["account"];
+		$content["utxo"][$i]["scriptpubkey"] = $unspent["scriptPubKey"];
+		$content["utxo"][$i]["amount"] = $unspent["amount"];
+		$content["utxo"][$i]["confs"] = $unspent["confirmations"];
+		$content["utxo"][$i]["spendable"] = $unspent["spendable"];
+		$content["utxo"][$i]["solvable"] = $unspent["solvable"];
+		$content["utxo"][$i]["safe"] = $unspent["safe"];
 
-	$content["utxo"][$i]["hash"] = $unspent["txid"];
-	$content["utxo"][$i]["vout"] = $unspent["vout"];
-	$content["utxo"][$i]["address"] = $unspent["address"];
-	$content["utxo"][$i]["account"] = $unspent["account"];
-	$content["utxo"][$i]["scriptpubkey"] = $unspent["scriptPubKey"];
-	$content["utxo"][$i]["amount"] = $unspent["amount"];
-	$content["utxo"][$i]["confs"] = $unspent["confirmations"];
-	$content["utxo"][$i]["spendable"] = $unspent["spendable"];
-	$content["utxo"][$i]["solvable"] = $unspent["solvable"];
-	$content["utxo"][$i]["safe"] = $unspent["safe"];
-	$content['node'] = new Node();
-
-	$i++;
-	
-	
+		$i++;
 	}
+
+	$content['node'] = new Node();
+	
 	return $content;
 }
 ?>

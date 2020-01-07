@@ -124,7 +124,7 @@ class Node {
 			$this->waliBal = checkInt($walletInfo["immature_balance"]);	
 			$this->walTxcount = checkInt($walletInfo["txcount"]);	
 			$this->walUnspent = checkInt($walletInfo["txcount"]);
-			$this->walActive = true;		
+			$this->walActive = true;
 		}catch(\Exception $e){
 			$this->walActive = false;
 		}

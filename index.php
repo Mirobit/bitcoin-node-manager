@@ -338,7 +338,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 // Wallet Page
 }elseif($_GET['p'] == "wallet") {
 	
-	$content = createUnspentContent();
+	$content = createWalletContent();
 	$data = array('section' => 'wallet', 'title' => 'Wallet Overview', 'content' => $content);  
  
 // Blocks Page 
