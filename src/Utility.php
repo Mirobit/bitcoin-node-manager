@@ -301,7 +301,7 @@ function checkSPV($client){
 }
 
 function checkSnooping($client){	
-	if (preg_match('/Snoopy|Coinscope|bitnodes/i',$client)){
+	if (preg_match('/Snoopy|Coinscope|bitnodes|dsn.tm.kit.edu/i',$client)){
 		return true;
 	}else{
 		return false;
