@@ -8,20 +8,23 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 
 -   Extensive dashboard with general information about the node, connected peers and the blockchain
 -   Create rules to manage your peers
-    _ Ban, disconnect or log peers that waste ressources, are slow or run alternative clients (e.g. BCash)
-    _ Set gobal events that trigger the execution of rules \* Run rules manually or set up a cron job
--   Overview of all connected peers inlcuding country, ISP, client, traffic usage, supported services... \* Ban or disconnect peers
+    -   Ban, disconnect or log peers that waste ressources, are slow or run alternative clients (e.g. BCash)
+    -   Set gobal events that trigger the execution of rules, run rules manually or set up a cron job
+-   Overview of all connected peers inlcuding country, ISP, client, traffic usage, supported services...
+    -   Ban or disconnect peers
     -   Manage a list of web hoster to detect if peer is hosted or private
 -   Overview of all banned peers
-    _ Unbann specific peers
-    _ Export/Import your ban list \* Generate iptables rules (reject banned peers at OS level)
+    -   Unbann specific peers
+    -   Export/Import your ban list
+    -   Generate iptables rules (reject banned peers at OS level)
 -   Overview of the last received blocks
 -   Overview of the last received forks (orphaned blocks / alternative chains)
 -   Overview of the memory pool and containing transactions
+-   Overview of the wallet (no functionality, information only)
 
 ## Requirements
 
--   Bitcoin Core 0.14.0+
+-   Bitcoin Core 0.16.0+
 -   Web server (e.g. Apache, PHP built-in web server)
 -   PHP 7.0.0+
     -   cURL
