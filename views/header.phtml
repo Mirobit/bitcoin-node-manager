@@ -45,7 +45,6 @@
 			  <div class="menu_section">
 				<ul class="nav side-menu">
 				  <a href="?p=main" <?php if($this->section=="main") echo 'class="active"'; ?>><i class="fa fa-home"></i> Main </a>
-				  <a href="?p=wallet" <?php if($this->section=="wallet") echo 'class="active"'; ?>><i class="fa fa-money"></i> Wallet </a>
 				  <a href="?p=peers" <?php if($this->section=="peers") echo 'class="active"'; ?>><i class="fa fa-list"></i> Peers </a>
 					<ul class="nav child_menu" style="display: block;">
 					  <li <?php if($this->section=="rules") echo 'class="current-page"'; ?>><a href="?p=rules">Rules</a></li>
@@ -57,6 +56,7 @@
 					  <li <?php if($this->section=="forks") echo 'class="active"'; ?>><a href="?p=forks">Forks</a></li>
 				   </ul>
 				  <a href="?p=mempool" <?php if($this->section=="mempool") echo 'class="active"'; ?>><i class="fa fa-database"></i> Memory Pool </a>
+				  <a href="?p=wallet" <?php if($this->section=="wallet") echo 'class="active"'; ?>><i class="fa fa-money"></i> Wallet </a>
 				  <a href="?p=settings" <?php if($this->section=="settings") echo 'class="active"'; ?>><i class="fa fa-cog"></i> Settings </a>
 				  <a href="?p=about" <?php if($this->section=="about") echo 'class="active"'; ?>><i class="fa fa-info"></i> About </a>
 				</ul>
