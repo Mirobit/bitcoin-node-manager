@@ -190,7 +190,7 @@ function createForksContent(){
 
 		$content["blocks"][$i]["height"] = $fork["height"];
 		$content["blocks"][$i]["hash"] = $fork["hash"];
-		$content["blocks"][$i]["forklenght"] = $fork["branchlen"];
+		$content["blocks"][$i]["forklength"] = $fork["branchlen"];
 		$content["blocks"][$i]["status"] = $fork["status"];
 		$content["blocks"][$i]["succeeded"] = $fork["height"];
 

@@ -61,7 +61,7 @@
 						  <th>Hash</th>
 						  <th>Status</th>
 						  <th>Time</th>
-						  <th>Lenght</th>
+						  <th>Length</th>
 						  <th>Size <span style="font-weight:normal;">(KB)</span></th>
 						  <th>Voting</th>
 						  <th style="width:70px;">Info</th>
@@ -78,7 +78,7 @@
 									<td><?= $block["hash"] ?></td>   
 									<td><?= $block["status"] ?></td>
 									<td><?= (isset($block["time"])) ? $block["time"]." <small>(".$block["timeago"]." days ago)</small>"  : "" ?></td>
-									<td><?= $block['forklenght'] ?></td>
+									<td><?= $block['forklength'] ?></td>
 									<td><?= (isset($block["size"])) ? $block["size"] : "" ?></td>	
 									<td><?php
 									if(!empty($block['voting'])){
