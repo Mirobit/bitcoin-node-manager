@@ -276,7 +276,7 @@ function createWalletContent(){
 		$content["utxo"][$i]["hash"] = $unspent["txid"];
 		$content["utxo"][$i]["vout"] = $unspent["vout"];
 		$content["utxo"][$i]["address"] = $unspent["address"];
-		$content["utxo"][$i]["account"] = $unspent["account"];
+		$content["utxo"][$i]["label"] = $unspent["label"];
 		$content["utxo"][$i]["scriptpubkey"] = $unspent["scriptPubKey"];
 		$content["utxo"][$i]["amount"] = $unspent["amount"];
 		$content["utxo"][$i]["confs"] = $unspent["confirmations"];
