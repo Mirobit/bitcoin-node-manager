@@ -353,6 +353,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
   
 // Settings Page	
 }elseif($_GET['p'] == "settings") {
+	$geoPeers = Config::PEERS_GEO;
 	if(isset($_GET['c'])  AND $_GET['t'] == $_SESSION["csfrToken"]){
 		if(isset($_GET['c']) AND $_GET['c'] == "geosave"){
 			// Check if Geo Peer Tracing was changed
@@ -363,18 +364,17 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 			}
 
 			// Write new settings in config.php
-			if (file_exists('config.php')){
-				$conf = file_get_contents('config.php');
-				$conf = preg_replace("/geoPeers = (true|false);/i", 'geoPeers = '.$geoPeers.';', $conf);
-				file_put_contents('config.php', $conf);
+			if (file_exists('src/Config.php')){
+				$conf = file_get_contents('src/Config.php');
+				$conf = preg_replace("/PEERS_GEO = (true|false);/i", 'PEERS_GEO = '.$geoPeers.';', $conf);
+				file_put_contents('src/Config.php', $conf);
 				$message = "Setings succesfully saved";
 			}else{
 				$error = "Config file does not exists";
-			}				
-			$message = "Settings succesfully saved";
+			}
 		}
 	}
-   $data = array('section' => 'settings', 'title' => 'Settings', 'geoPeers' => Config::PEERS_GEO);
+   $data = array('section' => 'settings', 'title' => 'Settings', 'geoPeers' => $geoPeers);
 
 	
 // About Page	
