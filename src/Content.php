@@ -134,7 +134,6 @@ function createBlocksContent(){
 	$content["totalTx"] = 0;
 	$content["totalFees"] = 0;
 	$content["totalSize"] = 0;
-	$content["segwitCount"] = 0;
 
 	$blockHash = $bitcoind->getbestblockhash();
 

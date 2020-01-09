@@ -141,7 +141,7 @@ function checkCountryCode($countryCode){
 
 function checkString($string){
 	$string = substr($string,0,50);
-	if(preg_match("/^[0-9a-zA-Z- \.,&]{2,50}$/",$string)){
+	if(preg_match("/^[0-9a-zA-Z- \.,&()]{2,50}$/",$string)){
 		return $string;
 	}else{
 		return "Unknown";
