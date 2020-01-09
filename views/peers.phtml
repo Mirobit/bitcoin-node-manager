@@ -83,61 +83,57 @@
 
 					  <tbody>
 						<?php $i = 0;
-							  foreach($content['peers'] as $peer){ ?>
-									<tr>
-										<td style="padding-right:0px;"><?php if($peer->whitelisted){ ?><i class="fa fa-shield" title="Whitelisted"></i><?php } else { ?><span style="padding-left:13px;"></span><?php } ?> <?=$peer->id ?></td>
-										<td><?=$peer->ip ?></td>  
-					  <?php if($content['geo']){?><td><?php if(!empty($peer->country)){ ?><img src="assets/images/flags/16/<?=$peer->country ?>.png" /> <?php echo $peer->country; } ?></td><?php } ?>  
-										<td style="padding-right:0px;">
-										<?php
-										if(!empty($peer->services)){
-											foreach($peer->services as $key => $service){
-												echo '<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="'.$key.'">'.$service.'</button>';													 
-											}	
-										} ?>	 
-										</td>
-										<td> <?= $peer->ping ?></td>
-					 <?php if($content['geo']){ ?> <td><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->isp,0,23) ?></td> <?php } ?>  
-										<td> <?= $peer->age ?></td>
-										<td><?php if($peer->snoopy){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->client,0,18) ?></td>  
-										<td> <?= $peer->traffic ?></td>
-										<td>
-											
-										   
-											<div class="btn-group pull-left" style="padding:5px 0 3px 0px; margin-bottom:0px">
-												<button type="button" class="btn btn-default btn-xs">Manage</button>
-												<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="caret"></span>
-													<span class="sr-only">Toggle Dropdown</span>
-											</button>
-											<ul class="dropdown-menu">
-												<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=86400&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock-o" style="color:darkred"></i> Ban 24 hours</a></li>
-												<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=2592000&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock-o" style="color:darkred"></i> Ban 30 days</a></li>
-												<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=31536000&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock-o" style="color:darkred"></i> Ban 365 days</a></li>
-												<li class="divider"></li>
-												<li><a href="?p=peers&c=disconnect&ip=<?=$peer->ipOriginal ?>&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-times" style="color:darkorange"></i> Disconnect</a></li>
-		  <?php if($content['geo'] AND !$peer->hosted){ ?> <li class="divider"></li>
-												<li><a href="?p=peers&c=addhoster&n=<?= $peer->isp ?>&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-plus" style="color:green"></i> Add Hoster (ISP)</a></li> <?php } ?>   
-											</ul>
-											</div>
-											
-											<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
-												<button type="button" class="btn btn-default btn-xs">Details</button>
-												<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="caret"></span>
-													<span class="sr-only">Toggle Dropdown</span>
-											</button>
-											<ul class="dropdown-menu">
-												<li><a href="http://ip-api.com/#<?= $peer->ip ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Whois</a></li>
-												<li><a href="https://bitnodes.earn.com/nodes/?q=<?= $peer->ip ?>" target="_blank"><i class="fa fa-search-plus fa-lg" style="color:lightblue"></i> Bitnodes</a></li>
-												<li><a href="https://duckduckgo.com/?q=<?= $peer->ip ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:lightblue"></i> DuckDuckGo</a></li>												  
-												<li><a href="https://www.abuseipdb.com/check/<?= $peer->ip ?>" target="_blank"><i class="fa fa-search-minus fa-lg" style="color:lightblue"></i> AbuseIP DB</a></li>
-											</ul>
-											</div>										   
-								   </td>										   
-								  </tr>
-
-									  
+						foreach($content['peers'] as $peer){ ?>
+							<tr>
+								<td style="padding-right:0px;"><?php if($peer->whitelisted){ ?><i class="fa fa-shield" title="Whitelisted"></i><?php } else { ?><span style="padding-left:13px;"></span><?php } ?> <?=$peer->id ?></td>
+								<td><?=$peer->ip ?></td>  
+								<?php if($content['geo']){?><td><?php if(!empty($peer->country)){ ?><img src="assets/images/flags/16/<?=$peer->country ?>.png" /> <?php echo $peer->country; } ?></td><?php } ?>  
+								<td style="padding-right:0px;">
+								<?php
+								if(!empty($peer->services)){
+									foreach($peer->services as $key => $service){
+										echo '<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="'.$key.'">'.$service.'</button>';													 
+									}	
+								} ?>	 
+								</td>
+								<td style="padding-right:0px;"> <?= $peer->ping ?></td>
+								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->isp,0,27) ?></td> <?php } ?>  
+								<td style="padding-right:0px;"> <?= $peer->age ?></td>
+								<td style="padding-right:0px;"><?php if($peer->snoopy){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->client,0,18) ?></td>  
+								<td style="padding-right:0px;"> <?= $peer->traffic ?></td>
+								<td style="padding-right:0px;">
+									<div class="btn-group pull-left" style="padding:5px 0 3px 0px; margin-bottom:0px">
+										<button type="button" class="btn btn-default btn-xs">Manage</button>
+										<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="caret"></span>
+											<span class="sr-only">Toggle Dropdown</span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=86400&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock-o" style="color:darkred"></i> Ban 24 hours</a></li>
+											<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=2592000&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock-o" style="color:darkred"></i> Ban 30 days</a></li>
+											<li><a href="?p=peers&c=ban&ip=<?= $peer->ip ?>&time=31536000&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-clock-o" style="color:darkred"></i> Ban 365 days</a></li>
+											<li class="divider"></li>
+											<li><a href="?p=peers&c=disconnect&ip=<?=$peer->ipOriginal ?>&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-times" style="color:darkorange"></i> Disconnect</a></li>
+											<?php if($content['geo'] AND !$peer->hosted){ ?> <li class="divider"></li>
+											<li><a href="?p=peers&c=addhoster&n=<?= $peer->isp ?>&t=<?= $_SESSION["csfrToken"] ?>"><i class="fa fa-plus" style="color:green"></i> Add Hoster (ISP)</a></li> <?php } ?>   
+										</ul>
+									</div>
+									
+									<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
+										<button type="button" class="btn btn-default btn-xs">Details</button>
+										<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="caret"></span>
+											<span class="sr-only">Toggle Dropdown</span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a href="http://ip-api.com/#<?= $peer->ip ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Whois</a></li>
+											<li><a href="https://bitnodes.earn.com/nodes/?q=<?= $peer->ip ?>" target="_blank"><i class="fa fa-search-plus fa-lg" style="color:lightblue"></i> Bitnodes</a></li>
+											<li><a href="https://duckduckgo.com/?q=<?= $peer->ip ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:lightblue"></i> DuckDuckGo</a></li>												  
+											<li><a href="https://www.abuseipdb.com/check/<?= $peer->ip ?>" target="_blank"><i class="fa fa-search-minus fa-lg" style="color:lightblue"></i> AbuseIP DB</a></li>
+										</ul>
+									</div>										   
+								</td>										   
+							</tr>	  
 						<?php } ?>						
 					  </tbody>
 					</table>
