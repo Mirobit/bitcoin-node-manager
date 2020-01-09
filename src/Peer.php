@@ -58,8 +58,8 @@ class Peer{
 		}
 		$this->lastSend = checkInt($peer["lastsend"]);
 		$this->lastReceived = checkInt($peer["lastrecv"]);
-		$this->trafficOut = bytesToMb($peer["bytesrecv"]);
-		$this->trafficIn = bytesToMb($peer["bytessent"]);
+		$this->trafficIn = bytesToMb($peer["bytesrecv"]);
+		$this->trafficOut = bytesToMb($peer["bytessent"]);
 		$this->traffic = $this->trafficOut + $this->trafficIn;
 		$this->connectTime = getDateTime($peer["conntime"]);
 		$this->age = round((time()-$peer["conntime"])/60);

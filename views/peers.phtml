@@ -24,13 +24,13 @@
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-cloud" title="Since last start"></i> Total Traffic</span>
-					  <div class="count"><?= ($content['tTraf'] >= 1000) ? round($content['tTraf']/1000,2)." <small>TB</small>" : $content['tTraf']." <small>GB</small>"?></div>
-					  <span class="count_bottom"><i style="color:lightblue"> <?= $content['tOutTrafP'] ?>%</i> Upload</span>
+					  <div class="count"><?= ($content['tTraffic'] >= 1000) ? round($content['tTraffic']/1000,2)." <small>TB</small>" : $content['tTraffic']." <small>GB</small>"?></div>
+					  <span class="count_bottom"><i style="color:lightblue"> <?= $content['tTrafficOutP'] ?>%</i> Upload</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-cloud" style="color:lightblue;"></i> Traffic by Current Peers</span>
-					  <div class="count"><?= ($content['cTraf'] >= 1000) ? round($content['cTraf']/1000,2)." <small>TB</small>" : $content['cTraf']." <small>GB</small>"?></div>
-					  <span class="count_bottom"><i style="color:lightblue;"> <?= $content['cTrafP'] ?>%</i> of toal Traffic</span>
+					  <div class="count"><?= ($content['cTraffic'] >= 1000) ? round($content['cTraffic']/1000,2)." <small>TB</small>" : $content['cTraffic']." <small>GB</small>"?></div>
+					  <span class="count_bottom"><i style="color:lightblue;"> <?= $content['cTrafficP'] ?>%</i> of toal Traffic</span>
 					</div>
 				  </div>
 				  </div>

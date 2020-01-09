@@ -61,10 +61,6 @@ require_once 'src/Content.php';
 // Globals
 $error = "";
 $message = "";
-$trafficC = 0;
-$trafficCIn = 0;
-$trafficCOut = 0;
-$newPeersCount = 0;
 $bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/');
 
 // Content
