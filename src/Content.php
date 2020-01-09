@@ -43,7 +43,8 @@ function createPeerContent(){
 	$content['cTraf'] = round($trafficC/1000,2);
 	$content['trafcin'] = round($trafficCIn/1000,2);
 	$content['trafcout'] = round($trafficCOut/1000,2);
-	$content['tTraf'] = ($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])/1000000000;
+	$content['tTraf'] = round(($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])/1000000000,2);
+	$content['tOutTrafP'] = round(($netinfo["totalbytessent"]/($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])),2)*100;
 	$content['cTrafP'] = round($content['cTraf']/$content['tTraf'],2)*100;
 	$content['geo'] = Config::PEERS_GEO;
 

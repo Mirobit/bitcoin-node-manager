@@ -23,9 +23,9 @@
 					  <span class="count_bottom"><span style="color:orange;"><?= $content['mpIspC'] ?></span> Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-hourglass-start"></i> Segwit Support</span>
-					  <div class="count"><?= $content['segWitP'] ?><small> %</small></div>
-					  <span class="count_bottom"><span><?= $content['segWitC'] ?></span> Peers</span>
+					  <span class="count_top"><i class="fa fa-cloud" title="Since last start"></i> Total Traffic</span>
+					  <div class="count"><?= ($content['tTraf'] >= 1000) ? round($content['tTraf']/1000,2)." <small>TB</small>" : $content['tTraf']." <small>GB</small>"?></div>
+					  <span class="count_bottom"><i style="color:lightblue"> <?= $content['tOutTrafP'] ?>%</i> Upload</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-cloud" style="color:lightblue;"></i> Traffic by Current Peers</span>
@@ -99,7 +99,7 @@
 								<td style="padding-right:0px;"> <?= $peer->ping ?></td>
 								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->isp,0,27) ?></td> <?php } ?>  
 								<td style="padding-right:0px;"> <?= $peer->age ?></td>
-								<td style="padding-right:0px;"><?php if($peer->snoopy){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->client,0,18) ?></td>  
+								<td style="padding-right:0px;"><?php if($peer->snoopy){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->client,0,20) ?></td>  
 								<td style="padding-right:0px;"> <?= $peer->traffic ?></td>
 								<td style="padding-right:0px;">
 									<div class="btn-group pull-left" style="padding:5px 0 3px 0px; margin-bottom:0px">
