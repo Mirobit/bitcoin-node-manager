@@ -15,7 +15,7 @@ function createMainContent(){
 		$content['map'] = createMapJs($peerCount);
 	}
 	$content['geo'] = Config::PEERS_GEO;
-	$content['nPeers'] = $newPeersCount;
+	$content['nPeers'] = $peersInfo["newPeersCount"];
 	$content['chartData'] = getTopClients($peersInfo["peers"]);
 
 	// Current peers traffic
