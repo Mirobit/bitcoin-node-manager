@@ -48,8 +48,8 @@
 						  <th>ID</th>
 						  <th>Time</th>
 						  <th>Size (B)</th>
-						  <th>Fee</th>
-						  <th>Fee rate</th>
+						  <th>Fee (BTC)</th>
+						  <th>Fee rate (per KB)</th>
 						  <th>Descendants</th>
 						  <th style="width:7%;">Control</th>
 						</tr>
@@ -60,9 +60,9 @@
 									<tr>
 										<td style="padding-right:0px;"><?= $key ?></td>
 										<td><?= date("Y-m-d H:i:s", $tx['time']) ?></td>   
-										<td><?= $tx['size'] ?></td>
+										<td><?= $tx['vsize'] ?></td>
 										<td><?= sprintf('%.8F', $tx['fee']) ?></td>
-										<td><?= sprintf('%.8F', round((1000/$tx["size"])*$tx["fee"], 8)) ?></td>
+										<td><?= sprintf('%.8F', round((1000/$tx["vsize"])*$tx["fee"], 8)) ?></td>
 										<td><?= $tx['descendantcount'] ?></td>										
 										<td> 
 											<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
