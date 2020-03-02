@@ -301,7 +301,7 @@ function checkSPV($client){
 }
 
 function checkMonitoring($client){	
-	if (preg_match('/Snoopy|Coinscope|bitnodes|dsn.tm.kit.edu|multiven/i',$client)){
+	if (preg_match('/Snoopy|Coinscope|bitnodes|dsn.tm.kit.edu|multiven|walle /i',$client)){
 		return true;
 	}else{
 		return false;
