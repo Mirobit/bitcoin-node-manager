@@ -25,7 +25,7 @@ class Peer{
 	public $client; // string
 	public $orgClient; // string
 	public $spv; // bool
-	public $snoopy; // bool
+	public $monitoring; // bool
 	public $altClient; // bool
 	public $inbound; // bool
 	public $startingHeight; // int
@@ -78,7 +78,7 @@ class Peer{
 		$this->client = getCleanClient($peer["subver"]);
 		$this->orgClient = htmlspecialchars($peer["subver"]);
 		$this->spv = checkSPV($this->client);
-		$this->snoopy = checkSnooping($this->client);
+		$this->monitoring = checkMonitoring($this->client);
 		$this->altClient = checkAltClient($this->client);
 		$this->inbound = checkBool($peer["inbound"]);
 		$this->startingHeight = checkInt($peer["startingheight"]);

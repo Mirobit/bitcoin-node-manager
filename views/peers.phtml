@@ -99,7 +99,7 @@
 								<td style="padding-right:0px;"> <?= $peer->ping ?></td>
 								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->isp,0,27) ?></td> <?php } ?>  
 								<td style="padding-right:0px;"> <?= $peer->age ?></td>
-								<td style="padding-right:0px;"><?php if($peer->snoopy){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->client,0,20) ?></td>  
+								<td style="padding-right:0px;"><?php if($peer->monitoring){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->client,0,20) ?></td>  
 								<td style="padding-right:0px;"> <?= $peer->traffic ?></td>
 								<td style="padding-right:0px;">
 									<div class="btn-group pull-left" style="padding:5px 0 3px 0px; margin-bottom:0px">

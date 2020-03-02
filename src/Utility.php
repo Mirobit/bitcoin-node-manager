@@ -300,8 +300,8 @@ function checkSPV($client){
 	}
 }
 
-function checkSnooping($client){	
-	if (preg_match('/Snoopy|Coinscope|bitnodes|dsn.tm.kit.edu/i',$client)){
+function checkMonitoring($client){	
+	if (preg_match('/Snoopy|Coinscope|bitnodes|dsn.tm.kit.edu|multiven/i',$client)){
 		return true;
 	}else{
 		return false;
