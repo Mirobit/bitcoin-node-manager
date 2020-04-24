@@ -1,0 +1,24 @@
+{
+  "name": "mirobit/bitcoin-node-manager",
+  "description": "Lightweight dashboard and control system for bitcoin nodes",
+  "keywords": [
+    "bitcoin",
+    "dashboard",
+    "manager"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Michael Rotarius",
+      "homepage": "https://github.com/Mirobit/"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/Mirobit/bitcoin-node-manager/issues"
+  },
+  "type": "project",
+  "require": {
+    "php": "^7.0",
+    "ext-curl": "*"
+  }
+}
