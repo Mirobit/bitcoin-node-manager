@@ -25,7 +25,6 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 ## Requirements
 
 - Bitcoin Core 0.19.0.1+
-  - `txindex=1` needs to be set in your `bitcoin.conf`
 - Web server (e.g. Apache, nginx, PHP built-in web server)
 - PHP 7.0.0+
   - cURL
@@ -37,6 +36,7 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 3. Edit `src/Config.php` to enter your bitcoind RPC creditials, set a password and change other settings.
 4. Open the URL to the folder in your browser and login with the password choosen in `src/Config.php`.
 5. Optional: Run `chmod -R 770 /path-to-folder/{data, src, views}`. Only necessary for non Apache servers (`AllowOverride All` necessary), that are publicly accessible. For more information, read next section.
+6. Optional: `txindex=1` is required in your `bitcoin.conf` for the `Blocks` page. Start bitcoind once with the `-reindex` param (might take a while).
 
 ## Security
 
