@@ -10,6 +10,9 @@ class Node {
 	public $ipv4;
 	public $ipv6;
 	public $tor;
+	public $ipv4Address = 'Unknown';
+	public $ipv6Address = 'Unknown';
+	public $torAddress = 'Unknown';
 	public $toConn;
 	public $cTime; // Current node time
 	public $serivces;
@@ -61,17 +64,30 @@ class Node {
 		$this->blockHeight = checkInt($blockchainInfo["blocks"]);
 		$this->pruMode = checkBool($blockchainInfo["pruned"]);
 		$this->chain = ucfirst(htmlspecialchars($blockchainInfo["chain"]));
-		// Gets different IPs
+		//Get active networks
+		$networks =$networkInfo["networks"];
+		foreach($networks as $network){
+			if($network["name"] === "ipv4"){
+				$this->ipv4 = ($network["reachable"] ? true : false);
+			}
+			elseif($network["name"] === "ipv6"){
+				$this->ipv6 = ($network["reachable"] ? true : false);
+			}
+			elseif($network["name"] === "onion"){
+				$this->tor = ($network["reachable"] ? true : false);
+			}	
+		}
 		$ipAddresses =$networkInfo["localaddresses"];
 		foreach($ipAddresses as $ipAddress){
 			if(preg_match("/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/", $ipAddress["address"])){
-				$this->ipv4 = $ipAddress["address"];
+				$this->ipv4Address = $ipAddress["address"];
 			}
 			if(preg_match("/^[0-9a-z]{1,4}(:[0-9a-z]{0,4}){0,6}$/", $ipAddress["address"])){
-				$this->ipv6 = $ipAddress["address"];
+				$this->ipv6Address = $ipAddress["address"];
 			}
 			if(preg_match("/^[0-9a-z]{16}\.onion$/", $ipAddress["address"])){
-				$this->tor = $ipAddress["address"];
+
+				$this->torAddress = $ipAddress["address"];
 			}		
 		}
 		$this->toConn = checkInt($networkInfo["connections"]);
