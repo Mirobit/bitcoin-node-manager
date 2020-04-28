@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 ini_set('ignore_repeated_errors', TRUE); 
 ini_set('display_startup_errors',TRUE); 
 ini_set('display_errors', TRUE);
+ini_set('session.cookie_httponly', '1');
 
 require_once 'src/Autoloader.php';
 Autoloader::register();
@@ -40,9 +41,7 @@ if(isset($_SESSION['login']) AND $_SESSION['login'] === TRUE){
 
 // Login		
 }elseif(!isset($_SESSION['login']) AND isset($_POST['password']) AND $_POST['password'] == Config::PASSWORD){
-	ini_set('session.cookie_httponly', '1');
 	$passHashed = hash('sha256', Config::PASSWORD);
-	
 		$_SESSION['login'] = TRUE;
 		$_SESSION["csfrToken"] = hash('sha256', random_bytes(20));
 		if(isset($_POST['stayloggedin'])){		
