@@ -50,6 +50,7 @@ function getServices($hex){
 }
 
 function getVoting($hex){
+	$vote = [];
 	if($hex[7] == 2) {
 		$vote['Segwit'] = true;
 	}
