@@ -2,11 +2,19 @@
 
 namespace App;
 
+// Error reporting
 error_reporting(E_ALL); 
 ini_set('ignore_repeated_errors', TRUE); 
 ini_set('display_startup_errors',TRUE); 
 ini_set('display_errors', TRUE);
+
+// Security
 ini_set('session.cookie_httponly', '1');
+header('Referrer-Policy: same-origin');
+header('X-XSS-Protection: 1; mode=block');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src data: 'self'");
 
 require_once 'src/Autoloader.php';
 Autoloader::register();
