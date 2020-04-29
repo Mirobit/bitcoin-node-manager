@@ -1,5 +1,29 @@
 # Bitcoin Node Manager Changelog
 
+## 0.5.0 Beta - 2020-04-29
+
+Please delete `data/geodatapeers.inc` to aviod any peer information issues
+
+### New
+
+- Display node uptime on start page
+- You can now execute your rules via command line. `php /path/to/your/index.php yourtoken` (see rules page for more information)
+
+### Improved
+
+- Better protection against XSS and other attacks
+- Layout improvements
+
+### Fixed
+
+- Block voting detection
+- Execute rules
+- Session error
+- Saving geodata fpr new peers
+- Various asset imports
+- Removed unused .js files
+- Removed unused variables
+
 ## 0.4.1 Beta - 2020-04-27
 
 ### Improved
