@@ -95,7 +95,7 @@ class Rule {
 		$data = self::getData();
 		
 		if(empty($data['peers'])){
-			return false;
+			return true;
 		}
 		
 		$logging = "";
@@ -159,22 +159,22 @@ class Rule {
 					case "ban":
 						try{
 							$msg1 = $bitcoind->setban($peer->ip, "add", intval($rule->bantime));
-							$logging .= $logTime.": Banned (".$rule->trigger."): ".$peer->ip." (".$peer->client.") for ".$rule->bantime." s - (".$rule->id.")\r\n";
+							$logging .= $logTime." - ID ".$rule->id.": Banned (".$rule->trigger."): ".$peer->ip." (".$peer->client.") for ".$rule->bantime." s\r\n";
 						}catch(Exception $e) {
-							$logging .= $logTime.": Error banning ".$peer->ip." for ".$rule->bantime." s (".$rule->id.")\r\n";
+							$logging .= $logTime." - ID ".$rule->id.": Error banning ".$peer->ip." (".$peer->client.") for ".$rule->bantime." s\r\n";
 						}						
 
 						break;
 					case "disconnect":
 						try{
 							$bitcoind->disconnectnode($peer->ip);
-							$logging .= $logTime.": Disconnected (".$rule->trigger."): ".$peer->ip." (".$peer->client.") - (".$rule->id.")\r\n";
+							$logging .= $logTime." - ID ".$rule->id.": Disconnected (".$rule->trigger."): ".$peer->ip." (".$peer->client.")\r\n";
 						}catch(Exception $e) {
-							$logging .= $logTime.": Error disconnecting ".$peer->ip." (".$rule->id.")\r\n";
+							$logging .= $logTime." - ID ".$rule->id.": Error disconnecting ".$peer->ip." (".$peer->client.")\r\n";
 						}
 						break;
 					case "notice":
-						$logging .= $logTime.": Notice (".$rule->trigger."): ".$peer->ip." (".$peer->client.") - (".$rule->id.")\r\n";
+						$logging .= $logTime." - ID ".$rule->id.": Notice (".$rule->trigger."): ".$peer->ip." (".$peer->client.")\r\n";
 						break;
 				}
 				$rule->uses++;
@@ -194,8 +194,7 @@ class Rule {
 	private static function getData(){
 		
 		$node = new Node();
-		
-		$data['peers'] = getPeerData(false);
+		$data['peers'] = getPeerData(false)['peers'];
 		$data['rules'] = self::getRules();
 		$data['global']['connections'] = $node->toConn;
 		$data['global']['traffic'] = $node->tTotal;

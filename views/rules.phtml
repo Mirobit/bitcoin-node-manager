@@ -219,15 +219,18 @@ In the last fourth row you need to speficy the global trigger event if you check
 					  <li><a class="close-link"><i class="fa fa-close"></i></a>
 					  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					  <li><a><i class="fa fa-question-circle-o" data-toggle="tooltip" data-html="true" data-placement="left" title="
-					  If you use a linux system you can set up a cron job to run the rules automatically and periodically.
+					  If you use a linux based system you can set up a cron job to run the rules automatically.
 					  "></i></a>
 					  </li>
 					</ul>
 					<div class="clearfix"></div>
 					</div>
-						Use the following URL/command to run rules as cron job. You probably need to change the folder in the URL. The URL changes after a password change.
-						<br />
-						<input value="/usr/bin/curl --silent localhost<?=getcwd()?>/?job=<?= $content['jobToken'] ?> &>/dev/null" size="30" id="cron" />
+						Use the following command / url to run rules. The token changes after a password change.
+						<br /><br />
+						<strong>Bash</strong><br />
+						<input value="/usr/bin/php <?=getcwd()?>/index.php <?= $content['jobToken'] ?> &>/dev/null" size="50" id="cron" />
+						<br /><br /><strong>Url</strong><br />
+						<input value="<?=$_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF'])?>?job=<?= $content['jobToken'] ?>" size="50" id="cronurl" />
 					</div>
 				  <div class="clearfix"></div>
 			  </div>
@@ -308,7 +311,10 @@ In the last fourth row you need to speficy the global trigger event if you check
 				{
 				  text: 'Export',
 				  extend: "csv",
-				  className: "btn-sm btn-dark"
+					className: "btn-sm btn-dark",
+					exportOptions: {
+						columns: [0,3,4,5]
+		  		}
 				},
 			  ],
 			  responsive: true

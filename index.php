@@ -20,13 +20,13 @@ require_once 'src/Autoloader.php';
 Autoloader::register();
 
 // Check IP, deny access if not allowed
-if(!(empty(Config::ACCESS_IP) OR $_SERVER['REMOTE_ADDR'] == "127.0.0.1" OR $_SERVER['REMOTE_ADDR'] == "::1" OR $_SERVER['REMOTE_ADDR'] == Config::ACCESS_IP)){
+if(!(empty(Config::ACCESS_IP) || $_SERVER['REMOTE_ADDR'] == "127.0.0.1" || $_SERVER['REMOTE_ADDR'] == "::1" || $_SERVER['REMOTE_ADDR'] == Config::ACCESS_IP)){
 	header('Location: login.html');
 	exit; 
 }
 
 // Cronjob Rule Run
-if(isset($_GET['job']) AND $_GET['job'] === substr(hash('sha256', Config::PASSWORD."ebe8d532"),0,24)){
+if((isset($_GET['job']) && $_GET['job'] === substr(hash('sha256', Config::PASSWORD."ebe8d532"),0,24)) || (isset($argc) && $argv[1] === substr(hash('sha256', Config::PASSWORD."ebe8d532"),0,24))){
 	require_once 'src/Utility.php';
 	$bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/');
 	Rule::run();
@@ -39,16 +39,16 @@ session_start();
 $passToken = hash('sha256', Config::PASSWORD."ibe81rn6");
 
 // Active Session
-if(isset($_SESSION['login']) AND $_SESSION['login'] === TRUE){
+if(isset($_SESSION['login']) && $_SESSION['login'] === TRUE){
 	// Nothing needs to be done
 	
 // Login Cookie available	
-}elseif(isset($_COOKIE["Login"]) AND $_COOKIE["Login"] == $passToken){
+}elseif(isset($_COOKIE["Login"]) && $_COOKIE["Login"] == $passToken){
 		$_SESSION['login'] = TRUE;
 		$_SESSION["csfrToken"] = hash('sha256', random_bytes(20));
 
 // Login		
-}elseif(!isset($_SESSION['login']) AND isset($_POST['password']) AND $_POST['password'] == Config::PASSWORD){
+}elseif(!isset($_SESSION['login']) && isset($_POST['password']) && $_POST['password'] == Config::PASSWORD){
 	$passHashed = hash('sha256', Config::PASSWORD);
 		$_SESSION['login'] = TRUE;
 		$_SESSION["csfrToken"] = hash('sha256', random_bytes(20));
@@ -73,7 +73,7 @@ $bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWOR
 
 // Content
 // Main Page
-if(empty($_GET) OR $_GET['p'] == "main") {   
+if(empty($_GET) || $_GET['p'] == "main") {   
 	try{
 	$content = createMainContent();
 	}catch(\Exception $e) {
@@ -85,7 +85,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 }elseif($_GET['p'] == "peers") {
 	
 	// Check if command
-	if(isset($_GET['c']) AND $_GET['t'] == $_SESSION["csfrToken"]){
+	if(isset($_GET['c']) && $_GET['t'] == $_SESSION["csfrToken"]){
 		// Ban Command
 		if($_GET['c'] == "ban"){
 			$err = 0;
@@ -161,7 +161,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 	
 	$hosterList = json_decode(file_get_contents('data/hoster.json'),true);
 
-	if(isset($_GET['c']) AND $_GET['t'] == $_SESSION["csfrToken"]){
+	if(isset($_GET['c']) && $_GET['t'] == $_SESSION["csfrToken"]){
 	// Remove Hoster Command
 		if($_GET['c'] == "remove"){
 			if(preg_match("/^[0-9a-zA-Z-,\. ]{3,40}$/", $_GET['n'])) {
@@ -204,7 +204,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 }elseif($_GET['p'] == "banlist") {
 	
 	// Check if commands needs to be run   
-	if(isset($_GET['c']) AND $_GET['t'] == $_SESSION["csfrToken"]){	  
+	if(isset($_GET['c']) && $_GET['t'] == $_SESSION["csfrToken"]){	  
 		if($_GET['c'] == "unban"){
 			if(preg_match("/^([0-9a-z:\.]{7,39}\/[0-9]{1,3})$/", $_GET['ip'], $match)) {
 				$ip = $match[1];
@@ -232,7 +232,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 				$i = 0;
 				foreach($banlist as $ban){
 					$timestamp = strtotime($ban[2]);
-					if(checkIpBanList($ban[0]) AND $timestamp !== FALSE){
+					if(checkIpBanList($ban[0]) && $timestamp !== FALSE){
 						$result = $bitcoind->setban($ban[0], "add", $timestamp, true);
 						$i++;
 					}
@@ -257,7 +257,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 	
 	$editID = NULL;
 	// Check if commands needs to be run   
-	if(isset($_GET['c'])  AND $_GET['t'] == $_SESSION["csfrToken"]){	  
+	if(isset($_GET['c'])  && $_GET['t'] == $_SESSION["csfrToken"]){	  
 		// Save new or edited rule	
 		if($_GET['c'] == "save"){			
 			$rule = new Rule();
@@ -286,7 +286,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 			}
  		// Delete single rule or all		  
 		}elseif($_GET['c'] == "delete"){		 
-			if(isset($_GET['id']) AND ctype_digit($_GET['id'])){
+			if(isset($_GET['id']) && ctype_digit($_GET['id'])){
 				$reponse =  Rule::deleteByID($_GET['id']);
 				if($reponse){
 					$message = "Rule succesfully deleted";					
@@ -329,7 +329,7 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 // Memory Pool Page	
 }elseif($_GET['p'] == "mempool") {
 	
-	if(isset($_GET['e']) AND ctype_digit($_GET['id'])){
+	if(isset($_GET['e']) && ctype_digit($_GET['id'])){
 		$end = $_GET['e'];
 	}else{
 		$end = Config::DISPLAY_TXS;
@@ -358,10 +358,10 @@ if(empty($_GET) OR $_GET['p'] == "main") {
 // Settings Page	
 }elseif($_GET['p'] == "settings") {
 	$geoPeers = Config::PEERS_GEO;
-	if(isset($_GET['c'])  AND $_GET['t'] == $_SESSION["csfrToken"]){
-		if(isset($_GET['c']) AND $_GET['c'] == "geosave"){
+	if(isset($_GET['c'])  && $_GET['t'] == $_SESSION["csfrToken"]){
+		if(isset($_GET['c']) && $_GET['c'] == "geosave"){
 			// Check if Geo Peer Tracing was changed
-			if(isset($_POST['geopeers']) AND $_POST['geopeers'] == "on"){
+			if(isset($_POST['geopeers']) && $_POST['geopeers'] == "on"){
 				 $geoPeers = "true";
 			}else{
 				$geoPeers = "false";
