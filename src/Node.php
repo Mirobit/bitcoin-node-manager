@@ -7,14 +7,15 @@ class Node {
 	public $pruMode;
 	public $chain;
 	public $client;
-	public $ipv4;
-	public $ipv6;
-	public $tor;
+	public $ipv4; // Bool: if ipv4 active
+	public $ipv6; // Bool: if ipv6 active
+	public $tor; // Bool: if tor active
 	public $ipv4Address = 'Unknown';
 	public $ipv6Address = 'Unknown';
 	public $torAddress = 'Unknown';
-	public $toConn;
+	public $toConn; // Int: total connections of node
 	public $cTime; // Current node time
+	public $uptime; // String: uptime of node
 	public $serivces;
 	public $proVer;
 	public $localRelay;
@@ -60,6 +61,7 @@ class Node {
 		$blockchainInfo = $bitcoind->getblockchaininfo();
 		$miningInfo = $bitcoind->getmininginfo();
 		$tInfo = $bitcoind->getnettotals();
+		$uptimeInfo = $bitcoind->uptime();
 		
 		$this->blockHeight = checkInt($blockchainInfo["blocks"]);
 		$this->pruMode = checkBool($blockchainInfo["pruned"]);
@@ -91,6 +93,7 @@ class Node {
 			}		
 		}
 		$this->toConn = checkInt($networkInfo["connections"]);
+		$this->uptime = timeToString($uptimeInfo);
 		$this->client = str_replace('/','',htmlspecialchars($networkInfo["subversion"]));
 		$this->proVer = checkInt($networkInfo["protocolversion"]);
 		$this->services = getServices($networkInfo["localservices"]);

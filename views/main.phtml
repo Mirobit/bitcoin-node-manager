@@ -72,7 +72,8 @@
 					<?php if(isset($content['node']->services['Network Limited'])){ ?><button type="button" class="btn btn-default btn-xs">Network Limited</button><?php } ?>
 					<?php if(isset($content['node']->services['None'])){ ?><button type="button" class="btn btn-default btn-xs">None</button><?php } ?> 
 					<?php if(isset($content['node']->services['Unknown'])){ ?><button type="button" class="btn btn-default btn-xs">Unknown</button><?php } ?>					  
-				  </td></tr>
+					</td></tr>
+					<tr><td><i class="fa fa-clock-o fa-fw"></i> Uptime </td><td> <?= $content['node']->uptime ?></td></tr>
 				  <tr><td><i class="fa fa-clock-o fa-fw"></i> Node Time </td><td> <?= $content['node']->cTime ?></td></tr>
 				  <tr><td><i class="fa <?php echo ($content['node']->ipv4 ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv4 </td><td> <?php echo ($content['node']->ipv4 ? $content['node']->ipv4Address : "No") ?></td></tr>				  
 				  <tr><td><i class="fa <?php echo ($content['node']->ipv6 ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv6 </td><td> <?php echo ($content['node']->ipv6 ? $content['node']->ipv6Address : "No") ?></td></tr>
@@ -83,7 +84,7 @@
 				  <tr><td><i class="fa <?php echo (!$content['node']->tLimitSet ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Traffic Limit Set</td><td> <?php echo ($content['node']->tLimitSet ? "Yes" : "No") ?></td></tr>
 				  <?php if($content['node']->tLimitSet){ ?>
 				  <tr><td><i class="fa <?php echo (!$content['node']->tLimited ? "fa-square-o green" : "fa-warning red") ?> fa-fw"></i> Traffic Limited</td><td> <?php echo ($content['node']->tLimited ? "Yes" : "No") ?> <small>(<?= $content['node']->tUsed ?> / <?= $content['node']->tMax ?> MB - <?= $content['node']->tLimitP ?>%)</small></td></tr>
-				  <tr><td><i class="fa fa-clock-o fa-fw"></i> Time remaining </td><td> <?= $content['node']->tTimeLeft ?> min</td></tr>
+				  <tr><td><i class="fa fa-hourglass-start fa-fw"></i> Time remaining </td><td> <?= $content['node']->tTimeLeft ?> min</td></tr>
 				  <?php } ?>
 				  </table>
 				</div>

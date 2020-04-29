@@ -203,6 +203,20 @@ function getDateTime($timestamp){
 	return $date;
 }
 
+function timeToString($time){
+	$seconds = checkInt($time);
+	switch (true) {
+		case $seconds < 60:
+			return $seconds . " seconds";
+    case $seconds < 3600:
+      return round($seconds/60) . " minutes";
+    case $seconds < 86400:
+			return round($seconds/3600) . " hours";
+		default:
+			return round($seconds/86400) . " days";
+	}
+}
+
 function checkMemPoolLimited($memPoolFee, $relayTxFee){
 	$result = false;
 	if($memPoolFee > $relayTxFee){
@@ -469,6 +483,7 @@ function createPeersGeo($peerinfo){
 	
 	// Check if peer file exists and enabled
 	if (file_exists('data/geodatapeers.inc')){
+		print_r("geodatafile exists");
 		// Loads serialized stored peers from disk
 		$serializedPeers = file_get_contents('data/geodatapeers.inc');
 		$arrayPeers = unserialize($serializedPeers);
