@@ -483,7 +483,6 @@ function createPeersGeo($peerinfo){
 	
 	// Check if peer file exists and enabled
 	if (file_exists('data/geodatapeers.inc')){
-		print_r("geodatafile exists");
 		// Loads serialized stored peers from disk
 		$serializedPeers = file_get_contents('data/geodatapeers.inc');
 		$arrayPeers = unserialize($serializedPeers);
@@ -565,10 +564,8 @@ function createPeersGeo($peerinfo){
 				$region = "New";
 				$city = "New";
 				$isp = "New";		 
-				$hosted = false;				
-				
+				$hosted = false;
 			}
-
 		}else{
 			$id = $peerObj->id;
 			// Nodes that we know about but reconnected
@@ -615,15 +612,18 @@ function createPeersGeo($peerinfo){
 
 	}
 
-	// Removes all peers that the node is not connected to anymore.
-	foreach($arrayPeers as $key => $peer){
-		if($peer[7] == 0){
-			unset($arrayPeers[$key]);
+	// Only if new peers connected
+	if(isset($ipData)) {
+		// Removes all peers that the node is not connected to anymore.
+		foreach($arrayPeers as $key => $peer){
+			if($peer[7] == 0){
+				unset($arrayPeers[$key]);
+			}
 		}
-	}
 
-	$newSerializePeers = serialize($arrayPeers);
-	file_put_contents('data/geodatapeers.inc', $newSerializePeers);
+		$newSerializePeers = serialize($arrayPeers);
+		file_put_contents('data/geodatapeers.inc', $newSerializePeers);
+	}
 	
 	return $peersInfo;
 }
