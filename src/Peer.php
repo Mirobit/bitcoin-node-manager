@@ -38,8 +38,6 @@ class Peer{
 	public $bytesrecvPerMsg; // array
 	public $country; // string
 	public $countryCode; // string
-	public $region; // string
-	public $city; // string
 	public $isp; // string
 	public $hosted; // bool
 	

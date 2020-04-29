@@ -22,7 +22,7 @@ class Config {
 	const RPC_PASSWORD = "PASSWORD";
 	
 	
-	// Use ip-api.com to get country, city and isp of peers. API is limited to 150 requests per minutes.
+	// Use ip-api.com to get country and isp of peers. API is limited to 150 requests per minutes.
 	// Peer geo data is stored as long as the peer is connected. A page reload (main/peers) only 
     // causes an API request if new peers connected (older than 2 minutes) since the last load. Up to 
     // 100 ips/peers are checked per request. You should not run into any trouble with the API limit.

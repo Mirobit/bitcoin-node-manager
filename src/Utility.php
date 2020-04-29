@@ -501,7 +501,7 @@ function createPeersGeo($peerinfo){
 				break;
 			}
 			// For removing old peers that disconnected. Value of all peers that are still conected will be changed to 1 later. All peers with 0 at the end of the function will be deleted.
-			$arrayPeers[$key][7] = 0;
+			$arrayPeers[$key][5] = 0;
 		}
 		// Oldest peer hasn't shown up -> Node isn't connected to any of the previously stored peers
 		if(!$delete){
@@ -541,18 +541,14 @@ function createPeersGeo($peerinfo){
 				$countryInfo = $ipData[array_search($peerObj->ip, array_column($ipData, 'query'))];
 				$countryCode = checkCountryCode($countryInfo['countryCode']);
 				$country = checkString($countryInfo['country']);
-				$region = checkString($countryInfo['regionName']);
-				$city = checkString($countryInfo['country']);
 				$isp = checkString($countryInfo['isp']);		 
 				$hosted = checkHosted($isp);
 				// Adds the new peer to the save list
-				$arrayPeers[$peerObj->id] = array($peerObj->ip, $countryCode, $country, $region, $city, $isp, $hosted, 1);
+				$arrayPeers[$peerObj->id] = array($peerObj->ip, $countryCode, $country, $isp, $hosted, 1);
 			}elseif($peerObj->age > 2){
 				// If IP-Api.com call failed we set all data to Unknown and don't store the data
 				$countryCode = "UN";
 				$country = "Unknown";
-				$region = "Unknown";
-				$city = "Unknown";
 				$isp = "Unknown";		 
 				$hosted = false;
 				// Only counted for peers older than 2 minutes
@@ -561,8 +557,6 @@ function createPeersGeo($peerinfo){
 				// If peer is younger than 2 minutes
 				$countryCode = "NX";
 				$country = "New";
-				$region = "New";
-				$city = "New";
 				$isp = "New";		 
 				$hosted = false;
 			}
@@ -575,11 +569,9 @@ function createPeersGeo($peerinfo){
 			}
 			$countryCode = $arrayPeers[$id][1];
 			$country = $arrayPeers[$id][2];
-			$region = $arrayPeers[$id][3];
-			$city = $arrayPeers[$id][4];
-			$isp = $arrayPeers[$id][5];
-			$hosted = $arrayPeers[$id][6];
-			$arrayPeers[$id][7] = 1;
+			$isp = $arrayPeers[$id][3];
+			$hosted = $arrayPeers[$id][4];
+			$arrayPeers[$id][5] = 1;
 		}
 
 		// Counts the countries
@@ -593,8 +585,6 @@ function createPeersGeo($peerinfo){
 		// Adds country data to peer object
 		$peerObj->countryCode = $countryCode;
 		$peerObj->country = $country;
-		$peerObj->region = $region;
-		$peerObj->city = $city;
 		$peerObj->isp = $isp;
 		$peerObj->hosted = $hosted;
 		if($hosted){
@@ -616,7 +606,7 @@ function createPeersGeo($peerinfo){
 	if(isset($ipData)) {
 		// Removes all peers that the node is not connected to anymore.
 		foreach($arrayPeers as $key => $peer){
-			if($peer[7] == 0){
+			if($peer[5] == 0){
 				unset($arrayPeers[$key]);
 			}
 		}
@@ -654,7 +644,7 @@ function getIpData($ips){
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_URL,'http://ip-api.com/batch?fields=query,country,countryCode,regionName,city,isp,status');
+	curl_setopt($ch, CURLOPT_URL,'http://ip-api.com/batch?fields=query,country,countryCode,isp,status');
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , CONFIG::PEERS_GEO_TIMEOUT); 
 	curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG::PEERS_GEO_TIMEOUT+1);
