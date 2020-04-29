@@ -40,7 +40,7 @@
 				</div>
 				<!-- End Log -->
 				<!-- Rules List -->
-				  <div class="clearfix"></div>
+				<div class="clearfix"></div>
 				<div class="x_panel">
 				  <div class="x_title">
 					<h2>Rules <small></small></h2>
@@ -90,7 +90,8 @@
 			<!-- End Rules List -->		   
 			
 			<!-- Add Rule -->
-			  <div class="col-md-4 col-sm-4 col-xs-12" style="float: right;">
+			<div class="col-md-4 col-sm-4 col-xs-12">
+			  <div>
 				<div class="x_panel">
 				  <div class="x_title">
 					<h2><?php echo ((!isset($content['editRule']->id)) ? "Create New" : "Edit") ?> Rule </h2>
@@ -181,7 +182,7 @@ In the last fourth row you need to speficy the global trigger event if you check
 			<!-- End Add Rule --> 
  
 			<!-- Manage Rules -->
-			  <div class="col-md-4 col-sm-4 col-xs-12">
+			  <div >
 				<div class="x_panel">
 				  <div class="x_title">
 					<h2>Manage Rules</h2>
@@ -210,7 +211,7 @@ In the last fourth row you need to speficy the global trigger event if you check
 			<!-- End Manage Rules --> 
 			
 			<!-- Cron Job -->
-			  <div class="col-md-4 col-sm-4 col-xs-12">
+			  <div >
 				<div class="x_panel">
 				  <div class="x_title">
 					<h2>Cron Job</h2>
@@ -229,9 +230,9 @@ In the last fourth row you need to speficy the global trigger event if you check
 						<input value="/usr/bin/curl --silent localhost<?=getcwd()?>/?job=<?= $content['jobToken'] ?> &>/dev/null" size="30" id="cron" />
 					</div>
 				  <div class="clearfix"></div>
-				</div>
+			  </div>
 			<!-- End Cron Job -->			  
-						
+							</div>
 
 			 <div class="clearfix"></div>
  			
@@ -279,7 +280,6 @@ In the last fourth row you need to speficy the global trigger event if you check
 	<script src="assets/js/buttons.bootstrap.min.js"></script>
 	<script src="assets/js/buttons.flash.min.js"></script>
 	<script src="assets/js/buttons.html5.min.js"></script>
-	<script src="assets/js/jszip.min.js"></script>
 	<!-- Switchery -->
 	<script src="assets/js/switchery.min.js"></script>
 	<!-- Custom Theme Scripts -->
