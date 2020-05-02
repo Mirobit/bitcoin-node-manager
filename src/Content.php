@@ -98,13 +98,13 @@ function createBanListContent(){
 	}
 
 	// Calculate and format avergae ban time
-	$content['avgTime'] = round($avgTime/(86400*$totalBans),0);
+	$content['avgTime'] = ($totalBans > 0 ? round($avgTime/(86400*$totalBans),0): 0);
 
 	// Calculate percentage auto/user bans
 	$content['autoCount'] = $autoCount;
 	$content['userCount'] = $userCount;
-	$content['autoPer'] = round($autoCount/$totalBans,2)*100;
-	$content['userPer'] = round($userCount/$totalBans,2)*100;
+	$content['autoPer'] = ($totalBans > 0 ? round($autoCount/$totalBans,2)*100 : '-');
+	$content['userPer'] = ($totalBans > 0 ? round($userCount/$totalBans,2)*100 : '-');
 
 	$content['totalBans'] = $totalBans;
 	$content['lastCount'] = $lastCount;
