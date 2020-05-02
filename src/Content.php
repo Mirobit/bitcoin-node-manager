@@ -23,7 +23,6 @@ function createMainContent(){
 	$content['cTrafficOut'] = round($peersInfo["cTrafficOut"]/1000, 2);
 
 	return $content;
-	
 }
 
 function createPeerContent(){

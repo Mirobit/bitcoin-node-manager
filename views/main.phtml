@@ -83,8 +83,8 @@
 				  <tr><td><i class="fa <?php echo (!$content['node']->mempoolLimited ? "fa-square-o green" : "fa-warning red") ?> fa-fw"></i> Mempool Limited</td><td> <?php echo ($content['node']->mempoolLimited ? "Yes" : "No") ?></td></tr>
 				  <tr><td><i class="fa <?php echo (!$content['node']->tLimitSet ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Traffic Limit Set</td><td> <?php echo ($content['node']->tLimitSet ? "Yes" : "No") ?></td></tr>
 				  <?php if($content['node']->tLimitSet){ ?>
-				  <tr><td><i class="fa <?php echo (!$content['node']->tLimited ? "fa-square-o green" : "fa-warning red") ?> fa-fw"></i> Traffic Limited</td><td> <?php echo ($content['node']->tLimited ? "Yes" : "No") ?> <small>(<?= $content['node']->tUsed ?> / <?= $content['node']->tMax ?> MB - <?= $content['node']->tLimitP ?>%)</small></td></tr>
-				  <tr><td><i class="fa fa-hourglass-start fa-fw"></i> Time remaining </td><td> <?= $content['node']->tTimeLeft ?> min</td></tr>
+				  <tr><td><i class="fa <?php echo (!$content['node']->tLimited ? "fa-square-o green" : "fa-warning red") ?> fa-fw"></i> Traffic Limited</td><td> <?php echo ($content['node']->tLimited ? "Yes" : "No") ?> <small>(<?= $content['node']->tUsed ?> / <?= $content['node']->tMax ?> GB - <?= $content['node']->tLimitP ?>%)</small></td></tr>
+				  <tr><td><i class="fa fa-hourglass-start fa-fw"></i> Time remaining </td><td> <?= $content['node']->tTimeLeft ?> hours</td></tr>
 				  <?php } ?>
 				  </table>
 				</div>
@@ -326,7 +326,7 @@
 				"#E25668",
 				"#E28956", 
 				"#E2CF56",				 
-				"#C0C0C0"
+				"#BCD39C"
 			  ],
 			  hoverBackgroundColor: [
 				"#78F2DF",
@@ -338,7 +338,7 @@
 				"#F2788B",
 				"#F2A378",
 				"#F2DF78",			 
-				"#D9D9D9"
+				"#EAFDCF"
 			  ]
 			}]
 		  },

@@ -116,9 +116,9 @@ class Node {
 		$this->tTotal = $this->tIn + $this->tOut;
 		$this->tLimitSet = getTrafficLimitSet($tInfo["uploadtarget"]["target"]);
 		$this->tLimited = checkBool($tInfo["uploadtarget"]["target_reached"]);
-		$this->tMax = bytesToMb($tInfo["uploadtarget"]["target"]);
-		$this->tUsed = round($this->tMax - bytesToMb($tInfo["uploadtarget"]["bytes_left_in_cycle"]), 0);
-		$this->tTimeLeft = round(checkInt($tInfo["uploadtarget"]["time_left_in_cycle"])/60, 1); // In minutes
+		$this->tMax = bytesToGb($tInfo["uploadtarget"]["target"]);
+		$this->tUsed = round($this->tMax - bytesToGb($tInfo["uploadtarget"]["bytes_left_in_cycle"]), 1);
+		$this->tTimeLeft = round(checkInt($tInfo["uploadtarget"]["time_left_in_cycle"])/3600, 1); // In minutes
 		if($this->tLimitSet){
 			$this->tLimitP = ceil(($this->tUsed/$this->tMax)*100);
 		}
