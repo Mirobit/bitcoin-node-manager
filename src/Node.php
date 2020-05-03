@@ -46,13 +46,6 @@ class Node {
 	public $hashRate; // Int: current network hash rate
 	public $mNetTime; // Int: current network mediatime
 	public $softForks; // Arr: List of current forks
-	public $walActive; // Bool: if wallet enabled
-	public $walVer; // Arr: Wallet Version
-	public $walBal; // Arr: Wallet balance
-	public $walUbal; // Arr: Wallet unconfirmed balance
-	public $walIbal; // Arr: Wallet immature_balance
-	public $walTxcount; // Arr: Wallet txcount
-	
 	
 	function __construct() {
 		global $bitcoind;
@@ -133,20 +126,6 @@ class Node {
 		$this->hashRate = round(checkInt($miningInfo["networkhashps"])/1000000000000000000,3);
 		$this->mNetTime = getDateTime($blockchainInfo["mediantime"]);
 		// Blockchain -> Soft forks
-		$this->softForks = checkSoftFork($blockchainInfo["softforks"]);	
-		// Wallet Function
-		try{
-			$walletInfo = $bitcoind->getwalletinfo();
-			$this->walVer = checkInt($walletInfo["walletversion"]);	
-			$this->walBal = checkInt($walletInfo["balance"]);	
-			$this->waluBal = checkInt($walletInfo["unconfirmed_balance"]);	
-			$this->waliBal = checkInt($walletInfo["immature_balance"]);	
-			$this->walTxcount = checkInt($walletInfo["txcount"]);	
-			$this->walUnspent = checkInt($walletInfo["txcount"]);
-			$this->walActive = true;
-		}catch(\Exception $e){
-			$this->walActive = false;
-		}
-		
+		$this->softForks = checkSoftFork($blockchainInfo["softforks"]);		
 	}
 }

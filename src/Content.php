@@ -260,12 +260,20 @@ function createWalletContent(){
 	
 	try{
 		$unspents = $bitcoind->listunspent();
+		$walletInfo = $bitcoind->getwalletinfo();
 	}catch(\Exception $e){
 		$error = "Wallet disabled!";
 		return "";
 	}
+
+	$content['wallet'] = checkInt($walletInfo["walletversion"]);	
+	$content['wallet'] = checkInt($walletInfo["balance"]);	
+	$content['wallet'] = checkInt($walletInfo["unconfirmed_balance"]);	
+	$content['wallet'] = checkInt($walletInfo["immature_balance"]);	
+	$content['wallet'] = checkInt($walletInfo["txcount"]);	
+	$content['wallet'] = checkInt($walletInfo["txcount"]);
+	
 	$i = 0;
-	$lastTime = 0;
 
 	foreach($unspents as $unspent){
 		$content["utxo"][$i]["hash"] = $unspent["txid"];
