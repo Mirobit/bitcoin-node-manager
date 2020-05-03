@@ -266,12 +266,11 @@ function createWalletContent(){
 		return "";
 	}
 
-	$content['wallet'] = checkInt($walletInfo["walletversion"]);	
-	$content['wallet'] = checkInt($walletInfo["balance"]);	
-	$content['wallet'] = checkInt($walletInfo["unconfirmed_balance"]);	
-	$content['wallet'] = checkInt($walletInfo["immature_balance"]);	
-	$content['wallet'] = checkInt($walletInfo["txcount"]);	
-	$content['wallet'] = checkInt($walletInfo["txcount"]);
+	$content['wallet']["walletversion"] = checkInt($walletInfo["walletversion"]);	
+	$content['wallet']["balance"] = checkInt($walletInfo["balance"]);	
+	$content['wallet']["unconfirmed_balance"] = checkInt($walletInfo["unconfirmed_balance"]);	
+	$content['wallet']["immature_balance"] = checkInt($walletInfo["immature_balance"]);	
+	$content['wallet']["txcount"] = checkInt($walletInfo["txcount"]);	
 	
 	$i = 0;
 
@@ -289,8 +288,6 @@ function createWalletContent(){
 
 		$i++;
 	}
-
-	$content['node'] = new Node();
 	
 	return $content;
 }
