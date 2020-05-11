@@ -68,14 +68,14 @@
 					  <thead>
 						<tr>
 						  <th>ID</th>
-						  <th><small>IP</small></th>
+						  <th>IP</th>
 		<?php if($content['geo']){ ?> <th>Country</th> <?php } ?>
 						  <th>Services</th>
-						  <th>Ping (ms)</th>
+						  <th>Ping  <span style="font-weight:normal;">(ms)</span></th>
 		<?php if($content['geo']){ ?> <th>ISP</th> <?php } ?>
-						  <th style="min-width:48px;">Age <span style="font-weight:normal;">(min)</span></th>
+						  <th>Age <span style="font-weight:normal;">(m)</span></th>
 						  <th>Client</th>
-						  <th style="min-width:70px;">Traffic <span style="font-weight:normal;">(MB)</span></th>
+						  <th>Traffic <span style="font-weight:normal;">(MB)</span></th>
 						  <th style="min-width:145px;">Control</th>
 						</tr>
 					  </thead>
@@ -97,9 +97,9 @@
 								} ?>	 
 								</td>
 								<td style="padding-right:0px;"> <?= $peer->ping ?></td>
-								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->isp,0,27) ?></td> <?php } ?>  
+								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->isp ?>"><?= substr($peer->isp,0,22) ?></span></td> <?php } ?>  
 								<td style="padding-right:0px;"> <?= $peer->age ?></td>
-								<td style="padding-right:0px;"><?php if($peer->monitoring){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <?= substr($peer->client,0,20) ?></td>  
+								<td style="padding-right:0px;"><?php if($peer->monitoring){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->client ?>"><?= substr($peer->client,0,13) ?></span></td>  
 								<td style="padding-right:0px;"> <?= $peer->traffic ?></td>
 								<td style="padding-right:0px;">
 									<div class="btn-group pull-left" style="padding:5px 0 3px 0px; margin-bottom:0px">
