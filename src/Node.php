@@ -13,6 +13,9 @@ class Node {
 	public $ipv4Address = 'Unknown';
 	public $ipv6Address = 'Unknown';
 	public $torAddress = 'Unknown';
+	public $ipv4Proxy;
+	public $ipv6Proxy;
+	public $torProxy;
 	public $toConn; // Int: total connections of node
 	public $cTime; // Current node time
 	public $uptime; // String: uptime of node
@@ -64,12 +67,15 @@ class Node {
 		foreach($networks as $network){
 			if($network["name"] === "ipv4"){
 				$this->ipv4 = ($network["reachable"] ? true : false);
+				$this->ipv4Proxy = $network["proxy"] ?? null;
 			}
 			elseif($network["name"] === "ipv6"){
 				$this->ipv6 = ($network["reachable"] ? true : false);
+				$this->ipv6Proxy = $network["proxy"] ?? null;
 			}
 			elseif($network["name"] === "onion"){
 				$this->tor = ($network["reachable"] ? true : false);
+				$this->torProxy = $network["proxy"] ?? null;
 			}	
 		}
 		$ipAddresses =$networkInfo["localaddresses"];
@@ -92,7 +98,7 @@ class Node {
 		$this->services = getServices($networkInfo["localservices"]);
 		$this->localRelay = checkBool($networkInfo["localrelay"]);
 		$this->timeOffset = checkInt($networkInfo["timeoffset"]);
-		$this->port = checkInt($networkInfo["localaddresses"][0]["port"]);
+		$this->port = checkInt($networkInfo["localaddresses"][0]["port"] ?? 0);
 		$this->cTime = getDateTime($tInfo["timemillis"]/1000);
 		$this->minRelayFee = checkInt($networkInfo["relayfee"]);
 		//Mempool

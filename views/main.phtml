@@ -75,9 +75,9 @@
 					</td></tr>
 					<tr><td><i class="fa fa-clock-o fa-fw"></i> Uptime </td><td> <?= $content['node']->uptime ?></td></tr>
 				  <tr><td><i class="fa fa-clock-o fa-fw"></i> Node Time </td><td> <?= $content['node']->cTime ?></td></tr>
-				  <tr><td><i class="fa <?php echo ($content['node']->ipv4 ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv4 </td><td> <?php echo ($content['node']->ipv4 ? $content['node']->ipv4Address : "No") ?></td></tr>				  
-				  <tr><td><i class="fa <?php echo ($content['node']->ipv6 ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv6 </td><td> <?php echo ($content['node']->ipv6 ? $content['node']->ipv6Address : "No") ?></td></tr>
-				  <tr><td><i class="fa <?php echo ($content['node']->tor ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> Tor </td><td> <?php echo ($content['node']->tor ? $content['node']->torAddress : "No") ?></td></tr>
+				  <tr><td><i class="fa <?php echo ($content['node']->ipv4 ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv4 </td><td> <?php echo  ($content['node']->ipv4Proxy ? '<i class="fa fa-user-secret fa-fw" title='.$content['node']->ipv4Proxy.'>' : ""); echo ($content['node']->ipv4 ? $content['node']->ipv4Address : "No") ?></td></tr>				  
+				  <tr><td><i class="fa <?php echo ($content['node']->ipv6 ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv6 </td><td> <?php echo  ($content['node']->ipv6Proxy ? '<i class="fa fa-user-secret fa-fw" title='.$content['node']->ipv6Proxy.'>' : ""); echo ($content['node']->ipv6 ? $content['node']->ipv6Address : "No") ?></td></tr>
+				  <tr><td><i class="fa <?php echo ($content['node']->tor ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> Tor </td><td> <?php echo  ($content['node']->torProxy ? '<i class="fa fa-user-secret fa-fw" title='.$content['node']->torProxy.'>' : ""); echo ($content['node']->tor ? $content['node']->torAddress : "No") ?></td></tr>
 				  <tr><td><i class="fa <?php echo (!$content['node']->pruMode ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Pruning Mode</td><td> <?php echo ($content['node']->pruMode ? "Yes" : "No") ?></td></tr>
 				  <tr><td><i class="fa <?php echo ($content['node']->localRelay ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Block Only Mode</td><td> <?php echo ($content['node']->localRelay ? "No" : "Yes") ?></td></tr>				  
 				  <tr><td><i class="fa <?php echo (!$content['node']->mempoolLimited ? "fa-square-o green" : "fa-warning red") ?> fa-fw"></i> Mempool Limited</td><td> <?php echo ($content['node']->mempoolLimited ? "Yes" : "No") ?></td></tr>
@@ -108,7 +108,7 @@
 				<div class="x_content" style="padding-bottom:2px">
 				  <table class="mempooltable">
 					  <tr><td style="width:50%;"><i class="fa fa-clone fa-fw"></i> Chain </td><td> <span class="badge"><?= $content['node']->chain ?></span></td></tr>
-					  <tr><td><i class="fa fa-balance-scale fa-fw"></i> Size </td><td> <?= $content['node']->bcSize ?> GB</td></tr>
+					  <tr><td><i class="fa fa-hdd-o fa-fw"></i> Size </td><td> <?= $content['node']->bcSize ?> GB</td></tr>
 					  <tr><td><i class="fa fa-key fa-fw"></i> Difficulty </td><td> <?= $content['node']->diff ?></td></tr>
 					  <tr><td><i class="fa fa-cogs fa-fw"></i> Hashrate </td><td> <?= $content['node']->hashRate ?> EH/s</td></tr>
 					  <tr><td><i class="fa fa-clock-o fa-fw"></i> Mediantime </td><td> <?= $content['node']->mNetTime ?></td></tr>
