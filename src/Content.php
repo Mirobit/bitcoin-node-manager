@@ -34,13 +34,13 @@ function createPeerContent(){
 	$content['peers'] = $peersInfo["peers"];
 	$content['tPeers'] = count($peersInfo["peers"]);
 	$content['nPeers'] = $peersInfo["newPeersCount"];
-	$content['segWitP'] = round($content['segWitC']/$content['tPeers'],2)*100; // to be removed
+	//$content['segWitP'] = round($content['segWitC']/($content['tPeers'] > 0 ? $content['tPeers'] : 1),2)*100;
 	$content['cTraffic'] = round($peersInfo["cTraffic"]/1000,2);
 	$content['cTrafficIn'] = round($peersInfo["cTrafficIn"]/1000, 2);
 	$content['cTrafficOut'] = round($peersInfo["cTrafficOut"]/1000, 2);
 	$content['tTraffic'] = round(($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])/1000000000,2);
 	$content['tTrafficOutP'] = round(($netinfo["totalbytessent"]/($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])),2)*100;
-	$content['cTrafficP'] = round($content['cTraffic']/$content['tTraffic'],2)*100;
+	$content['cTrafficP'] = round($content['cTraffic']/($content['tTraffic'] > 0 ? $content['tTraffic'] : 1),2)*100;
 	$content['geo'] = Config::PEERS_GEO;
 
 	return $content;
