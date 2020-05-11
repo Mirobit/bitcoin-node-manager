@@ -136,7 +136,7 @@ function createBlocksContent(){
 	for($i = 0; $i < Config::DISPLAY_BLOCKS; $i++){
 		$block = $bitcoind->getblock($blockHash);
 		$content["blocks"][$block["height"]]["hash"] = $block["hash"];
-		$content["blocks"][$block["height"]]["size"] = round($block["size"]/1000,2);
+		$content["blocks"][$block["height"]]["size"] = round($block["size"]/1000000,2);
 		$content["totalSize"] += $block["size"];
 		$content["blocks"][$block["height"]]["versionhex"] = $block["versionHex"];
 		$content["blocks"][$block["height"]]["voting"] = getVoting($block["versionHex"]);
@@ -157,7 +157,7 @@ function createBlocksContent(){
 		$blockHash = $block["previousblockhash"];
 	}
 	$content["avgTxSize"] = round(($content["totalSize"]/($content["totalTx"]))/1000,2);
-	$content["avgSize"] = round($content["totalSize"]/(Config::DISPLAY_BLOCKS*1000),2);
+	$content["avgSize"] = round($content["totalSize"]/(Config::DISPLAY_BLOCKS*1000000),2);
 	$content["totalSize"] = round($content["totalSize"]/1000000,2);
 	$content["avgFee"] = round($content["totalFees"]/Config::DISPLAY_BLOCKS,2);
 	$content["totalFees"] = round($content["totalFees"],2);
@@ -191,7 +191,7 @@ function createForksContent(){
 
 		if($fork["status"] != "headers-only" AND $fork["status"] != "unknown"){
 			$block = $bitcoind->getblock($fork["hash"]);
-			$content["blocks"][$i]["size"] = round($block["size"]/1000,2);
+			$content["blocks"][$i]["size"] = round($block["size"]/1000000,2);
 			$content["blocks"][$i]["versionhex"] = $block["versionHex"];
 			$content["blocks"][$i]["voting"] = getVoting($block["versionHex"]);
 			$content["blocks"][$i]["time"] = getDateTime($block["time"]);
@@ -279,7 +279,6 @@ function createWalletContent(){
 		$content["utxo"][$i]["vout"] = $unspent["vout"];
 		$content["utxo"][$i]["address"] = $unspent["address"];
 		$content["utxo"][$i]["label"] = $unspent["label"];
-		$content["utxo"][$i]["scriptpubkey"] = $unspent["scriptPubKey"];
 		$content["utxo"][$i]["amount"] = $unspent["amount"];
 		$content["utxo"][$i]["confs"] = $unspent["confirmations"];
 		$content["utxo"][$i]["spendable"] = $unspent["spendable"];
