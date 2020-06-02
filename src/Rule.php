@@ -160,7 +160,7 @@ class Rule {
 						try{
 							$msg1 = $bitcoind->setban($peer->ip, "add", intval($rule->bantime));
 							$logging .= $logTime." - ID ".$rule->id.": Banned (".$rule->trigger."): ".$peer->ip." (".$peer->client.") for ".$rule->bantime." s\r\n";
-						}catch(Exception $e) {
+						}catch(\Exception $e) {
 							$logging .= $logTime." - ID ".$rule->id.": Error banning ".$peer->ip." (".$peer->client.") for ".$rule->bantime." s\r\n";
 						}						
 
@@ -169,7 +169,7 @@ class Rule {
 						try{
 							$bitcoind->disconnectnode($peer->ip);
 							$logging .= $logTime." - ID ".$rule->id.": Disconnected (".$rule->trigger."): ".$peer->ip." (".$peer->client.")\r\n";
-						}catch(Exception $e) {
+						}catch(\Exception $e) {
 							$logging .= $logTime." - ID ".$rule->id.": Error disconnecting ".$peer->ip." (".$peer->client.")\r\n";
 						}
 						break;
