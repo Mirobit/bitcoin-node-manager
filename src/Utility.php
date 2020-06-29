@@ -2,7 +2,28 @@
 
 namespace App;
 
-function getServices($hex){
+function formatServices($servicesArray) {
+	$services = [];
+
+	if(empty($servicesArray)) {
+		$services['None'] = "None";
+		return $services;
+	}
+
+	foreach($servicesArray as $service) {
+		$name = ucwords(strtolower(str_replace("_", " ", $service)));
+		$words = str_word_count($name, 2);
+		$shortName = '';
+		foreach($words as $word) {
+			$shortName .= substr($word, 0, 1);
+		}
+		$services[$name] = $shortName;
+	}
+
+	return $services;
+}
+
+function getServices2($hex){
 	$bit = base_convert($hex, 16, 2);
 	$services = [];
 	

@@ -46,7 +46,11 @@ class Peer{
 		$this->ip = getCleanIP($peer["addr"]);
 		$this->ipOriginal = checkIpPort($peer["addr"]);
 		$this->ipv6 = checkIfIpv6($this->ip);
-		$this->services = getServices($peer["services"]);
+		if(isset($peer["servicesnames"])) {
+			$this->services = formatServices($peer["servicesnames"]);
+		} else {
+			$this->services = getServices($peer["services"]);
+		}
 		$this->servicesOriginal = checkServiceString($peer["services"]);
 		$this->relayTx = checkBool($peer["relaytxes"]);
 		if(isset($peer["feefilter"])){

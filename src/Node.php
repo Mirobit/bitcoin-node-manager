@@ -95,7 +95,12 @@ class Node {
 		$this->uptime = timeToString($uptimeInfo);
 		$this->client = str_replace('/','',htmlspecialchars($networkInfo["subversion"]));
 		$this->proVer = checkInt($networkInfo["protocolversion"]);
-		$this->services = getServices($networkInfo["localservices"]);
+		if(isset($networkInfo["localservicesnames"])) {
+			$this->services = formatServices($networkInfo["localservicesnames"]);
+		} else {
+			$this->services = getServices($networkInfo["localservices"]);
+		}
+
 		$this->localRelay = checkBool($networkInfo["localrelay"]);
 		$this->timeOffset = checkInt($networkInfo["timeoffset"]);
 		$this->port = checkInt($networkInfo["localaddresses"][0]["port"] ?? 0);
