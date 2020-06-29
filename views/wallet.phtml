@@ -73,7 +73,8 @@
 					  </thead>
 					  <tbody>
 						<?php $i = 0;
-							  foreach($content['utxo'] as $key => $utxo){ ?>
+						if(isset($content["utxo"])) {
+							  foreach($content["utxo"] as $key => $utxo){ ?>
 									<tr>
 										<td><?= $key+1 ?></td>
 										<td><small><?= number_format($utxo["amount"],8) ?></small></td>
@@ -97,7 +98,7 @@
 											</div>										   
 										</td> 
 									</tr>
-						<?php } ?>						
+						<?php } } ?>						
 					  </tbody>
 					</table>
 				  </div>
