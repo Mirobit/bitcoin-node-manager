@@ -82,9 +82,9 @@
 		</div>
 	  </div>
 	  <!-- Ban List Table End -->
-	  
-	  <!-- Ban Control Box --> 
-		<div class="col-md-3 col-sm-5 col-xs-12">
+	 
+		<div class="col-md-3 col-sm-3 col-xs-12">
+		  <!-- Restore List Box --> 
 			<div class="x_panel">
 				<div class="x_title">
 					<h2>Restore List <small></small></h2>
@@ -102,14 +102,10 @@
 					<input type="file" maxlength="10" name="banlist">						   
 				  </div>						  
 				  <button type="submit" class="btn btn-dark" style="padding-left:6px;"><i class="fa fa-upload"></i> Upload</button>
-				  
 				</form>
 			</div>
-	  </div>
-	  <!-- Ban Control Box End --> 
-	  
-	   <!-- Ban List Clear Box --> 
-		<div class="col-md-3 col-sm-3 col-xs-12">
+			<!-- Restore List Box End --> 
+		  <!-- Ban List Clear Box --> 
 			<div class="x_panel">
 				<div class="x_title">
 					<h2>Clear List <small></small></h2>
@@ -123,13 +119,9 @@
 				</div>
 				<p class="help-block">Clears the complete ban list. You can restore the list above with a backup.</p>					 
 				<button type="submit" onclick="clearList()" class="btn btn-dark" style="padding-left:6px;"><i class="fa fa-eraser"></i> Clear</button>
-				  
 			</div>
-	  </div>
-	  <!-- Ban List Clear Box End --> 
-	  
-	  <!-- Ban IpTables Export Box --> 
-		<div class="col-md-3 col-sm-4 col-xs-12" style="float:right;">
+			<!-- Ban List Clear Box End --> 
+			<!-- Ban IpTables Export Box --> 
 			<div class="x_panel">
 				<div class="x_title">
 					<h2>Iptables Rules <small></small></h2>
@@ -149,18 +141,19 @@
 					<div class="modal-dialog modal-ms" role="document">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<div class="panel">
-<pre style="margin:7px;">
-<?php foreach($content['banList'] as $ban){
-echo ($ban['ipv6'] ? "ip6tables" : "iptables"). " -I INPUT -s ".$ban['address']." -j DROP<br/>";
-} ?>
-</pre>
+							<pre style="margin:7px;">
+							<?php foreach($content['banList'] as $ban){
+							echo ($ban['ipv6'] ? "ip6tables" : "iptables"). " -I INPUT -s ".$ban['address']." -j DROP<br/>";
+							} ?>
+							</pre>
 						</div>
 					</div>
 				</div>
-			</div>						  
-		</div>
+			</div>	
+			<!-- Ban IpTables Export Box End --> 	
+	  </div>
 	
-	  <!-- Ban IpTables Export Box End --> 
+
 	  
 	  </div>
 	</div>
