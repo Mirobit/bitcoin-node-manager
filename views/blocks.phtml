@@ -65,7 +65,7 @@
 						  <th>Hash</th>
 						  <th>Time</th>
 						  <th>Size <span style="font-weight:normal;">(MB)</span></th>
-						  <th>Fees</th>
+						  <th>Fees <span style="font-weight:normal;">(₿)</span></th>
 						  <th>TXs</th>
 						  <th>Voting</th>
 						  <th style="min-width:60px;">Info</th>
@@ -82,7 +82,7 @@
 										<td><?= $block["time"] ?> <small>(<?= $block["timeago"] ?> m ago)</small></td>  
 										<td><?= $block["size"] ?></td>
 										<td><?= $block["fees"] ?></td>  	
-										<td><?= $block["txcount"] ?></td>
+										<td><?= number_format($block["txcount"]) ?></td>
 										<td><?php
 										if(!empty($block['voting'])){
 											foreach($block['voting'] as $key => $vote){
