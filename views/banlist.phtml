@@ -9,23 +9,8 @@
 		  <span class="count_bottom"><i class="red"><i class="fa fa-plus"></i><?= $content['lastCount'] ?></i> Last 24h</span>
 		</div>
 		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-		  <span class="count_top"><i class="fa fa-refresh"></i> Auto Banned</span>
-		  <div class="count"><?= $content['autoCount'] ?></div>
-		  <span class="count_bottom"><span class="blue" ><?= $content['autoPer'] ?>%</span> of Bans</span>
-		</div>
-		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-		  <span class="count_top"><i class="fa fa-user"></i> Manually Banned</span>
-		  <div class="count"><?= $content['userCount'] ?></div>
-		  <span class="count_bottom"><span class="blue"><?= $content['userPer'] ?>%</span> of Bans</span>
-		</div>
-		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 		  <span class="count_top"><i class="fa fa-clock-o"></i> Average Ban Time</span>
 		  <div class="count"><?= $content['avgTime'] ?> <small>days</small></div>
-		</div>
-		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-		  <span class="count_top"><i class="fa fa-cog"></i> Settings in Core</span>
-		  <div class="count"><?= $content['settCore'] ?> <small>days</small></div>
-		  <span class="count_bottom"><i class="blue"><?= $content['settCoreMode'] ?></i></span>
 		</div>
 	  </div>
 	  </div>
@@ -61,8 +46,7 @@
 				  <th>Date Banned</th>
 				  <th>Banned Until</th>
 				  <th>Duration (d)</th>				  
-				  <th>Reason</th>
-				  <th style="width:17%;">Control</th>
+				  <th>Control</th>
 				</tr>
 			  </thead>
 			  <tbody>
@@ -74,7 +58,6 @@
 								<td> <?= $ban['ban_created'] ?></td>   
 								<td> <?= $ban['banned_until'] ?></td>
 								<td> <?= $ban['ban_duration'] ?></td>
-								<td> <?= $ban['ban_reason'] ?></td>
 								<td>
 									<a class="btn btn-default btn-xs" href="?p=banlist&c=unban&ip=<?= $ban['address'] ?>&t=<?= $_SESSION["csfrToken"] ?>"><!--<i class="fa fa-check fa-lg" style="color:green"></i> -->Unban</a>
 									<div class="btn-group" style="padding:0px 0px 5px 3px;">

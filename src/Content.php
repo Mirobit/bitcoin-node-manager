@@ -54,37 +54,19 @@ function createBanListContent(){
 	$content = [];
 	$lastCount = 0;
 	$autoCount = 0;
-	$autoPerc = 0;
-	$userCount = 0;
-	$userPerc  = 0;
 	$avgTime = 0;
-	$settCore = 0;
 
 	// Total Bans
 	$totalBans = count($banlist);
 
 	foreach($banlist as &$ban){
-		 // In last 25h
+		 // In last 24 hours
 		if($ban['ban_created'] >= time()-24*3600){
 			$lastCount++;
-		}
-		 // Auto/User Ban Count
-		$ban['ban_reason'] = getBanReason($ban['ban_reason']);
-		if($ban['ban_reason'] == "Core"){
-			$autoCount++;
-		}else{
-			$userCount++;
 		}
 
 		// Sum up all ban time
 		$avgTime += $ban['banned_until']-$ban['ban_created'];
-
-		// Calculate Core ban time settings (only done once)
-		if($settCore == 0){
-			if($ban['ban_reason'] == "Core"){
-			   $settCore = (int)$ban['banned_until'] - (int)$ban['ban_created'];
-			}
-		}
 
 		$ban['ban_duration'] = round(($ban['banned_until'] - $ban['ban_created'])/86400,1);
 		$ban['ban_created'] = getDateTime($ban['ban_created']);
@@ -99,22 +81,8 @@ function createBanListContent(){
 	// Calculate and format avergae ban time
 	$content['avgTime'] = ($totalBans > 0 ? round($avgTime/(86400*$totalBans),0): 0);
 
-	// Calculate percentage auto/user bans
-	$content['autoCount'] = $autoCount;
-	$content['userCount'] = $userCount;
-	$content['autoPer'] = ($totalBans > 0 ? round($autoCount/$totalBans,2)*100 : '-');
-	$content['userPer'] = ($totalBans > 0 ? round($userCount/$totalBans,2)*100 : '-');
-
 	$content['totalBans'] = $totalBans;
 	$content['lastCount'] = $lastCount;
-
-	// Setting Core Setting and check if default
-	$content['settCore'] = $settCore/86400;
-	if($content['settCore'] != 1){
-		$content['settCoreMode'] = "Custom";
-	}else{
-	   $content['settCoreMode'] = "Default";
-	}
 
 	// List of all banned peers
 	$content['banList'] = $banlist;
