@@ -165,7 +165,7 @@ function createForksContent(){
 			$content["blocks"][$i]["time"] = getDateTime($block["time"]);
 			$lastTime = $block["time"];
 			$content["blocks"][$i]["mediantime"] = getDateTime($block["mediantime"]);
-			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/60);
+			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/ (($i === 0) ? 60 : 86400));
 			$content["blocks"][$i]["txcount"] = count($block["tx"]);
 
 			if($content["blocks"][$i]["time"] >= $timeAgo){
@@ -177,7 +177,7 @@ function createForksContent(){
 
 	// How far to go back (days)
 	$content["timeframe"] = round((time()-$lastTime)/86400);
-	$content["forkCount"] = $i;
+	$content["forkCount"] = $i - 1;
 
 	return $content;
 }
