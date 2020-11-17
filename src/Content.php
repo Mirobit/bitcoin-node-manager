@@ -130,7 +130,7 @@ function createBlocksContent(){
 	$content["avgFee"] = round($content["totalFees"]/Config::DISPLAY_BLOCKS,2);
 	$content["totalFees"] = round($content["totalFees"],2);
 	$content["numberOfBlocks"] = Config::DISPLAY_BLOCKS;
-	$content["timeframe"] = round(end($content["blocks"])["timeago"]/60,0);
+	$content["timeframe"] = round(end($content["blocks"])["timeago"]/60);
 
 	return $content;
 }
@@ -165,7 +165,7 @@ function createForksContent(){
 			$content["blocks"][$i]["time"] = getDateTime($block["time"]);
 			$lastTime = $block["time"];
 			$content["blocks"][$i]["mediantime"] = getDateTime($block["mediantime"]);
-			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/86400);
+			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/60);
 			$content["blocks"][$i]["txcount"] = count($block["tx"]);
 
 			if($content["blocks"][$i]["time"] >= $timeAgo){
@@ -177,7 +177,7 @@ function createForksContent(){
 
 	// How far to go back (days)
 	$content["timeframe"] = round((time()-$lastTime)/86400);
-	$content["forkCount"] = Config::DISPLAY_FORKS;
+	$content["forkCount"] = $i;
 
 	return $content;
 }
