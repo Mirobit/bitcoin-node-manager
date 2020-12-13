@@ -29,7 +29,7 @@ class Config {
 	// Set the FALSE to not use the Geo API.
 	const PEERS_GEO = TRUE;
 	// Maxmimum of seconds to wait for response from ip-api.com
-	const GEO_TIMEOUT = 2;
+	const PEERS_GEO_TIMEOUT = 2;
 
 	// Number of TXs displayed on mempool page
 	const DISPLAY_TXS = 100;

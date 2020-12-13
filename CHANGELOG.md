@@ -1,5 +1,21 @@
 # Bitcoin Node Manager Changelog
 
+## 1.0.0 - 2020-12-13
+
+Three years after the first release, 1.0.0 is finally out :partying_face:
+
+- [**New**] On the Main (Global Peer Distribution next to the help icon) and the Peers page (next to the help icon) is a small refresh icon displayed if Geo API calls were made
+- [**Improved**] Link to block explorer that displays forks
+- [**Improved**] Updated hoster detection list
+- [**Improved**] Dynamic services detection
+- [**Fixed**] Compatibility with Bitcoin Core 0.20.1
+- [**Fixed**] Country flag icons
+- [**Fixed**] Compatibility with IP-API.com limits
+- [**Fixed**] Peer geo data
+- [**Fixed**] Forks counter
+- [**Fixed**] PHP Error namespace
+- [**Fixed**] Wallet page
+
 ## 0.6.0 Beta - 2020-05-12
 
 This will delete your `src\Config.php`. Copy the `src\Config.php.example`, remove `.example` and change your settings. Starting this release, `git pull` will not mess with your `src\Config.php` anymore.

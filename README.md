@@ -1,6 +1,6 @@
 # Bitcoin Node Manager Beta
 
-![](https://i.imgur.com/wfUpY1t.png)
+![](https://user-images.githubusercontent.com/13236924/102018547-2c11e800-3d6e-11eb-96bb-e0bccf76977e.png)
 
 Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for your Bitcoin node.
 
@@ -55,5 +55,4 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 - [ ] Display expanded peer/block info (popup)
 - [ ] More customization settings
 - [ ] Highlight suspicious peers
-- [ ] Sort mempool tx, request more
 - [ ] Option to import blacklist of spy / resource wasting peers

@@ -664,8 +664,8 @@ function getIpData($ips){
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_URL,'http://ip-api.com/batch?fields=query,country,countryCode,city,isp,status');
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , CONFIG::GEO_TIMEOUT); 
-	curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG::GEO_TIMEOUT+1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , CONFIG::PEERS_GEO_TIMEOUT); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG::PEERS_GEO_TIMEOUT+1);
 	
 	// One call for each 100 ips
 	$apiData['geojson'] = [];
