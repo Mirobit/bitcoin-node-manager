@@ -12,7 +12,7 @@ function createMainContent(){
 	$content['last24h'] = $banListInfo['lastCount'];
 	$content['node'] = new Node();
 	if(Config::PEERS_GEO){
-		$content['map'] = createMapJs($peerCount);
+		$content['map'] = createMapJs($peerCount, $peersInfo['countryList']);
 	}
 	$content['geo'] = Config::PEERS_GEO;
 	$content['nPeers'] = $peersInfo["newPeersCount"];

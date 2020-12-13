@@ -451,45 +451,35 @@ function getMostPop($peers){
 
 // Peer functions
 
-function getPeerData(bool $geo = NULL){
-	global $bitcoind;
-	
-	// If not set, use config setting
-	if(is_null($geo)){
-		$geo = CONFIG::PEERS_GEO;
-	}
+function getPeerData(bool $geo = CONFIG::PEERS_GEO){
+  global $bitcoind;
+  $peersData = [];
 	
 	$peerInfo = $bitcoind->getpeerinfo(); 
 
 	if($geo){
-		$peers = createPeersGeo($peerInfo);
+		$peersData = createPeersGeo($peerInfo);
 	}else{
-		$peers = createPeers($peerInfo);
+    $peersData["peers"] = [];
+    $peersData["cTraffic"] = 0;
+    $peersData["cTrafficIn"] = 0;
+    $peersData["cTrafficOut"] = 0;
+    $peersData["newPeersCount"] = 0;
+    
+    foreach($peerinfo as $peer){
+      $peerObj = new Peer($peer);
+      $peersData["peers"][] = $peerObj;
+      $peersData["cTraffic"] += $peerObj->traffic;
+      $peersData["cTrafficIn"] += $peerObj->trafficIn;
+      $peersData["cTrafficOut"] += $peerObj->trafficOut;
+    }
 	}
 	
-	return $peers;
-}
-
-function createPeers($peerinfo){
-	$peersInfo["peers"] = [];
-	$peersInfo["cTraffic"] = 0;
-	$peersInfo["cTrafficIn"] = 0;
-	$peersInfo["cTrafficOut"] = 0;
-	$peersInfo["newPeersCount"] = 0;
-	
-	foreach($peerinfo as $peer){
-		$peerObj = new Peer($peer);
-		$peersInfo["peers"][] = $peerObj;
-		$peersInfo["cTraffic"] += $peerObj->traffic;
-		$peersInfo["cTrafficIn"] += $peerObj->trafficIn;
-		$peersInfo["cTrafficOut"] += $peerObj->trafficOut;
-	}
-
-	return $peersInfo;
+	return $peersData;
 }
 
 function createPeersGeo($peerinfo){
-	global $countryList;
+	$peersInfo['countryList'] = [];
 	$peersInfo["peers"] = [];
 	// Current traffic
 	$peersInfo["cTraffic"] = 0;
@@ -511,7 +501,7 @@ function createPeersGeo($peerinfo){
 		$oldestPeerId = reset($peerinfo)["id"];
 		$oldestPeerIp = getCleanIP(reset($peerinfo)["addr"]);
 		$delete = false;
-		// Checks if we know about the oldest peer, if not we assume that we don't known any peer
+    // Checks if we know about the oldest peer, if not we assume that we don't known any peer
 		foreach($arrayPeers as $key => $peer){
 			if($oldestPeerIp == $peer[0]){
 				$delete = true;
@@ -533,49 +523,53 @@ function createPeersGeo($peerinfo){
 		$noGeoData = true;
 	}
 	
-	// Find Ips that we don't have geo data for and that are "older" than 2 minutes
+	// Find Ips that we don't have geo data for and that are "older" than 5 minutes
 	// First interation through all peers is used to collect ips for geo api call. This way the batch functionality can be used
-	$ips = [];
-	foreach($peerinfo as &$peer){
+  $ips = [];
+  $ipData = [];
+
+	foreach($peerinfo as $peer){
 		$tempIP = getCleanIP($peer['addr']);
 		$age = round((time()-$peer["conntime"])/60);
-		if ($age >  2 AND ($noGeoData OR !in_array($tempIP,array_column($arrayPeers,0)))){
+		if ($age >  5 AND ($noGeoData OR !in_array($tempIP,array_column($arrayPeers,0)))){
 			$ips[] = $tempIP;
 		}
 	}
-	unset($peer);
 	
 	if(!empty($ips)){
-		$ipData = getIpData($ips);
-	}
+    $apiData = getIpData($ips);
+    $ipData = $apiData['geojson'];
+    $peerData['api'] = $apiData['api'];
+  }
+  
 	// 2nd interation through peers to create final peer list for output
 	foreach($peerinfo as $peer){
 		// Creates new peer object
 		$peerObj = new Peer($peer);
 
 		// Checks if peer is new or if we can read data from disk (geodatapeers.inc)
-		if($noGeoData OR !in_array($peerObj->ip,array_column($arrayPeers,0))){	   
-			if(isset($ipData[0]) AND $peerObj->age > 2){
-				// Only counted for peers older than 2 minutes
-				$peersInfo["newPeersCount"]++;
-				
-				$countryInfo = $ipData[array_search($peerObj->ip, array_column($ipData, 'query'))];
-				$countryCode = checkCountryCode($countryInfo['countryCode']);
-				$country = checkString($countryInfo['country']);
-				$isp = checkString($countryInfo['isp']);		 
+		if($noGeoData OR !in_array($peerObj->ip,array_column($arrayPeers,0))){
+      $index = array_search($peerObj->ip, array_column($ipData, 'query'));
+			if(isset($ipData[0]) AND $peerObj->age > 5 AND is_numeric($index)){
+				$ipInfo = $ipData[$index];
+				$countryCode = checkCountryCode($ipInfo['countryCode']);
+				$country = checkString($ipInfo['country']);
+				$isp = checkString($ipInfo['isp']);		 
 				$hosted = checkHosted($isp);
 				// Adds the new peer to the save list
-				$arrayPeers[$peerObj->id] = array($peerObj->ip, $countryCode, $country, $isp, $hosted, 1);
-			}elseif($peerObj->age > 2){
+        $arrayPeers[$peerObj->id] = array($peerObj->ip, $countryCode, $country, $isp, $hosted, 1);
+        // Only counted for peers older than 5 minutes
+				$peersInfo["newPeersCount"]++;
+			}elseif($peerObj->age > 5){
 				// If IP-Api.com call failed we set all data to Unknown and don't store the data
 				$countryCode = "UN";
 				$country = "Unknown";
 				$isp = "Unknown";		 
 				$hosted = false;
-				// Only counted for peers older than 2 minutes
+				// Only counted for peers older than 5 minutes
 				$peersInfo["newPeersCount"]++;				
 			}else{
-				// If peer is younger than 2 minutes
+				// If peer is younger than 5 minutes
 				$countryCode = "NX";
 				$country = "New";
 				$isp = "New";		 
@@ -596,11 +590,11 @@ function createPeersGeo($peerinfo){
 		}
 
 		// Counts the countries
-		if(isset($countryList[$country])){	   
-			$countryList[$country]['count']++;
+		if(isset($peersInfo['countryList'][$country])){	   
+      $peersInfo['countryList'][$country]['count']++;
 		}else{
-			$countryList[$country]['code'] = $countryCode;
-			$countryList[$country]['count'] = 1;
+			$peersInfo['countryList'][$country]['code'] = $countryCode;
+			$peersInfo['countryList'][$country]['count'] = 1;
 		}
 
 		// Adds country data to peer object
@@ -624,7 +618,7 @@ function createPeersGeo($peerinfo){
 	}
 
 	// Only if new peers connected
-	if(isset($ipData)) {
+	if(!empty($ipData)) {
 		// Removes all peers that the node is not connected to anymore.
 		foreach($arrayPeers as $key => $peer){
 			if($peer[5] == 0){
@@ -641,12 +635,14 @@ function createPeersGeo($peerinfo){
 
 function getIpData($ips){
 	global $error;
-	
-	$numOfIps = count($ips);
-	// A maximum of 300 IPs can be checked (theoratical limit by ip-api.com is 15000 per min (150 x 100) if batch requests are used)
-	if($numOfIps > 300){
-		$numOfIps = 300;
-	}	
+  $apiData['api']['callc'] = 0;
+
+  // ip-api.com allows 15 requests with 100 ips per minute. The limit here is lower since
+  // new peers could connect within a minute a trigger additional calls.
+  $numOfIps = count($ips);
+	if($numOfIps > 1200) $numOfIps = 1200;
+
+  $apiData['api']['ipc'] = $numOfIps;
 	$j = 0;
 	// A mamxium of 100 Ips can be checked per API call (limit by ip-api.com)
 	$m = 100;
@@ -659,20 +655,22 @@ function getIpData($ips){
 			$postvars[$j][] =  array("query" => $ips[$i+$j]);
 		}
 		$j += $i;
-	}	
+  }	
+  
 	// Curl
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_URL,'http://ip-api.com/batch?fields=query,country,countryCode,isp,status');
+	curl_setopt($ch, CURLOPT_URL,'http://ip-api.com/batch?fields=query,country,countryCode,city,isp,status');
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , CONFIG::PEERS_GEO_TIMEOUT); 
-	curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG::PEERS_GEO_TIMEOUT+1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , CONFIG::GEO_TIMEOUT); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG::GEO_TIMEOUT+1);
 	
 	// One call for each 100 ips
-	$geojsonraw = [];
+	$apiData['geojson'] = [];
 	foreach($postvars as $postvar){
+    $apiData['api']['callc']++;
 		$postvarJson = json_encode($postvar);
 		curl_setopt($ch,CURLOPT_POSTFIELDS, $postvarJson);
 		$result = json_decode(curl_exec($ch),true);
@@ -680,13 +678,13 @@ function getIpData($ips){
 			$error = "Geo API (ip-api.com) Timeout";
 			$result = [];
 		}
-		$geojsonraw = array_merge($geojsonraw, $result);
-	}
-	return $geojsonraw;
+		$apiData['geojson'] = array_merge($apiData['geojson'], $result);
+  }
+
+	return $apiData;
 }
 
-function createMapJs(int $peerCount){
-	global $countryList;
+function createMapJs(int $peerCount, array $countryList){
 	
 	// Sorting country list
 	function compare($a, $b)
