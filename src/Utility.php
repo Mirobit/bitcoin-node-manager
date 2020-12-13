@@ -479,16 +479,16 @@ function getPeerData(bool $geo = CONFIG::PEERS_GEO){
 }
 
 function createPeersGeo($peerinfo){
-	$peersInfo['countryList'] = [];
-	$peersInfo["peers"] = [];
+	$peerData['countryList'] = [];
+	$peerData["peers"] = [];
 	// Current traffic
-	$peersInfo["cTraffic"] = 0;
-	$peersInfo["cTrafficIn"] = 0;
-	$peersInfo["cTrafficOut"] = 0;
-	$peersInfo["newPeersCount"] = 0;
+	$peerData["cTraffic"] = 0;
+	$peerData["cTrafficIn"] = 0;
+	$peerData["cTrafficOut"] = 0;
+	$peerData["newPeersCount"] = 0;
 	// Not used yet
-	$peersInfo["hosterCount"] = 0;
-	$peersInfo["privateCount"] = 0;
+	$peerData["hosterCount"] = 0;
+	$peerData["privateCount"] = 0;
 	
 	$noGeoData = false;
 	
@@ -559,7 +559,7 @@ function createPeersGeo($peerinfo){
 				// Adds the new peer to the save list
         $arrayPeers[$peerObj->id] = array($peerObj->ip, $countryCode, $country, $isp, $hosted, 1);
         // Only counted for peers older than 5 minutes
-				$peersInfo["newPeersCount"]++;
+				$peerData["newPeersCount"]++;
 			}elseif($peerObj->age > 5){
 				// If IP-Api.com call failed we set all data to Unknown and don't store the data
 				$countryCode = "UN";
@@ -567,7 +567,7 @@ function createPeersGeo($peerinfo){
 				$isp = "Unknown";		 
 				$hosted = false;
 				// Only counted for peers older than 5 minutes
-				$peersInfo["newPeersCount"]++;				
+				$peerData["newPeersCount"]++;				
 			}else{
 				// If peer is younger than 5 minutes
 				$countryCode = "NX";
@@ -590,11 +590,11 @@ function createPeersGeo($peerinfo){
 		}
 
 		// Counts the countries
-		if(isset($peersInfo['countryList'][$country])){	   
-      $peersInfo['countryList'][$country]['count']++;
+		if(isset($peerData['countryList'][$country])){	   
+      $peerData['countryList'][$country]['count']++;
 		}else{
-			$peersInfo['countryList'][$country]['code'] = $countryCode;
-			$peersInfo['countryList'][$country]['count'] = 1;
+			$peerData['countryList'][$country]['code'] = $countryCode;
+			$peerData['countryList'][$country]['count'] = 1;
 		}
 
 		// Adds country data to peer object
@@ -603,17 +603,17 @@ function createPeersGeo($peerinfo){
 		$peerObj->isp = $isp;
 		$peerObj->hosted = $hosted;
 		if($hosted){
-			$peersInfo["hosterCount"]++;
+			$peerData["hosterCount"]++;
 		}else{
-			$peersInfo["privateCount"]++;
+			$peerData["privateCount"]++;
 		}
 		// Adds traffic of each peer to total traffic (in MB)
-		$peersInfo["cTraffic"] += $peerObj->traffic;
-		$peersInfo["cTrafficIn"] += $peerObj->trafficIn;
-		$peersInfo["cTrafficOut"] += $peerObj->trafficOut;
+		$peerData["cTraffic"] += $peerObj->traffic;
+		$peerData["cTrafficIn"] += $peerObj->trafficIn;
+		$peerData["cTrafficOut"] += $peerObj->trafficOut;
 	
 		// Adds peer to peer array
-		$peersInfo["peers"][] = $peerObj;
+		$peerData["peers"][] = $peerObj;
 
 	}
 
@@ -630,7 +630,7 @@ function createPeersGeo($peerinfo){
 		file_put_contents('data/geodatapeers.inc', $newSerializePeers);
 	}
 	
-	return $peersInfo;
+	return $peerData;
 }
 
 function getIpData($ips){

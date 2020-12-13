@@ -3,45 +3,45 @@
 namespace App;
 
 function createMainContent(){
-	$peersInfo = getPeerData();
-	$peerCount = count($peersInfo["peers"]);
-	$banListInfo = createBanListContent();
+  $peersData = getPeerData();
+  $peerCount = count($peersData["peers"]);
+  $banListInfo = createBanListContent();
 
-	$content = [];
-	$content['bannedPeers'] = $banListInfo['totalBans'];
-	$content['last24h'] = $banListInfo['lastCount'];
-	$content['node'] = new Node();
-	if(Config::PEERS_GEO){
-		$content['map'] = createMapJs($peerCount, $peersInfo['countryList']);
-	}
-	$content['geo'] = Config::PEERS_GEO;
-	$content['nPeers'] = $peersInfo["newPeersCount"];
-	$content['chartData'] = getTopClients($peersInfo["peers"]);
+  $content = [];
+  $content['bannedPeers'] = $banListInfo['totalBans'];
+  $content['last24h'] = $banListInfo['lastCount'];
+  $content['node'] = new Node();
+  $content['geo'] = Config::PEERS_GEO;
+  if(isset($peersData['countryList'])) $content['map'] = createMapJs($peerCount, $peersData['countryList']);
+  if(isset($peersData['api'])) $content['api'] = $peersData['api'];
+  $content['nPeers'] = $peersData["newPeersCount"];
+  $content['chartData'] = getTopClients($peersData["peers"]);
 
-	// Current peers traffic
-	$content['cTrafficIn'] = round($peersInfo["cTrafficIn"]/1000, 2);
-	$content['cTrafficOut'] = round($peersInfo["cTrafficOut"]/1000, 2);
+  // Current peers traffic
+  $content['cTrafficIn'] = round($peersData["cTrafficIn"]/1000, 2);
+  $content['cTrafficOut'] = round($peersData["cTrafficOut"]/1000, 2);
 
-	return $content;
+  return $content;
 }
 
 function createPeerContent(){
 	global $bitcoind;
 
-	$peersInfo = getPeerData();
+	$peersData = getPeerData();
 	$netinfo = $bitcoind->getnettotals();
-	$content = getMostPop($peersInfo["peers"]);
-	$content['peers'] = $peersInfo["peers"];
-	$content['tPeers'] = count($peersInfo["peers"]);
-	$content['nPeers'] = $peersInfo["newPeersCount"];
+	$content = getMostPop($peersData["peers"]);
+	$content['peers'] = $peersData["peers"];
+	$content['tPeers'] = count($peersData["peers"]);
+	$content['nPeers'] = $peersData["newPeersCount"];
 	//$content['segWitP'] = round($content['segWitC']/($content['tPeers'] > 0 ? $content['tPeers'] : 1),2)*100;
-	$content['cTraffic'] = round($peersInfo["cTraffic"]/1000,2);
-	$content['cTrafficIn'] = round($peersInfo["cTrafficIn"]/1000, 2);
-	$content['cTrafficOut'] = round($peersInfo["cTrafficOut"]/1000, 2);
+	$content['cTraffic'] = round($peersData["cTraffic"]/1000,2);
+	$content['cTrafficIn'] = round($peersData["cTrafficIn"]/1000, 2);
+	$content['cTrafficOut'] = round($peersData["cTrafficOut"]/1000, 2);
 	$content['tTraffic'] = round(($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])/1000000000,2);
 	$content['tTrafficOutP'] = round(($netinfo["totalbytessent"]/($netinfo["totalbytesrecv"] + $netinfo["totalbytessent"])),2)*100;
 	$content['cTrafficP'] = round($content['cTraffic']/($content['tTraffic'] > 0 ? $content['tTraffic'] : 1),2)*100;
 	$content['geo'] = Config::PEERS_GEO;
+  if(isset($peersData['api'])) $content['api'] = $peersData['api'];
 
 	return $content;
 }
