@@ -466,7 +466,7 @@ function getPeerData(bool $geo = CONFIG::PEERS_GEO){
     $peersData["cTrafficOut"] = 0;
     $peersData["newPeersCount"] = 0;
     
-    foreach($peerinfo as $peer){
+    foreach($peerInfo as $peer){
       $peerObj = new Peer($peer);
       $peersData["peers"][] = $peerObj;
       $peersData["cTraffic"] += $peerObj->traffic;
