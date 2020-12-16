@@ -179,7 +179,7 @@
 						foreach($content['chartData']['legend'] as $cName => $client){
 						?>
 							<tr>
-								<td><?= $i ?>. <?= $cName ?></td><td style="padding-right:0px;padding-left:0px;"><small>(<?= $client['share'] ?>%)</small></td>
+								<td><?= $i ?>. <a href="index.php?p=peers&q=<?= $cName ?>"><?= $cName ?></a></td><td style="padding-right:0px;padding-left:0px;"><small>(<?= $client['share'] ?>%)</small></td>
 							</tr>
 						<?php 
 							$i++; 
@@ -227,7 +227,7 @@
 						foreach($content['map']['desc'] as $cName => $country){
 						?>
 							<tr>
-								<td style="padding-right:0px;width:33px"><?= $i ?>.</td><td style="padding-left:0px;padding-right:0px;width:32px"><img src="assets/images/flags/16/<?= $cName ?>.png" /></td><td style="padding-left:2px;"> <?= $cName ?></td><td style="padding-right:0px;width:35px"><?= $country['count'] ?></td><td style="padding-left:0px;padding-right:0px;width:45px">(<?= $country['share'] ?>%)</td>									 
+              <td style="padding-right:0px;width:33px"><?= $i ?>.</td><td style="padding-left:0px;padding-right:0px;width:32px"><img src="assets/images/flags/16/<?= $cName ?>.png" /></td><td style="padding-left:2px;"><a href="index.php?p=peers&q=<?= $cName ?>"><?= $cName ?></a></td><td style="padding-right:0px;width:35px"><?= $country['count'] ?></td><td style="padding-left:0px;padding-right:0px;width:45px">(<?= $country['share'] ?>%)</td>								 
 							</tr>
 						<?php 
 							$i++; 

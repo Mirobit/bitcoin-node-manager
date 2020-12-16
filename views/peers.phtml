@@ -12,7 +12,7 @@
 					  <div class="count"><?= $content['mpCli'] ?></div>
 					  <span class="count_bottom"><span style="color:#EDDA74;"> <?= $content['mpCliC'] ?></span> Peers</span>
 					</div>
-					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<?php if($content['geo']){?><div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-globe"></i> Most Popular Country</span>
 					  <div class="count"><?= $content['mpCou'] ?></div>
 					  <span class="count_bottom"><span class="blue" ><?= $content['mpCouC'] ?></span> Peers</span>
@@ -22,6 +22,7 @@
 					  <div class="count"><?= $content['mpIsp'] ?></div>
 					  <span class="count_bottom"><span style="color:orange;"><?= $content['mpIspC'] ?></span> Peers</span>
 					</div>
+          <?php } ?>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-cloud" title="Since last start"></i> Total Traffic</span>
 					  <div class="count"><?= ($content['tTraffic'] >= 1000) ? round($content['tTraffic']/1000,2)." <small>TB</small>" : $content['tTraffic']." <small>GB</small>"?></div>
@@ -62,7 +63,7 @@
 					</ul>
 					<div class="clearfix"></div>
 				  </div>
-				  <div class="x_content">
+				  <div class="x_content" hidden>
 					<table id="connectedpeers" class="table table-striped table-bordered table-valign">
 					  <thead>
 						<tr>
@@ -96,7 +97,7 @@
 								} ?>	 
 								</td>
 								<td style="padding-right:0px;"> <?= $peer->ping ?></td>
-								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->isp ?>"><?= substr($peer->isp,0,22) ?></span></td> <?php } ?>  
+								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->isp ?>"><?= substr($peer->isp,0,21) ?></span></td> <?php } ?>  
 								<td style="padding-right:0px;"> <?= $peer->age ?></td>
 								<td style="padding-right:0px;"><?php if($peer->monitoring){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->client ?>"><?= substr($peer->client,0,14) ?></span></td>  
 								<td style="padding-right:0px;"> <?= $peer->traffic ?></td>
@@ -167,7 +168,7 @@
 	<!-- Datatables -->
 	<script>
 	  $(document).ready(function() {
-		
+
 		$('#connectedpeers').DataTable( {
 			paging:   false,
 			bInfo: false,
@@ -181,8 +182,16 @@
 								  }
 						}
 			]
-		} );
-		
+    } );
+    
+    // Check for search query
+    const searchQuery = "<?php  if(isset($_GET['q'])) echo htmlspecialchars($_GET['q']) ?>";
+    if(searchQuery) {
+      const searchBar = document.getElementsByClassName("input-sm")[0]
+      searchBar.value = searchQuery
+      searchBar.dispatchEvent(new Event('keyup'));
+    }
+     document.getElementsByClassName("x_content")[0].hidden = false
 	  });
 	</script>
 	<!-- /Datatables -->
