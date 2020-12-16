@@ -367,18 +367,19 @@ if(empty($_GET) || $_GET['p'] == "main") {
 				$geoPeers = "false";
 			}
 
-			// Write new settings in config.php
-			if (file_exists('src/Config.php')){
-				$conf = file_get_contents('src/Config.php');
-				$conf = preg_replace("/PEERS_GEO = (true|false);/i", 'PEERS_GEO = '.$geoPeers.';', $conf);
-				file_put_contents('src/Config.php', $conf);
-				$message = "Setings succesfully saved";
-			}else{
-				$error = "Config file does not exists";
-			}
-		}
-	}
-   $data = array('section' => 'settings', 'title' => 'Settings', 'geoPeers' => $geoPeers);
+      // Write new settings in config.php
+      if (file_exists('src/Config.php')){
+        $conf = file_get_contents('src/Config.php');
+        $conf = preg_replace("/PEERS_GEO = (true|false);/i", 'PEERS_GEO = '.$geoPeers.';', $conf);
+        $resultConfig = file_put_contents('src/Config.php', $conf);
+        if($resultConfig) $message = "Setings succesfully saved";
+        else $error = "No permissions to write config file";
+      }else{
+        $error = "Config file does not exists";
+      }
+    }
+  }
+  $data = array('section' => 'settings', 'title' => 'Settings', 'geoPeers' => $geoPeers);
 
 	
 // About Page	
