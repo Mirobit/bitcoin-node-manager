@@ -489,18 +489,18 @@ function createPeersGeo($peerinfo){
 	// Not used yet
 	$peerData["hosterCount"] = 0;
 	$peerData["privateCount"] = 0;
-	
+	$arrayPeers = [];
 	$noGeoData = false;
 	
-	// Check if peer file exists and enabled
-	if (file_exists('data/geodatapeers.inc')){
-		// Loads serialized stored peers from disk
-		$serializedPeers = file_get_contents('data/geodatapeers.inc');
-		$arrayPeers = unserialize($serializedPeers);
-		// Check if client was restarted and IDs reassigned
-		$oldestPeerId = reset($peerinfo)["id"];
-		$oldestPeerIp = getCleanIP(reset($peerinfo)["addr"]);
-		$delete = false;
+  // Check if peer file exists and enabled
+  if (file_exists('data/geodatapeers.inc')){
+    // Loads serialized stored peers from disk
+    $serializedPeers = file_get_contents('data/geodatapeers.inc');
+    $arrayPeers = unserialize($serializedPeers);
+    // Check if client was restarted and IDs reassigned
+    $oldestPeerId = reset($peerinfo)["id"];
+    $oldestPeerIp = getCleanIP(reset($peerinfo)["addr"]);
+    $delete = false;
     // Checks if we know about the oldest peer, if not we assume that we don't known any peer
 		foreach($arrayPeers as $key => $peer){
 			if($oldestPeerIp == $peer[0]){
@@ -617,18 +617,17 @@ function createPeersGeo($peerinfo){
 
 	}
 
-	// Only if new peers connected
-	if(!empty($ipData)) {
-		// Removes all peers that the node is not connected to anymore.
-		foreach($arrayPeers as $key => $peer){
-			if($peer[5] == 0){
-				unset($arrayPeers[$key]);
-			}
-		}
+  // Removes all peers that the node is not connected to anymore.
+  foreach($arrayPeers as $key => $peer){
+    if($peer[5] == 0){
+      unset($arrayPeers[$key]);
+    }
+  }
 
-		$newSerializePeers = serialize($arrayPeers);
-		file_put_contents('data/geodatapeers.inc', $newSerializePeers);
-	}
+  if(!empty($arrayPeers)) {
+    $newSerializePeers = serialize($arrayPeers);
+    file_put_contents('data/geodatapeers.inc', $newSerializePeers);
+  }
 	
 	return $peerData;
 }
