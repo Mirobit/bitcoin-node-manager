@@ -62,6 +62,7 @@
 						  <th>Action</th>
 						  <th>Trigger</th>				  
 						  <th>Global Trigger</th>
+              <th>Whitelisted</th>
 						  <th style="width:80px;">Manage</th>
 						</tr>
 					  </thead>
@@ -76,6 +77,7 @@
 									<td> <?php echo $rule->action . (($rule->action == "ban") ? " (".$rule->bantime." s)" : "") ?></td>
 									<td> <?php echo (($rule->trigger != "client") ? $rule->trigger." > ".$rule->threshold : $rule->clientStr." Clients") ?></td>
 									<td> <?php if($rule->global) echo (($rule->gTrigger == "traffic") ? "Traffic (MB)" : "Peer count")." > ".$rule->gThreshold ?></td>
+                  <td> <?= ($rule->whitelisted) ? "true" : "false" ?></td>
 									<td>
 										<a class="btn btn-default btn-xs" href="?p=rules&c=edit&id=<?= $rule->id ?>&t=<?= $_SESSION["csfrToken"] ?>"> Edit</a>
 										<a class="btn btn-default btn-xs" href="?p=rules&c=delete&id=<?= $rule->id ?>&t=<?= $_SESSION["csfrToken"] ?>"> Delete</a>
@@ -99,9 +101,10 @@
 					  <li><a class="close-link"><i class="fa fa-close"></i></a>
 					  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 					  <li><a><i class="fa fa-question-circle-o" data-toggle="tooltip" data-html="true" data-placement="left" title="
-In the first row you chose what to do with rule violating peers (ban (in seconds) or disconnect the peer or just mention the violation in the logfile).<br><br>
+In the first row you choose what to do with rule violating peers (ban (in seconds) or disconnect the peer or just mention the violation in the logfile).<br><br>
 In the second row you specify what the rule violation is (e.g. the peer caused too much traffic or the peer uses a specific client software).<br><br>
-In the third row you can chose if you want that a (to the peer unrelated) trigger event needs to happen before the rule is applied (optional).<br><br>
+In the third row you can choose if you want that a (to the peer unrelated) trigger event needs to happen before the rule is applied (optional).<br><br>
+In the same row you can also choose if the rule should be applied to your whitelisted peers (not recommended).
 In the last fourth row you need to speficy the global trigger event if you checked the box above (e.g. all peers caused more traffic than the given treshold)."></i></a>
 					  </li>
 					</ul>
@@ -149,9 +152,15 @@ In the last fourth row you need to speficy the global trigger event if you check
 
 						<div class="clearfix"></div>
 
-						<div class="col-md-5 col-sm-5 col-xs-12 form-group" style="padding:0px 0px 8px 0px;">													
+						<div class="col-md-5 col-sm-5 col-xs-12 form-group" style="padding:0px 0px 8px 0px;">
 							<label>
 								<input type="checkbox" name="global" id="global" class="js-switch" <?php echo (($content['editRule']->global) ? "checked" : "") ?>/> Global Trigger
+							</label>
+						</div>
+
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group" style="padding:0px 0px 8px 0px;">
+							<label>
+								<input type="checkbox" name="whitelisted" id="whitelisted" class="js-switch" <?php echo (($content['editRule']->whitelisted) ? "checked" : "") ?>/> Include Whitelisted
 							</label>
 						</div>
 						

@@ -4,7 +4,7 @@ namespace App;
 
 class Rule {
 	
-	public $id, $date, $uses, $action, $bantime, $trigger, $threshold, $clientArr, $clientStr, $global, $gTrigger, $gThreshold;
+	public $id, $date, $uses, $action, $bantime, $trigger, $threshold, $clientArr, $clientStr, $global, $gTrigger, $gThreshold, $whitelisted;
 	
 	// Create new rule
 	private function create($data) {
@@ -13,7 +13,15 @@ class Rule {
 		}	
 
 		$this->date = date("Y-m-d H:i:s",time());
-		$this->uses = 0;
+    $this->uses = 0;
+    
+    if(empty($data['threshold'])) {
+      return false;
+    }
+
+    if($data['action'] === "ban" && empty($data['bantime'])) {
+      return false;
+    }
 
 		if(!in_array($data['action'], array('ban','disconnect','notice',), true)){
 			return false;
@@ -41,11 +49,18 @@ class Rule {
 				}
 			}
 			$this->clientStr  = substr($this->clientStr , 0, -2);  
-		}
+    }
+    
+    if(isset($data['whitelisted'])){
+			$this->whitelisted = true;
+		} else {
+      $this->whitelisted = false;
+    }
 		
 		if(isset($data['global']) && $data['global'] !== "on"){
 			return false;
-		}
+    }
+  
 		
 		if(!isset($data['global'])){
 			$this->global = false;
@@ -117,8 +132,9 @@ class Rule {
 					continue;
 				}
 			}		   
-			// If global trigger is active or no global trigger set, every peer is checked
+			// If global trigger is active or not, every peer is checked
 			foreach($data['peers'] as $peer) {
+        if(!$rule->whitelisted && $peer->whitelisted) continue;
 				$result = false;
 				switch($rule->trigger) {
 					case "client":
@@ -190,7 +206,7 @@ class Rule {
 		file_put_contents('data/rules.inc',serialize($data['rules']));
 	}
 	
-	// Gets information needed for rule run
+	// Get information needed for rule run
 	private static function getData(){
 		
 		$node = new Node();
