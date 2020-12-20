@@ -1,5 +1,17 @@
 # Bitcoin Node Manager Changelog
 
+## 1.1.0 - 2020-12-19
+
+The release brings some new features and a few bug fixes.
+
+- [**New**] You can click on countries and clients in the main page to see a filtered peer list
+- [**New**] There is now a mobile menu
+- [**Improved**] Hover over the traffic of a peer to see more detailed traffic information
+- [**Improved**] Rules ignore by default all whitelisted peers
+- [**Fixed**] Geo settings GUI
+- [**Fixed**] Geo data file cleanup
+- [**Fixed**] Peer list with deactivated geo data
+
 ## 1.0.0 - 2020-12-13
 
 Three years after the first release, 1.0.0 is finally out :partying_face:
