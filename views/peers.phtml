@@ -72,11 +72,11 @@
 		<?php if($content['geo']){ ?> <th>Country</th> <?php } ?>
 						  <th>Services</th>
 						  <th>Ping  <span style="font-weight:normal;">(ms)</span></th>
-		<?php if($content['geo']){ ?> <th style="width:65px;">ISP</th> <?php } ?>
+		<?php if($content['geo']){ ?> <th style="min-width:75px;">ISP</th> <?php } ?>
 						  <th>Age <span style="font-weight:normal;">(h)</span></th>
 						  <th>Client</th>
 						  <th>Traffic <span style="font-weight:normal;">(MB)</span></th>
-						  <th style="min-width:145px;">Control</th>
+						  <th style="min-width:100px;">Control</th>
 						</tr>
 					  </thead>
 
@@ -97,7 +97,7 @@
 								} ?>	 
 								</td>
 								<td style="padding-right:0px;"> <?= $peer->ping ?></td>
-								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->isp ?>"><?= substr($peer->isp,0,21) ?></span></td> <?php } ?>  
+								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->isp ?>"><?= substr($peer->isp,0,19) ?></span></td> <?php } ?>  
 								<td style="padding-right:0px;"> <?= round($peer->age/60,1) ?></td>
 								<td style="padding-right:0px;"><?php if($peer->monitoring){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->client ?>"><?= substr($peer->client,0,15) ?></span></td>  
 								<td style="padding-right:0px;" title="Upload: <?= $peer->trafficOut ?> / Download: <?= $peer->trafficIn ?>"> <?= $peer->traffic ?></td>
