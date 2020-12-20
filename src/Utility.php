@@ -202,8 +202,8 @@ function updateHosted($hoster, $hosted){
 	$peers = file_get_contents('data/geodatapeers.inc');
 	$peers = unserialize($peers);
 	foreach($peers as &$peer){
-		if ($peer[5] == $hoster){
-			$peer[6] = $hosted;
+		if ($peer[3] == $hoster){
+			$peer[4] = $hosted;
 		}
 	}
 	file_put_contents('data/geodatapeers.inc',serialize($peers)); 
@@ -617,14 +617,16 @@ function createPeersGeo($peerinfo){
 
 	}
 
-  // Removes all peers that the node is not connected to anymore.
-  foreach($arrayPeers as $key => $peer){
-    if($peer[5] == 0){
-      unset($arrayPeers[$key]);
-    }
-  }
+
 
   if(!empty($arrayPeers)) {
+    // Removes all peers that the node is not connected to anymore.
+    foreach($arrayPeers as $key => $peer){
+      if($peer[5] === 0){
+        unset($arrayPeers[$key]);
+      }
+    }
+
     $newSerializePeers = serialize($arrayPeers);
     file_put_contents('data/geodatapeers.inc', $newSerializePeers);
   }
