@@ -85,8 +85,8 @@ class Peer{
 		$this->inbound = checkBool($peer["inbound"]);
 		$this->startingHeight = checkInt($peer["startingheight"]);
 		$this->banScore = checkInt($peer["banscore"]);
-		$this->syncedHeaders = checkInt($peer["synced_headers"]);
-		$this->syncedBlocks = checkInt($peer["synced_blocks"]);
+		//$this->syncedHeaders = checkInt($peer["synced_headers"]);
+		//$this->syncedBlocks = checkInt($peer["synced_blocks"]);
 		//$this->inflight = $peer["inflight"];
 		$this->whitelisted = checkBool($peer["whitelisted"]);
 		$this->bytessentPerMsg = checkArray($peer["bytessent_per_msg"]);

@@ -1,6 +1,6 @@
 <footer>
 <div class="pull-right">
-<i class="fa fa-bitcoin orange"></i> <a href="https://github.com/mirobit/bitcoin-node-manager"> Node Manager v1.0.0</a> - © 2020
+<i class="fa fa-bitcoin orange"></i> <a href="https://github.com/mirobit/bitcoin-node-manager"> Node Manager v1.1.0</a> - © 2020
 </div>
 <div class="clearfix"></div>
 </footer>
@@ -13,4 +13,13 @@
 	}
 	?>
 	window.history.pushState("", "", "<?= $section ?>");
+
+  const openMobileMenu = () => {
+    const x = document.getElementById("mobileLinks");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
+    }
+}
 </script>

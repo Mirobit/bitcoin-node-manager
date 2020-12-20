@@ -4064,4 +4064,47 @@ ul.notifications {
   min-height: 300px;
   border: 1px solid #e5e5e5; }
 
-/** /Dropzone.js **/
+
+/* Mobile menu */
+.mobilenav{
+  display:none;
+}
+@media only screen and (max-width: 991px) {
+  /* Style the navigation menu */
+  .mobilenav {
+    overflow: hidden;
+    background-color: black;
+    position: relative;
+    display: block;
+  }
+  /* Hide the links inside the navigation menu (except for logo/home) */
+  .mobilenav #mobileLinks {
+    display: none;
+  }
+  /* Style navigation menu links */
+  .mobilenav a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+  /* Style the hamburger menu */
+  .mobilenav a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  /* Add a grey background color on mouse-over */
+  .mobilenav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  /* Style the active link (or home/logo) */
+  .mobilelogo {
+    background-color: #2A3F54;
+    color: white;
+  } 
+}
