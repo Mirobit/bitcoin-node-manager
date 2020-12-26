@@ -32,7 +32,7 @@ class Rule {
 			$this->bantime = $data['bantime'];
 		}
 		
-		if(!in_array($data['trigger'], array('client','traffic','trafficin','trafficout','ping','banscore'), true)){
+		if(!in_array($data['trigger'], array('client','traffic','trafficin','trafficout','ping'), true)){
 			return false;
 		}
 		$this->trigger = $data['trigger'];
@@ -159,9 +159,6 @@ class Rule {
 						break;
 					case "ping":
 						if($peer->ping > $rule->threshold) $result = true;
-						break;
-					case "banscore":
-						if($peer->banscore > $rule->threshold) $result = true;
 						break;				 
 				}
 				

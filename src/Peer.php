@@ -29,7 +29,6 @@ class Peer{
 	public $altClient; // bool
 	public $inbound; // bool
 	public $startingHeight; // int
-	public $banScore; // int
 	public $syncedHeaders; // int
 	public $syncedBlocks; // int
 	//public $inflight; // array
@@ -84,7 +83,6 @@ class Peer{
 		$this->altClient = checkAltClient($this->client);
 		$this->inbound = checkBool($peer["inbound"]);
 		$this->startingHeight = checkInt($peer["startingheight"]);
-		$this->banScore = checkInt($peer["banscore"]);
 		//$this->syncedHeaders = checkInt($peer["synced_headers"]);
 		//$this->syncedBlocks = checkInt($peer["synced_blocks"]);
 		//$this->inflight = $peer["inflight"];
