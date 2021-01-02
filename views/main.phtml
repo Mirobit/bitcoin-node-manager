@@ -8,13 +8,13 @@
 					  <span class="count_bottom"><span class="green" ><i class="fa fa-plus"></i><?= $content['nPeers'] ?></span> New Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-cloud-upload"></i> Total Upload Traffic</span>
-					  <div class="count"><?= ($content['node']->tOut >= 1000) ? round($content['node']->tOut/1000,2)." <small>TB</small>" : $content['node']->tOut." <small>GB</small>"?></div>
+					  <span class="count_top"><i class="fa fa-cloud-upload"></i> Total Upload Traffic (GB)</span>
+					  <div class="count"><?= ($content['node']->tOut >= 1000) ? round($content['node']->tOut/1000,2)." <small>TB</small>" : $content['node']->tOut ?></div>
 					  <span class="count_bottom"><i class="fa fa-angle-right"></i><?= ($content['cTrafficOut'] >= 1000) ? round($content['cTrafficOut']/1000,2)." TB" : $content['cTrafficOut']." GB"?></i> Current Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-cloud-download"></i> Total Download Traffic</span>
-					  <div class="count"><?= ($content['node']->tIn >= 1000) ? round($content['node']->tIn/1000,2)." <small>TB</small>" : $content['node']->tIn." <small>GB</small>"?></div>
+					  <span class="count_top"><i class="fa fa-cloud-download"></i> Total Download Traffic (GB)</span>
+					  <div class="count"><?= ($content['node']->tIn >= 1000) ? round($content['node']->tIn/1000,2)." <small>TB</small>" : $content['node']->tIn ?></div>
 					  <span class="count_bottom"><i class="fa fa-angle-right"></i><?= ($content['cTrafficIn'] >= 1000) ? round($content['cTrafficIn']/1000,2)." TB" : $content['cTrafficIn']." GB"?></i> Current Peers</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
