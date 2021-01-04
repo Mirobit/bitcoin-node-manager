@@ -32,7 +32,7 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 ## Installation
 
 1. Download Bitcoin Node Manager either from [here](https://github.com/Mirobit/bitcoin-node-manager/releases) or clone this repository.
-2. Copy `src/Config.php.example` and remove `.example`. Open `src/Config.php` and enter your bitcoind RPC creditials and set the BNM password.
+2. Copy `src/Config.sample.php` and remove `.sample`. Open `src/Config.php` and enter your bitcoind RPC creditials and set the BNM password.
 3. Make sure the BNM folder is in your web servers folder (e.g. `/www/html/`). If the server is publicly accesible, I recommend renaming the BNM folder to something unique. Although BNM is password protected and access can be limited to a specific IP, there can be security flaws and bugs.
 4. Open the URL to the folder in your browser and login with the password choosen in `src/Config.php`.
 5. Optional: Run `chmod -R 770 /path-to-folder/{data, src, views}`. Only necessary for non Apache servers (`AllowOverride All` necessary), that are publicly accessible. For more information, read next section.
