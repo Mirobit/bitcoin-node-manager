@@ -25,28 +25,26 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 ## Requirements
 
 - Bitcoin Core 0.19.0.1+
-- Web server (Apache, nginx, PHP built-in web server)
+- Web Server (Apache, Nginx, PHP Server)
 - PHP 7.0.0+
-  - cURL extension
-- Docker (Alternative to web server and php)
+  - curl extension
+- Docker (Alternative to Web Server and PHP)
 
 ## Installation
 
-1. Download Bitcoin Node Manager either from [here](https://github.com/Mirobit/bitcoin-node-manager/releases) or clone this repository.
-2. Make sure `bitcoind` is running. If you use `bitcoin-qt` make sure `server=1` is set in the `bitcoin.conf` file.
-3. Optional: `txindex=1` is required in your `bitcoin.conf` for the `Blocks` page. Start `bitcoind` once with the `-reindex` param (this might take a while).
-4. Copy `src/Config.sample.php` and remove `.sample`. Open `src/Config.php` and enter your bitcoind RPC creditials/ip/port and set the BNM password.
+1. [Download](https://github.com/Mirobit/bitcoin-node-manager/releases) Bitcoin Node Manager or clone this repository.
+2. Make sure `bitcoind` is running. If you use `bitcoin-qt` make sure `server=1` is set in the `bitcoin.conf` file. Optional: `txindex=1` is required in your `bitcoin.conf` for the `Blocks` page. Start `bitcoind` once with the `-reindex` param (this might take a while).
+3. Copy `src/Config.sample.php` and remove `.sample`. Open `src/Config.php` and enter your bitcoind RPC creditials/ip/port and set the BNM password.
 
 If you want to use Docker you can skip to the Docker section.
 
-5. Make sure the BNM folder is in your web servers folder (e.g. `/var/www/html/`). If the server is publicly accesible, I recommend renaming the BNM folder to something unique. Although BNM is password protected and access can be limited to a specific IP, there can be security flaws and bugs.
-6. Open the URL to the folder in your browser and login with the password choosen in `src/Config.php`.
-7. Optional: Run `chmod -R 770 /path-to-folder/{data, src, views}`. Only necessary for non Apache servers (`AllowOverride All` necessary), that are publicly accessible. For more information, read next section.
+4. Make sure the BNM folder is in your web servers folder (e.g. `/var/www/html/`). If the server is publicly accesible, I recommend renaming the BNM folder to something unique. Although BNM is password protected and access can be limited to a specific IP, there can be security flaws and bugs.
+5. Open the URL to the folder in your browser and login with the password choosen in `src/Config.php`.
+6. Optional: Run `chmod -R 770 /path-to-folder/{data, src, views}`. Only necessary for non Apache servers (`AllowOverride All` necessary), that are publicly accessible. For more information, read next section.
 
 ### Docker 
 Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 -n bnm -v ${PWD}:/var/www/html php:7.4-apache` in the BNM folder. BNM should now be accesible under http://localhost:8000. You can change the port in `docker-compose.yml` or the terminal command (`8000:80`). Don't forget to set the right rpc ip in the `Config.php`
 .
-
 
 ## Security
 
