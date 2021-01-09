@@ -25,14 +25,10 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 ## Requirements
 
 - Bitcoin Core 0.19.0.1+
-
-- Web server (e.g. Apache, nginx, PHP built-in web server)
+- Web server (Apache, nginx, PHP built-in web server)
 - PHP 7.0.0+
-  - cURL
-  
- Or
- 
- - Docker
+  - cURL extension
+- Docker (Alternative to web server and php)
 
 ## Installation
 
