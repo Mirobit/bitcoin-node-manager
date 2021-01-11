@@ -69,10 +69,9 @@
 						<tr>
 						  <th>ID</th>
 						  <th>IP</th>
-		<?php if($content['geo']){ ?> <th>Country</th> <?php } ?>
-						  <th>Services</th>
-						  <th>Ping  <span style="font-weight:normal;">(ms)</span></th>
-		<?php if($content['geo']){ ?> <th style="min-width:75px;">ISP</th> <?php } ?>
+		          <?php if($content['geo']){ ?> <th>Country</th> <?php } ?>
+		          <?php if($content['geo']){ ?> <th style="min-width:75px;">ISP</th> <?php } ?>
+              <th>Services</th>
 						  <th>Age <span style="font-weight:normal;">(h)</span></th>
 						  <th>Client</th>
 						  <th>Traffic <span style="font-weight:normal;">(MB)</span></th>
@@ -86,20 +85,19 @@
 						foreach($content['peers'] as $peer){ ?>
 							<tr>
 								<td style="padding-right:0px;"><?php if($peer->whitelisted){ ?><i class="fa fa-shield" title="Whitelisted"></i><?php } else { ?><span style="padding-left:13px;"></span><?php } ?> <?=$peer->id ?></td>
-								<td><?=$peer->ip ?></td>  
+								<td title="Ping: <?=$peer->ping ?> ms"><?=$peer->ip ?></td>  
 								<?php if($content['geo']){?><td><?php if(!empty($peer->country)){ ?><img src="assets/images/flags/16/<?=$peer->country ?>.png" /> <?php echo $peer->country; } ?></td><?php } ?>  
-								<td style="padding-right:0px;">
+								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->isp ?>"><?= substr($peer->isp,0,19) ?></span></td> <?php } ?>  
+                <td style="padding-right:0px;">
 								<?php
 								if(!empty($peer->services)){
 									foreach($peer->services as $key => $service){
 										echo '<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="'.$key.'">'.$service.'</button>';													 
-									}	
-								} ?>	 
+									}
+								} ?>
 								</td>
-								<td style="padding-right:0px;"> <?= $peer->ping ?></td>
-								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->isp ?>"><?= substr($peer->isp,0,19) ?></span></td> <?php } ?>  
-								<td style="padding-right:0px;"> <?= round($peer->age/60,1) ?></td>
-								<td style="padding-right:0px;"><?php if($peer->monitoring){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->client ?>"><?= substr($peer->client,0,15) ?></span></td>  
+                <td style="padding-right:0px;"> <?= round($peer->age/60,1) ?></td>
+								<td style="padding-right:0px;"><?php if($peer->monitoring){ ?><i class="fa fa-binoculars" title="Monitoring"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->client ?>"><?= substr($peer->client,0,22) ?></span></td>  
 								<td style="padding-right:0px;" title="Upload: <?= $peer->trafficOut ?> / Download: <?= $peer->trafficIn ?>"> <?= $peer->traffic ?></td>
 								<td style="padding-right:0px;">
 									<div class="btn-group pull-left" style="padding:5px 0 3px 0px; margin-bottom:0px">
