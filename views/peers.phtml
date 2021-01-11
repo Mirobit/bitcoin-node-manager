@@ -85,7 +85,7 @@
 						foreach($content['peers'] as $peer){ ?>
 							<tr>
 								<td style="padding-right:0px;"><?php if($peer->whitelisted){ ?><i class="fa fa-shield" title="Whitelisted"></i><?php } else { ?><span style="padding-left:13px;"></span><?php } ?> <?=$peer->id ?></td>
-								<td title="Ping: <?=$peer->ping ?> ms"><?=$peer->ip ?></td>  
+								<td title="Ping: <?=$peer->ping ?> ms&#013;<?=$peer->inbound ? "Inbound": "Outbond" ?>"><?=$peer->ip ?></td>  
 								<?php if($content['geo']){?><td><?php if(!empty($peer->country)){ ?><img src="assets/images/flags/16/<?=$peer->country ?>.png" /> <?php echo $peer->country; } ?></td><?php } ?>  
 								<?php if($content['geo']){ ?> <td style="padding-right:0px;"><?php if($peer->hosted){ ?><i class="fa fa-cloud" title="Hosted"></i><?php } else{ ?><span style="padding-left:18px;"></span><?php } ?> <span title="<?= $peer->isp ?>"><?= substr($peer->isp,0,19) ?></span></td> <?php } ?>  
                 <td style="padding-right:0px;">
