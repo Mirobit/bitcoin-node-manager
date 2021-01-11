@@ -42,47 +42,7 @@
 					<div class="clearfix"></div>
 				  </div>
 				  <div class="x_content">
-					<table id="txmempool" class="table table-striped table-bordered table-valign">
-					  <thead>
-						<tr>
-						  <th>ID</th>
-						  <th>Time</th>
-						  <th>Size (B)</th>
-						  <th>Fee (BTC)</th>
-						  <th>Fee rate (per KB)</th>
-						  <th>Descendants</th>
-						  <th style="min-width: 60px;">Control</th>
-						</tr>
-					  </thead>
-					  <tbody>
-						<?php $i = 0;
-							  foreach($content['txs'] as $key => $tx){ ?>
-									<tr>
-										<td style="padding-right:0px;"><?= $key ?></td>
-										<td><?= date("Y-m-d H:i:s", $tx['time']) ?></td>   
-										<td><?= $tx['vsize'] ?></td>
-										<td><?= sprintf('%.8F', $tx['fee']) ?></td>
-										<td><?= sprintf('%.8F', round((1000/$tx["vsize"])*$tx["fee"], 8)) ?></td>
-										<td><?= $tx['descendantcount'] ?></td>										
-										<td> 
-											<div class="btn-group pull-left" style="padding:5px 0 3px 7px; margin-bottom:0px">
-												<button type="button" class="btn btn-default btn-xs">Details</button>
-												<button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<span class="caret"></span>
-													<span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<ul class="dropdown-menu">
-													<li><a href="https://www.blockchain.com/btc/tx/<?= $key ?>" target="_blank"><i class="fa fa-globe fa-lg" style="color:lightblue"></i> Blockchain.com</a></li>
-													<li><a href="https://blockchair.com/bitcoin/transaction/<?= $key ?>" target="_blank"><i class="fa fa-search-plus fa-lg" style="color:lightblue"></i> Blockchair</a></li>
-													<li><a href="https://live.blockcypher.com/btc/tx/<?= $key ?>" target="_blank"><i class="fa fa-search-minus fa-lg" style="color:lightblue"></i> BlockCypher</a></li>
-													<li><a href="https://duckduckgo.com/?q=<?= $key ?>" target="_blank"><i class="fa fa-search fa-lg" style="color:lightblue"></i> DuckDuckGo</a></li>
-												</ul>
-											</div>										   
-										</td>										   
-								  </tr> 
-						<?php } ?>						
-					  </tbody>
-					</table>
+          The list of memmory pool transactions was removed since the memory pool was getting too large for default php configurations
 				  </div>
 				  <div class="clearfix"></div>
 				</div>
