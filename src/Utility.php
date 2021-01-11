@@ -54,6 +54,9 @@ function getServices2($hex){
 	}
 	if(substr($bit, -6, 1) == 1){
 		$services['Cash'] = "CA";
+  }
+  if(substr($bit, -7, 1) == 1){
+		$services['Compact Filters'] = "CF";
 	}
 	if(substr($bit, -8, 1) == 1){
 		$services['Segwit2X'] = "2X";
