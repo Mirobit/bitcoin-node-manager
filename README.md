@@ -43,7 +43,7 @@ If you want to use Docker you can skip to the Docker section.
 6. Optional: Run `chmod -R 770 /path-to-folder/{data, src, views}`. Only necessary for non Apache servers (`AllowOverride All` necessary), that are publicly accessible. For more information, read next section.
 
 ### Docker 
-Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 -n bnm -v ${PWD}:/var/www/html php:7.4-apache` in the BNM folder. BNM should now be accesible under http://localhost:8000. You can change the port in `docker-compose.yml` or the terminal command (`8000:80`). Don't forget to set the right rpc ip in the `Config.php`
+Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 -n bnm -v ${PWD}:/var/www/html php:7.4-apache` in the BNM folder. BNM should now be accesible under http://localhost:8000. You can change the port in `docker-compose.yml` or the terminal command (`8000:80`). The BNM folder is mounted as volumen in Docker. So can edit your config and update BNM at any time. Don't forget to set the right rpc ip in the `Config.php`
 .
 
 ## Security
