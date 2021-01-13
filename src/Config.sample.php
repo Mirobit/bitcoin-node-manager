@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+	namespace App;
 
-class Config {
+	class Config {
 
 	// Bitcoin Node Manager (BNM) password for login. You should additionally change the name of
 	// BNM folder to something unique, if accessible via the web. You can also limit the access
@@ -14,8 +14,11 @@ class Config {
 	const ACCESS_IP = "localhost";
 
 
-  // IP:Port of bitcoind RPC server. Usually localhost. Be careful with remote servers. The connection is not encrypted.
-  // DOCKER: Use host.docker.internal on Windows and Mac and 172.17.0.1 on Linux as IP (e.g host.docker.internal:8332)
+	// IP:Port of bitcoind RPC server. Usually localhost. Be careful with remote servers. The connection is not encrypted.
+	// DOCKER:
+	// -> Windows/Mac: host.docker.internal:8332
+	// -> Linux: 172.17.0.1:8332 (Don't forget to open the port since docker uses by default a different network interface: 
+	// 'sudo ufw allow in on docker0 from 172.17.0.0/16 to any port 8332')
 	const RPC_IP = "127.0.0.1:8332";
 	// RPC username / rpcauth specified in bitcoin.conf
 	const RPC_USER = "USERNAME";
@@ -38,5 +41,5 @@ class Config {
 	const DISPLAY_BLOCKS = 25;
 	// Number of forks displayed on forks page
 	const DISPLAY_FORKS = 25;
-}
+	}
 ?>
