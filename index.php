@@ -334,24 +334,16 @@ if(empty($_GET) || $_GET['p'] == "main") {
 	}catch(\Exception $e) {
 	   $error = "Node offline or incorrect RPC data";
 	}
-	$data = array('section' => 'rules', 'title' => 'Rules Manager', 'content' => $content); 
+	$data = array('section' => 'rules', 'title' => 'Rules Manager', 'content' => $content);
 	 
 // Memory Pool Page	
-}elseif($_GET['p'] == "mempool") {
-	
-	if(isset($_GET['e']) && ctype_digit($_GET['id'])){
-		$end = $_GET['e'];
-	}else{
-		$end = Config::DISPLAY_TXS;
-	}
-	
+}elseif($_GET['p'] == "mempool") {	
   try{
-    $content = createMempoolContent($end);
+    $content = createMempoolContent();
 	}catch(\Exception $e) {
 	   $error = "Node offline or incorrect RPC data";
 	}
-	$data = array('section' => 'mempool', 'title' => 'Memory Pool', 'content' => $content);  
- 
+	$data = array('section' => 'mempool', 'title' => 'Memory Pool', 'content' => $content);
  
 // Wallet Page
 }elseif($_GET['p'] == "wallet") {
@@ -360,7 +352,7 @@ if(empty($_GET) || $_GET['p'] == "main") {
 	}catch(\Exception $e) {
 	  $error = "Node offline or incorrect RPC data";
 	}
-	$data = array('section' => 'wallet', 'title' => 'Wallet Overview', 'content' => $content);  
+	$data = array('section' => 'wallet', 'title' => 'Wallet Overview', 'content' => $content);
  
 // Blocks Page 
 }elseif($_GET['p'] == "blocks") {

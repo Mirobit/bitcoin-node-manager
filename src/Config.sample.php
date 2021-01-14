@@ -35,8 +35,6 @@
 	// Maximum of seconds to wait for response from ip-api.com
 	const PEERS_GEO_TIMEOUT = 2;
 
-	// Number of TXs displayed on mempool page
-	const DISPLAY_TXS = 100;
 	// Number of blocks displayed on blocks page
 	const DISPLAY_BLOCKS = 25;
 	// Number of forks displayed on forks page
