@@ -26,13 +26,13 @@
 	const RPC_PASSWORD = "PASSWORD";
 
 
-	// Ip-api.com is used to get country and isp of peers. API is limited to 15 requests per minutes.
+	// Ip-api.com is used to get the country and the ISP of peers. API is limited to 15 requests per minutes.
 	// Peer geo data is stored as long as the peer is connected. A page reload (main/peers) only
 	// causes an API request if new peers connected (older than 5 minutes) since the last load. Up to
 	// 100 ips/peers are checked per request. You should not run into any trouble with the API limit.
 	// Set the FALSE to not use the Geo API.
 	const PEERS_GEO = TRUE;
-	// Maxmimum of seconds to wait for response from ip-api.com
+	// Maximum of seconds to wait for response from ip-api.com
 	const PEERS_GEO_TIMEOUT = 2;
 
 	// Number of TXs displayed on mempool page
