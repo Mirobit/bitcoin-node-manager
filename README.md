@@ -34,7 +34,7 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 
 1. [Download](https://github.com/Mirobit/bitcoin-node-manager/releases) Bitcoin Node Manager or clone this repository.
 2. Make sure `bitcoind` is running. If you use `bitcoin-qt` make sure `server=1` is set in the `bitcoin.conf` file. Optional: `txindex=1` is required in your `bitcoin.conf` for the Blocks page. Start `bitcoind` once with the `-reindex` param (this might take a while).
-3. Copy `src/Config.sample.php` and remove `.sample`. Open `src/Config.php` and enter your bitcoind RPC credentials/ip/port and set the BNM password.
+3. Copy `src/Config.sample.php` and remove `.sample`. Open `src/Config.php` and enter your Bitcoin Core RPC credentials and set the BNM password.
 
 If you want to use Docker you can skip to the Docker section.
 
@@ -43,7 +43,7 @@ If you want to use Docker you can skip to the Docker section.
 6. Optional: Read the Security section for.
 
 ### Docker 
-Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 -n bnm -v ${PWD}:/var/www/html php:7.4-apache` in the BNM folder. BNM should now be accessible under http://localhost:8000. You can change the port in `docker-compose.yml` or the terminal command (`8000:80`). The BNM folder is mounted as volume in Docker. So can edit your config and update BNM at any time. Don't forget to set the right RPC ip in `src/Config.php`.
+Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 -n bnm -v ${PWD}:/var/www/html php:7.4-apache` in the BNM folder. BNM should now be accessible under http://localhost:8000. You can change the port in `docker-compose.yml` or the terminal command (`8000:80`). The BNM folder is mounted as volume in Docker. So can edit your config and update BNM at any time. Don't forget to set the right RPC IP in `src/Config.php`.
 
 ## Security
 
