@@ -20,7 +20,7 @@ class Template {
 			//Includes contents
       include 'views/header.phtml';
       if(!empty($error)){  
-      echo '<div class="alert alert-danger col-md-3 col-sm-3 col-xs-12" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'.$error.'</div>'; 
+      echo '<div class="alert alert-danger col-md-3 col-sm-6 col-xs-12" role="alert">'.$error.'</div>'; 
       } else {
         include $this->sectionPath;
       }

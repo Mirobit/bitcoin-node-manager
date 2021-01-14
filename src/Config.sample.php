@@ -13,18 +13,18 @@
 	// If specific IP (e.g. "84.12.32.297"), localhost and the specific IP can access BNM.
 	const ACCESS_IP = "localhost";
 
-
-	// IP:Port of bitcoind RPC server. Usually localhost. Be careful with remote servers. The connection is not encrypted.
+	// IP of the Bitcoin Core RPC Server, usually localhost. Be careful with remote servers. The connection is not encrypted by default.
 	// DOCKER:
-	// -> Windows/Mac: host.docker.internal:8332
-	// -> Linux: 172.17.0.1:8332 (Don't forget to open the port since docker uses by default a different network interface: 
+	// -> Windows/Mac: host.docker.internal
+	// -> Linux: 172.17.0.1 (Don't forget to open the port since docker uses by default a different network interface: 
 	// 'sudo ufw allow in on docker0 from 172.17.0.0/16 to any port 8332')
-	const RPC_IP = "127.0.0.1:8332";
+  const RPC_IP = "127.0.0.1";
+  	// RPC port, usually 8332 if not changed in bitcoin.conf
+  const RPC_PORT = "8332";
 	// RPC username / rpcauth specified in bitcoin.conf
 	const RPC_USER = "USERNAME";
 	// RPC password / rpcauth specified in bitcoin.conf
 	const RPC_PASSWORD = "PASSWORD";
-
 
 	// Ip-api.com is used to get the country and the ISP of peers. API is limited to 15 requests per minutes.
 	// Peer geo data is stored as long as the peer is connected. A page reload (main/peers) only

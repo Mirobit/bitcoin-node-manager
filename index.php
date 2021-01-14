@@ -70,7 +70,15 @@ require_once 'src/Content.php';
 $error = "";
 $message = "";
 $content = "";
-$bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/');
+if(defined('App\Config::RPC_PORT')) {
+  $rpcIp = Config::RPC_IP;
+  $rpcPort = Config::RPC_PORT;
+} else {
+  preg_match("/(.*):([0-9]{1,5})$/", Config::RPC_IP, $matches);
+  $rpcIp = $matches[1];
+  $rpcPort = $matches[2];
+}
+$bitcoind = new jsonRPCClient(Config::RPC_USER, Config::RPC_PASSWORD, $rpcIp, $rpcPort);
 
 // Content
 // Main Page
@@ -78,7 +86,7 @@ if(empty($_GET) || $_GET['p'] == "main") {
 	try{
     $content = createMainContent();
 	}catch(\Exception $e) {
-	   $error = "Node offline or incorrect RPC data";
+    $error = $e->getMessage();
 	}
 	$data = array('section' => 'main', 'title' => 'Home', 'content' => $content);   
    
@@ -154,7 +162,7 @@ if(empty($_GET) || $_GET['p'] == "main") {
 	try{
     $content = createPeerContent();
 	}catch(\Exception $e) {
-	   $error = "Node offline or incorrect RPC data";
+	   $error = $e->getMessage();
 	}
 	
 	// Create page specfic variables
@@ -255,7 +263,7 @@ if(empty($_GET) || $_GET['p'] == "main") {
 	try{
     $content = createBanListContent();
 	}catch(\Exception $e) {
-	   $error = "Node offline or incorrect RPC data";
+	   $error = $e->getMessage();
 	}
 	$data = array('section' => 'banlist', 'title' => 'Ban List', 'content' => $content);  
 
@@ -332,7 +340,7 @@ if(empty($_GET) || $_GET['p'] == "main") {
   try{
     $content = createRulesContent($editID);
 	}catch(\Exception $e) {
-	   $error = "Node offline or incorrect RPC data";
+	   $error = $e->getMessage();
 	}
 	$data = array('section' => 'rules', 'title' => 'Rules Manager', 'content' => $content);
 	 
@@ -341,7 +349,7 @@ if(empty($_GET) || $_GET['p'] == "main") {
   try{
     $content = createMempoolContent();
 	}catch(\Exception $e) {
-	   $error = "Node offline or incorrect RPC data";
+	   $error = $e->getMessage();
 	}
 	$data = array('section' => 'mempool', 'title' => 'Memory Pool', 'content' => $content);
  
@@ -350,7 +358,7 @@ if(empty($_GET) || $_GET['p'] == "main") {
   try{
     $content = createWalletContent();
 	}catch(\Exception $e) {
-	  $error = "Node offline or incorrect RPC data";
+	  $error = $e->getMessage();
 	}
 	$data = array('section' => 'wallet', 'title' => 'Wallet Overview', 'content' => $content);
  
@@ -359,7 +367,7 @@ if(empty($_GET) || $_GET['p'] == "main") {
   try{
     $content = createBlocksContent();
 	}catch(\Exception $e) {
-	   $error = "Node offline or incorrect RPC data";
+	   $error = $e->getMessage();
 	}
 	$data = array('section' => 'blocks', 'title' => 'Blocks', 'content' => $content);
   
@@ -368,7 +376,7 @@ if(empty($_GET) || $_GET['p'] == "main") {
   try{
     $content = createForksContent();
 	}catch(\Exception $e) {
-	   $error = "Node offline or incorrect RPC data";
+	   $error = $e->getMessage();
 	}
 	$data = array('section' => 'forks', 'title' => 'Forks', 'content' => $content);
   

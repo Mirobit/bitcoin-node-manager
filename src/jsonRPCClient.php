@@ -1,174 +1,160 @@
 <?php
+
 /*
-					COPYRIGHT
-
-Copyright 2007 Sergio Vaccaro <sergio@inservibile.org>
-
-This file is part of JSON-RPC PHP.
-
-JSON-RPC PHP is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-JSON-RPC PHP is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with JSON-RPC PHP; if not, write to the Free Software
-Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+EasyBitcoin-PHP
+A simple class for making calls to Bitcoin's API using PHP.
+https://github.com/aceat64/EasyBitcoin-PHP
+Copyright (c) 2013 Andrew LeCody
 */
 
-/**
- * The object of this class are generic jsonRPC 1.0 clients
- * http://json-rpc.org/wiki/specification
- *
- * @author sergio <jsonrpcphp@inservibile.org>
- */
- 
 namespace App;
 
-class jsonRPCClient {
-	
-	/**
-	 * Debug state
-	 *
-	 * @var boolean
-	 */
-	private $debug;
-	
-	/**
-	 * The server URL
-	 *
-	 * @var string
-	 */
-	private $url;
-	/**
-	 * The request id
-	 *
-	 * @var integer
-	 */
-	private $id;
-	/**
-	 * If true, notifications are performed instead of requests
-	 *
-	 * @var boolean
-	 */
-	private $notification = false;
-	
-	/**
-	 * Takes the connection parameters
-	 *
-	 * @param string $url
-	 * @param boolean $debug
-	 */
-	public function __construct($url,$debug = false) {
-		// server URL
-		$this->url = $url;
-		// proxy
-		empty($proxy) ? $this->proxy = '' : $this->proxy = $proxy;
-		// debug state
-		empty($debug) ? $this->debug = false : $this->debug = true;
-		// message id
-		$this->id = 1;
-	}
-	
-	/**
-	 * Sets the notification state of the object. In this state, notifications are performed, instead of requests.
-	 *
-	 * @param boolean $notification
-	 */
-	public function setRPCNotification($notification) {
-		empty($notification) ?
-							$this->notification = false
-							:
-							$this->notification = true;
-	}
-	
-	/**
-	 * Performs a jsonRCP request and gets the results as an array
-	 *
-	 * @param string $method
-	 * @param array $params
-	 * @return array
-	 */
-	public function __call($method,$params) {
-		
-		// check
-		if (!is_scalar($method)) {
-			throw new Exception('Method name has no scalar value');
-		}
-		
-		// check
-		if (is_array($params)) {
-			// no keys
-			$params = array_values($params);
-		} else {
-			throw new Exception('Params must be given as array');
-		}
-		
-		// sets notification or request task
-		if ($this->notification) {
-			$currentId = NULL;
-		} else {
-			$currentId = $this->id;
-		}
-		
-		// prepares the request
-		$request = array(
-						'method' => $method,
-						'params' => $params,
-						'id' => $currentId
-						);
-		$request = json_encode($request);
-		$this->debug && $this->debug.='***** Request *****'."\n".$request."\n".'***** End Of request *****'."\n\n";
-		
-    // performs the HTTP POST
-    $opts = array ('http' => array (
-              'method'  => 'POST',
-              'header'  => 'Content-type: application/json',
-              'content' => $request
-              ));
-          
-    $context  = stream_context_create($opts);
-    try{
-      $fp = fopen($this->url, 'r', false, $context);
-      if(!$fp) {
-        throw new \Exception('Unable to connect');
-      }
-      $response = '';
-      while($row = fgets($fp)) {
-        $response.= trim($row)."\n";
-      }
-      $this->debug && $this->debug.='***** Server response *****'."\n".$response.'***** End of server response *****'."\n";
-      $response = json_decode($response,true);
-    } catch(Exception $e) {
-      throw $e;
+class jsonRPCClient
+{
+    // Configuration options
+    private $username;
+    private $password;
+    private $proto;
+    private $host;
+    private $port;
+    private $url;
+    private $CACertificate;
+
+    // Information and debugging
+    public $status;
+    public $error;
+    public $raw_response;
+    public $response;
+
+    private $id = 0;
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @param string $host
+     * @param int $port
+     * @param string $proto
+     * @param string $url
+     */
+    public function __construct($username, $password, $host = 'localhost', $port = 8332, $url = null)
+    {
+        $this->username      = $username;
+        $this->password      = $password;
+        $this->host          = $host;
+        $this->port          = $port;
+        $this->url           = $url;
+
+        // Set some defaults
+        $this->proto         = 'http';
+        $this->CACertificate = null;
     }
-		
-		// debug output
-		if ($this->debug) {
-      echo "debug";
-			echo nl2br($debug);
-		}
-		
-		// final checks and return
-		if (!$this->notification) {
-			// check
-			if ($response['id'] != $currentId) {
-				throw new \Exception('Incorrect response id (request id: '.$currentId.', response id: '.$response['id'].')');
-			}
-			if (!is_null($response['error'])) {
-				throw new \Exception('Request error: '.$response['error']);
-			}
-			
-			return $response['result'];
-			
-		} else {
-			return true;
-		}
-	}
+
+    /**
+     * @param string|null $certificate
+     */
+    public function setSSL($certificate = null)
+    {
+        $this->proto         = 'https'; // force HTTPS
+        $this->CACertificate = $certificate;
+    }
+
+    public function __call($method, $params)
+    {
+        $this->status       = null;
+        $this->error        = null;
+        $this->raw_response = null;
+        $this->response     = null;
+
+        // If no parameters are passed, this will be an empty array
+        $params = array_values($params);
+
+        // The ID should be unique for each call
+        $this->id++;
+
+        // Build the request, it's ok that params might have any empty array
+        $request = json_encode(array(
+            'method' => $method,
+            'params' => $params,
+            'id'     => $this->id
+        ));
+
+        // Build the cURL session
+        $curl    = curl_init("{$this->proto}://{$this->host}:{$this->port}/{$this->url}");
+        $options = array(
+            CURLOPT_HTTPAUTH       => CURLAUTH_BASIC,
+            CURLOPT_USERPWD        => $this->username . ':' . $this->password,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_HTTPHEADER     => array('Content-type: application/json'),
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => $request,
+            CURLOPT_CONNECTTIMEOUT => 2,
+            CURLOPT_TIMEOUT        => 10
+        );
+
+        // This prevents users from getting the following warning when open_basedir is set:
+        // Warning: curl_setopt() [function.curl-setopt]:
+        //   CURLOPT_FOLLOWLOCATION cannot be activated when in safe_mode or an open_basedir is set
+        if (ini_get('open_basedir')) {
+            unset($options[CURLOPT_FOLLOWLOCATION]);
+        }
+
+        if ($this->proto == 'https') {
+            // If the CA Certificate was specified we change CURL to look for it
+            if (!empty($this->CACertificate)) {
+                $options[CURLOPT_CAINFO] = $this->CACertificate;
+                $options[CURLOPT_CAPATH] = DIRNAME($this->CACertificate);
+            } else {
+                // If not we need to assume the SSL cannot be verified
+                // so we set this flag to FALSE to allow the connection
+                $options[CURLOPT_SSL_VERIFYPEER] = false;
+            }
+        }
+
+        curl_setopt_array($curl, $options);
+
+        // Execute the request and decode to an array
+        $this->raw_response = curl_exec($curl);
+        $this->response = json_decode($this->raw_response, true);
+
+        // If the status is not 200, something is wrong
+        $this->status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        // If there was no error, this will be an empty string
+        $curl_error = curl_error($curl);
+
+        curl_close($curl);
+        if(false){
+          echo $this->raw_response;
+          echo $this->status;
+          echo $curl_error;
+        }
+
+        if($this->status === 500 && $this->response['error']) {
+          $this->error = $this->response['error']['message'];
+        }elseif ($this->status !== 200) {
+            // If bitcoind didn't return a nice error message, we need to make our own
+            switch ($this->status) {
+                case 401:
+                    $this->error = 'Invalid RPC credentials';
+                    break;
+                case 0:
+                    $this->error = 'Bitcoin Core not reachable: '.$curl_error;
+                    break;
+                case 404:
+                    $this->error = 'The RPC call does not exist: '.$method;
+                    break;
+                default:
+                  $this->error = 'Unkown Error '.$this->status.': '.$curl_error;
+            }
+        }
+
+        if ($this->error) {
+          throw new \Exception($this->error);
+        }
+
+        return $this->response['result'];
+    }
 }
 ?>
