@@ -125,28 +125,32 @@ class jsonRPCClient {
 		$request = json_encode($request);
 		$this->debug && $this->debug.='***** Request *****'."\n".$request."\n".'***** End Of request *****'."\n\n";
 		
-		// performs the HTTP POST
-		$opts = array ('http' => array (
-							'method'  => 'POST',
-							'header'  => 'Content-type: application/json',
-							'content' => $request
-							));
-			   
-			$context  = stream_context_create($opts);
-			if ($fp = fopen($this->url, 'r', false, $context)) {
-				$response = '';
-				while($row = fgets($fp)) {
-					$response.= trim($row)."\n";
-				}
-				$this->debug && $this->debug.='***** Server response *****'."\n".$response.'***** End of server response *****'."\n";
-				$response = json_decode($response,true);
-			} else {
-				throw new \Exception('Unable to connect');
-			}
-	   
+    // performs the HTTP POST
+    $opts = array ('http' => array (
+              'method'  => 'POST',
+              'header'  => 'Content-type: application/json',
+              'content' => $request
+              ));
+          
+    $context  = stream_context_create($opts);
+    try{
+      $fp = fopen($this->url, 'r', false, $context);
+      if(!$fp) {
+        throw new \Exception('Unable to connect');
+      }
+      $response = '';
+      while($row = fgets($fp)) {
+        $response.= trim($row)."\n";
+      }
+      $this->debug && $this->debug.='***** Server response *****'."\n".$response.'***** End of server response *****'."\n";
+      $response = json_decode($response,true);
+    } catch(Exception $e) {
+      throw $e;
+    }
 		
 		// debug output
 		if ($this->debug) {
+      echo "debug";
 			echo nl2br($debug);
 		}
 		

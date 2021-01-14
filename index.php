@@ -69,13 +69,14 @@ require_once 'src/Content.php';
 // Globals
 $error = "";
 $message = "";
+$content = "";
 $bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/');
 
 // Content
 // Main Page
 if(empty($_GET) || $_GET['p'] == "main") {   
 	try{
-	$content = createMainContent();
+    $content = createMainContent();
 	}catch(\Exception $e) {
 	   $error = "Node offline or incorrect RPC data";
 	}
@@ -150,8 +151,11 @@ if(empty($_GET) || $_GET['p'] == "main") {
 			}
 		}
 	}
-	// Information for header
-	$content = createPeerContent();
+	try{
+    $content = createPeerContent();
+	}catch(\Exception $e) {
+	   $error = "Node offline or incorrect RPC data";
+	}
 	
 	// Create page specfic variables
 	$data = array('section' => 'peers', 'title' => 'Peers', 'content' => $content);
@@ -248,8 +252,11 @@ if(empty($_GET) || $_GET['p'] == "main") {
 		}
 	}
 	
-	// Create ban list info
-	$content = createBanListContent();
+	try{
+    $content = createBanListContent();
+	}catch(\Exception $e) {
+	   $error = "Node offline or incorrect RPC data";
+	}
 	$data = array('section' => 'banlist', 'title' => 'Ban List', 'content' => $content);  
 
 // Rules Page
@@ -320,10 +327,13 @@ if(empty($_GET) || $_GET['p'] == "main") {
 					$error = "Could not delete logfile";   
 			}
 		}
+  }
+  
+  try{
+    $content = createRulesContent($editID);
+	}catch(\Exception $e) {
+	   $error = "Node offline or incorrect RPC data";
 	}
-	
-	$content = createRulesContent($editID);
-	
 	$data = array('section' => 'rules', 'title' => 'Rules Manager', 'content' => $content); 
 	 
 // Memory Pool Page	
@@ -335,24 +345,39 @@ if(empty($_GET) || $_GET['p'] == "main") {
 		$end = Config::DISPLAY_TXS;
 	}
 	
-	$content = createMempoolContent($end);
+  try{
+    $content = createMempoolContent($end);
+	}catch(\Exception $e) {
+	   $error = "Node offline or incorrect RPC data";
+	}
 	$data = array('section' => 'mempool', 'title' => 'Memory Pool', 'content' => $content);  
  
  
 // Wallet Page
 }elseif($_GET['p'] == "wallet") {
-	
-	$content = createWalletContent();
+  try{
+    $content = createWalletContent();
+	}catch(\Exception $e) {
+	  $error = "Node offline or incorrect RPC data";
+	}
 	$data = array('section' => 'wallet', 'title' => 'Wallet Overview', 'content' => $content);  
  
 // Blocks Page 
 }elseif($_GET['p'] == "blocks") {
-	$content= createBlocksContent();
+  try{
+    $content = createBlocksContent();
+	}catch(\Exception $e) {
+	   $error = "Node offline or incorrect RPC data";
+	}
 	$data = array('section' => 'blocks', 'title' => 'Blocks', 'content' => $content);
   
 // Forks Page 
 }elseif($_GET['p'] == "forks") {
-	$content= createForksContent();
+  try{
+    $content = createForksContent();
+	}catch(\Exception $e) {
+	   $error = "Node offline or incorrect RPC data";
+	}
 	$data = array('section' => 'forks', 'title' => 'Forks', 'content' => $content);
   
 // Settings Page	
@@ -381,7 +406,6 @@ if(empty($_GET) || $_GET['p'] == "main") {
   }
   $data = array('section' => 'settings', 'title' => 'Settings', 'geoPeers' => $geoPeers);
 
-	
 // About Page	
 }elseif($_GET['p'] == "about") {
 	$data = array('section' => 'about', 'title' => 'About'); 
@@ -390,7 +414,6 @@ if(empty($_GET) || $_GET['p'] == "main") {
 	header('Location: index.php');
 	exit; 	
 }
-
 
 // Create HTML output
 if(isset($error)){
@@ -402,5 +425,4 @@ if(isset($message)){
 
 $tmpl = new Template($data);
 echo $tmpl->render();
-
 ?>

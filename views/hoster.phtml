@@ -3,16 +3,17 @@
 			<h3>Hoster Manager</h3>
 		</div>
 	</div>
-		
-			<div class="clearfix"></div>
-			<div class="col-md-3 col-sm-3 col-xs-12">
-				<?php if(!empty($error)){ ?> <div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<?= $error ?> </div><?php }
-				if(!empty($message)){ ?> <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<?= $message ?> </div><?php } ?>
-			</div>  
-			
-			<div class="clearfix"></div>
+  <!-- Message -->
+  <?php if(!empty($message)){ ?>
+  <div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-12">
+      <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <?= $message ?>
+      </div>
+    </div>
+  </div>
+  <?php } ?>
+  <!-- Message End -->
 			<!-- Content -->				   
 			<div class="row">
 			<!-- Hoster List -->

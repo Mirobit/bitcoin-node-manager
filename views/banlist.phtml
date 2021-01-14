@@ -1,29 +1,31 @@
- <!-- Top Info Bar -->
- <div class="panel panel-default">  
-	<div class="panel-body">
-
-	  <div class="row tile_count">
-		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-		  <span class="count_top"><i class="fa fa-ban"></i> Banned Peers</span>
-		  <div class="count"><?= $content['totalBans'] ?></div>
-		  <span class="count_bottom"><i class="red"><i class="fa fa-plus"></i><?= $content['lastCount'] ?></i> Last 24h</span>
-		</div>
-		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-		  <span class="count_top"><i class="fa fa-clock-o"></i> Average Ban Time</span>
-		  <div class="count"><?= $content['avgTime'] ?> <small>days</small></div>
-		</div>
-	  </div>
-	  </div>
- </div>
+<!-- Top Info Bar -->
+<div class="panel panel-default">  
+  <div class="panel-body">
+    <div class="row tile_count">
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-ban"></i> Banned Peers</span>
+        <div class="count"><?= $content['totalBans'] ?></div>
+        <span class="count_bottom"><i class="red"><i class="fa fa-plus"></i><?= $content['lastCount'] ?></i> Last 24h</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-clock-o"></i> Average Ban Time</span>
+        <div class="count"><?= $content['avgTime'] ?> <small>days</small></div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Top Info Bar End-->
-
-	<div class="clearfix"></div>
-	<div class="col-md-3 col-sm-3 col-xs-12">
-		  <?php if(!empty($error)){ ?> <div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <?= $error ?> </div><?php }
-		  if(!empty($message)){ ?> <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <?= $message ?> </div><?php } ?>
-	</div>
+<!-- Message -->
+<?php if(!empty($message)){ ?>
+<div class="row">
+  <div class="col-md-3 col-sm-3 col-xs-12">
+    <div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <?= $message ?>
+    </div>
+  </div>
+</div>
+<?php } ?>
+<!-- Message End -->
 	<div class="row">
 	  <!-- Ban List -->
 	  <div class="col-md-9 col-sm-12 col-xs-12">
