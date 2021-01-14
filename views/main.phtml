@@ -1,6 +1,6 @@
 <!-- top tiles -->
-		<div class="panel panel-default">  
-			<div class="panel-body">		  
+		<div class="panel panel-default">
+			<div class="panel-body">
 				<div class="row tile_count">
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
@@ -67,20 +67,20 @@
 				  <tr><td><i class="fa fa-exchange fa-fw"></i> Protocol </td><td> <?= $content['node']->proVer ?></td></tr>
 				  <tr><td><i class="fa fa-wifi fa-fw"></i> Port </td><td> <?= $content['node']->port ?></td></tr>
 				  <tr><td><i class="fa fa-bullhorn fa-fw"></i> Services </td><td>
-					<?php if(isset($content['node']->services['Network'])){ ?><button type="button" class="btn btn-default btn-xs">Network</button><?php } ?> 
-					<?php if(isset($content['node']->services['Bloom'])){ ?><button type="button" class="btn btn-default btn-xs">Bloom</button><?php } ?> 
+					<?php if(isset($content['node']->services['Network'])){ ?><button type="button" class="btn btn-default btn-xs">Network</button><?php } ?>
+					<?php if(isset($content['node']->services['Bloom'])){ ?><button type="button" class="btn btn-default btn-xs">Bloom</button><?php } ?>
 					<?php if(isset($content['node']->services['Witness'])){ ?><button type="button" class="btn btn-default btn-xs">Witness</button><?php } ?>
 					<?php if(isset($content['node']->services['Network Limited'])){ ?><button type="button" class="btn btn-default btn-xs">Network Limited</button><?php } ?>
-					<?php if(isset($content['node']->services['None'])){ ?><button type="button" class="btn btn-default btn-xs">None</button><?php } ?> 
-					<?php if(isset($content['node']->services['Unknown'])){ ?><button type="button" class="btn btn-default btn-xs">Unknown</button><?php } ?>					  
+					<?php if(isset($content['node']->services['None'])){ ?><button type="button" class="btn btn-default btn-xs">None</button><?php } ?>
+					<?php if(isset($content['node']->services['Unknown'])){ ?><button type="button" class="btn btn-default btn-xs">Unknown</button><?php } ?>
 					</td></tr>
 					<tr><td><i class="fa fa-clock-o fa-fw"></i> Uptime </td><td> <?= $content['node']->uptime ?></td></tr>
 				  <tr><td><i class="fa fa-clock-o fa-fw"></i> Node Time </td><td> <?= $content['node']->cTime ?></td></tr>
-				  <tr><td><i class="fa <?php echo ($content['node']->ipv4 ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv4 </td><td> <?php echo  ($content['node']->ipv4Proxy ? '<i class="fa fa-user-secret fa-fw" title='.$content['node']->ipv4Proxy.'>' : ""); echo ($content['node']->ipv4 ? $content['node']->ipv4Address : "No") ?></td></tr>				  
+				  <tr><td><i class="fa <?php echo ($content['node']->ipv4 ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv4 </td><td> <?php echo  ($content['node']->ipv4Proxy ? '<i class="fa fa-user-secret fa-fw" title='.$content['node']->ipv4Proxy.'>' : ""); echo ($content['node']->ipv4 ? $content['node']->ipv4Address : "No") ?></td></tr>
 				  <tr><td><i class="fa <?php echo ($content['node']->ipv6 ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> IPv6 </td><td> <?php echo  ($content['node']->ipv6Proxy ? '<i class="fa fa-user-secret fa-fw" title='.$content['node']->ipv6Proxy.'>' : ""); echo ($content['node']->ipv6 ? $content['node']->ipv6Address : "No") ?></td></tr>
 				  <tr><td><i class="fa <?php echo ($content['node']->tor ? "fa-check-square-o green" : "fa-square-o") ?> fa-fw"></i> Tor </td><td> <?php echo  ($content['node']->torProxy ? '<i class="fa fa-user-secret fa-fw" title='.$content['node']->torProxy.'>' : ""); echo ($content['node']->tor ? $content['node']->torAddress : "No") ?></td></tr>
 				  <tr><td><i class="fa <?php echo (!$content['node']->pruMode ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Pruning Mode</td><td> <?php echo ($content['node']->pruMode ? "Yes" : "No") ?></td></tr>
-				  <tr><td><i class="fa <?php echo ($content['node']->localRelay ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Block Only Mode</td><td> <?php echo ($content['node']->localRelay ? "No" : "Yes") ?></td></tr>				  
+				  <tr><td><i class="fa <?php echo ($content['node']->localRelay ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Block Only Mode</td><td> <?php echo ($content['node']->localRelay ? "No" : "Yes") ?></td></tr>
 				  <tr><td><i class="fa <?php echo (!$content['node']->mempoolLimited ? "fa-square-o green" : "fa-warning red") ?> fa-fw"></i> Mempool Limited</td><td> <?php echo ($content['node']->mempoolLimited ? "Yes" : "No") ?></td></tr>
 				  <tr><td><i class="fa <?php echo (!$content['node']->tLimitSet ? "fa-square-o green" : "fa-check-square-o orange") ?> fa-fw"></i> Traffic Limit Set</td><td> <?php echo ($content['node']->tLimitSet ? "Yes" : "No") ?></td></tr>
 				  <?php if($content['node']->tLimitSet){ ?>
@@ -115,10 +115,10 @@
 					  <tr><td><i class="fa fa-clock-o fa-fw"></i> Mediantime </td><td> <?= $content['node']->mNetTime ?></td></tr>
 				  </table>
 				</div>
-			  </div> 
+			  </div>
 			</div>
-			
-			
+
+
 			<div class="col-md-12 col-sm-12 col-xs-12">
 			  <div class="x_panel tile fixed_height_320">
 				<div class="x_title">
@@ -138,21 +138,21 @@
 						  <table class="mempooltable">
 							  <tr><td style="width:60%;"><i class="fa fa-id-card fa-fw"></i> Name </td><td> <span class="badge"><?= ucfirst($sfName) ?></span></td></tr>
 							  <tr><td><i class="fa fa-info fa-fw"></i> Status </td><td> Voting</td></tr>
-							  <tr><td><i class="fa fa-hourglass-start fa-fw"></i> Start </td><td> <?= $sf['timeout'] ?> <small>(<?= $sf['since'] ?>)</small></td></tr>
-							  <tr><td><i class="fa fa-hourglass-o fa-fw"></i> End </td><td> <?= $sf['startTime'] ?></td></tr>
-							  <tr><td><i class="fa fa-signal fa-fw"></i> Process </td><td> <?= $sf['process'] ?> %</td></tr>  						  
+							  <tr><td><i class="fa fa-hourglass-start fa-fw"></i> Start </td><td> <?= $sf['start_time'] ?></td></tr>
+							  <tr><td><i class="fa fa-hourglass-o fa-fw"></i> End </td><td> <?= $sf['timeout'] ?> <small>(<?= $sf['since'] ?>)</small></td></tr>
+							  <tr><td><i class="fa fa-signal fa-fw"></i> Process </td><td> <?= $sf['process'] ?> %</td></tr>
 						  </table>
-  
+
 			<?php	}
 				}else{
 					echo "No current soft forks";
-				}				  
+				}
 				  ?>
 				</div>
 			  </div>
 			</div>
-			
-			
+
+
 			</div>
 			</div>
 				<div class="col-md-5 col-sm-5 col-xs-12">
@@ -175,17 +175,17 @@
 					  </td>
 					  <td>
 						<table class="countries_list">
-						
+
 						<?php $i = 1;
 						foreach($content['chartData']['legend'] as $cName => $client){
 						?>
 							<tr>
 								<td><?= $i ?>. <a href="index.php?p=peers&q=<?= $cName ?>"><?= $cName ?></a></td><td style="padding-right:0px;padding-left:0px;"><small>(<?= $client['share'] ?>%)</small></td>
 							</tr>
-						<?php 
-							$i++; 
-							} 
-						?>						 
+						<?php
+							$i++;
+							}
+						?>
 						</table>
 					  </td>
 					</tr>
@@ -193,24 +193,24 @@
 				</div>
 			  </div>
 			</div>
-		   
-			
+
+
 			</div>
 			<!-- End first row -->
-		   
+
 
 
 			<div class="clearfix"></div>
 			<div class="row">
 
-			<?php if($content['geo']){?>  
-			<!-- Wolrd Map -->  
+			<?php if($content['geo']){?>
+			<!-- Wolrd Map -->
 			<div class="col-md-10 col-sm-10 col-xs-12">
 			  <div class="x_panel">
 				<div class="x_title">
 				  <h2>Global Peer Distribution</h2>
 				  <ul class="nav navbar-right panel_toolbox">
-				
+
 					<li><a class="close-link"><i class="fa fa-close"></i></a></li>
           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 					<li><a><i class="fa fa-question-circle-o" data-toggle="tooltip" data-html="true" data-placement="left" title="BNM will only check the country/isp for peers that are older than 5 minutes."></i></a></li>
@@ -223,16 +223,16 @@
 				  <div class="dashboard-widget-content">
 					<div class="col-md-4 hidden-small">
 					  <table class="countries_list">
-						<tbody>   
+						<tbody>
 						<?php $i = 1;
 						foreach($content['map']['desc'] as $cName => $country){
 						?>
 							<tr>
-              <td style="padding-right:0px;width:33px"><?= $i ?>.</td><td style="padding-left:0px;padding-right:0px;width:32px"><img src="assets/images/flags/16/<?= $cName ?>.png" /></td><td style="padding-left:2px;"><a href="index.php?p=peers&q=<?= $cName ?>"><?= $cName ?></a></td><td style="padding-right:0px;width:35px"><?= $country['count'] ?></td><td style="padding-left:0px;padding-right:0px;width:45px">(<?= $country['share'] ?>%)</td>								 
+              <td style="padding-right:0px;width:33px"><?= $i ?>.</td><td style="padding-left:0px;padding-right:0px;width:32px"><img src="assets/images/flags/16/<?= $cName ?>.png" /></td><td style="padding-left:2px;"><a href="index.php?p=peers&q=<?= $cName ?>"><?= $cName ?></a></td><td style="padding-right:0px;width:35px"><?= $country['count'] ?></td><td style="padding-left:0px;padding-right:0px;width:45px">(<?= $country['share'] ?>%)</td>
 							</tr>
-						<?php 
-							$i++; 
-						} 
+						<?php
+							$i++;
+						}
 						?>
 						</tbody>
 					  </table>
@@ -245,18 +245,18 @@
 			<!-- Wolrd Map End -->
 			<?php } ?>
 
-			
-			
- 
+
+
+
 			</div>
 		   </div>
-	
+
 		<!-- /page content -->
 
 	<!-- footer content -->
 	<?php include('views/footer.phtml') ?>
 	<!-- /footer content -->
-	
+
 	</div>
 	</div>
 
@@ -289,10 +289,10 @@
 				onLabelShow: function (event, label, code) {
 					if (peerData[code]!==undefined)
 					{
-						label.append(' ('+peerData[code]+')'); 
+						label.append(' ('+peerData[code]+')');
 					} else {
-						label.append(' (No Peers)'); 
-				   }				
+						label.append(' (No Peers)');
+				   }
 				},
 				scaleColors: ['#deebf7', '#3182bd'],
 				normalizeFunction: 'polynomial'
@@ -324,8 +324,8 @@
 				"#CF56E2",
 				"#E256AE",
 				"#E25668",
-				"#E28956", 
-				"#E2CF56",				 
+				"#E28956",
+				"#E2CF56",
 				"#BCD39C"
 			  ],
 			  hoverBackgroundColor: [
@@ -337,7 +337,7 @@
 				"#F278C7",
 				"#F2788B",
 				"#F2A378",
-				"#F2DF78",			 
+				"#F2DF78",
 				"#EAFDCF"
 			  ]
 			}]
@@ -347,6 +347,6 @@
 	  });
 	</script>
 	<!-- /Doughnut Chart -->
-	   
+
   </body>
 </html>
