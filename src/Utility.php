@@ -26,23 +26,23 @@ function formatServices($servicesArray) {
 function getServices2($hex){
 	$bit = base_convert($hex, 16, 2);
 	$services = [];
-	
+
 	// 1 = Network, 2 = Getutxo, 3 = Bloom, 4 = Witness, 5 = Xthin, 6 = Cash, 7 = Segwit2X, 10 = Network Limited
 	// No services
 	if($bit === "0"){
 		$services['None'] = "None";
 		return $services;
 	}
-	
+
 	// Fixed length, no if(lenght < xx) necessary
-	$bit = sprintf('%010d', $bit);	
+	$bit = sprintf('%010d', $bit);
 
 	if(substr($bit, -1) == 1){
 		$services['Network'] = "N";
 	}
 	if(substr($bit, -2, 1) == 1){
 		$services['Getutxo'] = "GT";
-	}  
+	}
 	if(substr($bit, -3, 1) == 1){
 		$services['Bloom'] = "BL";
 	}
@@ -63,7 +63,7 @@ function getServices2($hex){
 	}
 	if(substr($bit, -11, 1) == 1){
 		$services['Network Limited'] = "NL";
-	}	 
+	}
 
 	// Unknown services
 	if(empty($services)){
@@ -95,7 +95,7 @@ function checkAsicBoost($versionHex){
 function checkInt($int){
 	if(!is_numeric($int)){
 		$int = 0;
-	}	
+	}
 	return $int;
 }
 
@@ -178,7 +178,7 @@ function checkSegWitTx($size, $vsize){
 	if($size != $vsize){
 		$segwit = true;
 	}
-	
+
 	return $segwit;
 }
 
@@ -209,8 +209,8 @@ function updateHosted($hoster, $hosted){
 			$peer[4] = $hosted;
 		}
 	}
-	file_put_contents('data/geodatapeers.inc',serialize($peers)); 
-}	
+	file_put_contents('data/geodatapeers.inc',serialize($peers));
+}
 
 function bytesToMb($size, int $round = 1){
 	$size = round(checkInt($size) / 1000000,$round);
@@ -223,7 +223,7 @@ function bytesToGb($size, int $round = 1){
 }
 
 function getDateTime($timestamp){
-	$date = date("Y-m-d H:i:s",$timestamp);	
+	$date = date("Y-m-d H:i:s",$timestamp);
 	return $date;
 }
 
@@ -250,23 +250,23 @@ function checkMemPoolLimited($memPoolFee, $relayTxFee){
 }
 
 function checkSoftFork($softForks){
-	foreach($softForks as $name => &$sf){  
+	foreach($softForks as $name => &$sf){
 		if($sf['type'] === 'bip9' && $sf['bip9']['status'] === "started"){
 			if(!preg_match("/[A-Za-z0-9 ]{2,25}/", $name)){
 				unset($softForks[$name]);
 				continue;
 			}
 			$sf['status'] = ucfirst(preg_replace("/[^A-Za-z]/", '', $sf['bip9']['status']));
-			$sf['startTime'] = date("Y-m-d",$sf['bip9']['startTime']);
-			$sf['timeout'] = date("Y-m-d",$sf['bip9']['timeout']); 
-			$sf['since'] = checkInt($sf['bip9']['since']); 
+			$sf['start_time'] = date("Y-m-d",$sf['bip9']['start_time']);
+			$sf['timeout'] = date("Y-m-d",$sf['bip9']['timeout']);
+			$sf['since'] = checkInt($sf['bip9']['since']);
 			if(isset($sf['bip9']['statistics'])){
 				$sf['process'] = round(($sf['bip9']['statistics']['count']/$sf['bip9']['statistics']['period'])*100,1);
 			}
 		}else{
 			unset($softForks[$name]);
 		}
-	}	
+	}
 	return $softForks;
 }
 
@@ -288,11 +288,11 @@ function calcMpUsage($usage, $max){
 		$color = "orange";
 	}else{
 		$icon = "fa-battery-3";
-		$color = "red";		
+		$color = "red";
 	}
 	$usageP = array('value' => $value, 'color' => $color, 'icon' => $icon);
 	return $usageP;
-	
+
 }
 
 function getBanReason($banreason){
@@ -313,7 +313,7 @@ function getBanReason($banreason){
 function getCleanClient($client){
 	$client =  ltrim($client,"/");
 	$client =  rtrim($client,"/");
-	
+
 	if(preg_match("/^Satoshi:([0]\.[0-9]{1,2}\.[0-9]{1,2})/",$client, $matches)) {
 		$client = "Core ".$matches[1];
 	}elseif(preg_match("/^Satoshi:([1]\.[0-9]{1,2}\.[0-9]{1,2})/",$client, $matches)) {
@@ -331,7 +331,7 @@ function getCleanClient($client){
 	return $client;
 }
 
-function checkSPV($client){	
+function checkSPV($client){
 	if (preg_match('/MultiBit|bitcoinj|bread/i',$client)){
 		return true;
 	}else{
@@ -339,7 +339,7 @@ function checkSPV($client){
 	}
 }
 
-function checkMonitoring($client){	
+function checkMonitoring($client){
 	if (preg_match('/Snoopy|Coinscope|bitnodes|dsn.tm.kit.edu|multiven|walle /i',$client)){
 		return true;
 	}else{
@@ -352,7 +352,7 @@ function checkAltClient($client){
 		return true;
 	}else{
 		return false;
-	}	
+	}
 }
 
 
@@ -360,8 +360,8 @@ function checkAltClient($client){
 function getTopClients($peers){
 	$clients = [];
 	$chartLabels = "";
-	$chartValue = ""; 
-	
+	$chartValue = "";
+
 	foreach($peers as $peer){
 		if(isset($clients[$peer->client])){
 			$clients[substr($peer->client,0,27)]['count']++;
@@ -369,22 +369,22 @@ function getTopClients($peers){
 			$clients[substr($peer->client,0,27)]['count'] = 1;
 		}
 	}
-	
+
 	$peerCount = count($peers);
 	$clientCount = count($clients);
 	arsort($clients);
-	$clients = array_slice($clients,0,9);	
+	$clients = array_slice($clients,0,9);
 	if($clientCount > 9){
 		$clients['Other']['count'] = $clientCount-9;
 	}
-	
-	
+
+
 	foreach($clients as $cName => &$client){
 		$chartLabels .= '"'.$cName.'",';
 		$chartValue .= $client['count'].',';
 		$client['share'] = round($client['count']/$peerCount,2)*100;
 	}
-	
+
 	$chartData['labels'] = rtrim($chartLabels, ",");
 	$chartData['values'] = rtrim($chartValue, ",");
 	$chartData['legend'] = $clients;
@@ -399,20 +399,20 @@ function getMostPop($peers){
 	$ctCountAr = [];
 	$htCountAr = [];
 	$result = [];
-	
+
 	foreach($peers as $peer){
 		// Count Witness
 		if(isset($peer->services['Witness']) AND $peer->services['Witness']){
 			$segWitCount++;
 		}
-		
+
 		// Count Client 1
 		if(array_key_exists($peer->client,$clCountAr)){
 			$clCountAr[$peer->client]++;
 		}else{
 			$clCountAr[$peer->client] = 1;
 		}
-		
+
 		if(CONFIG::PEERS_GEO){
 			// Count Country 1
 			if(array_key_exists($peer->countryCode,$ctCountAr)){
@@ -420,27 +420,27 @@ function getMostPop($peers){
 			}else{
 				$ctCountAr[$peer->countryCode] = 1;
 			}
-			
+
 			// Count ISP 1
 			if(array_key_exists($peer->isp,$htCountAr)){
 				$htCountAr[$peer->isp]++;
 			}else{
 				$htCountAr[$peer->isp] = 1;
-			}			
+			}
 		}
 	}
-	
+
 	// Count Client 2
 	arsort($clCountAr);
 	$result['mpCli'] = key($clCountAr);
 	$result['mpCliC'] = reset($clCountAr);
-	
+
 	if(CONFIG::PEERS_GEO){
 		// Count Country 2
 		arsort($ctCountAr);
 		$result['mpCou'] = key($ctCountAr);
 		$result['mpCouC'] = reset($ctCountAr);
-		
+
 		// Count ISP 2
 		arsort($htCountAr);
 		$result['mpIsp'] = substr(key($htCountAr),0,8);
@@ -457,8 +457,8 @@ function getMostPop($peers){
 function getPeerData(bool $geo = CONFIG::PEERS_GEO){
   global $bitcoind;
   $peersData = [];
-	
-	$peerInfo = $bitcoind->getpeerinfo(); 
+
+	$peerInfo = $bitcoind->getpeerinfo();
 
 	if($geo){
 		$peersData = createPeersGeo($peerInfo);
@@ -468,7 +468,7 @@ function getPeerData(bool $geo = CONFIG::PEERS_GEO){
     $peersData["cTrafficIn"] = 0;
     $peersData["cTrafficOut"] = 0;
     $peersData["newPeersCount"] = 0;
-    
+
     foreach($peerInfo as $peer){
       $peerObj = new Peer($peer);
       $peersData["peers"][] = $peerObj;
@@ -477,7 +477,7 @@ function getPeerData(bool $geo = CONFIG::PEERS_GEO){
       $peersData["cTrafficOut"] += $peerObj->trafficOut;
     }
 	}
-	
+
 	return $peersData;
 }
 
@@ -494,7 +494,7 @@ function createPeersGeo($peerinfo){
 	$peerData["privateCount"] = 0;
 	$arrayPeers = [];
 	$noGeoData = false;
-	
+
   // Check if peer file exists and enabled
   if (file_exists('data/geodatapeers.inc')){
     // Loads serialized stored peers from disk
@@ -525,7 +525,7 @@ function createPeersGeo($peerinfo){
 	}else{
 		$noGeoData = true;
 	}
-	
+
 	// Find Ips that we don't have geo data for and that are "older" than 5 minutes
 	// First interation through all peers is used to collect ips for geo api call. This way the batch functionality can be used
   $ips = [];
@@ -538,13 +538,13 @@ function createPeersGeo($peerinfo){
 			$ips[] = $tempIP;
 		}
 	}
-	
+
 	if(!empty($ips)){
     $apiData = getIpData($ips);
     $ipData = $apiData['geojson'];
     $peerData['api'] = $apiData['api'];
   }
-  
+
 	// 2nd interation through peers to create final peer list for output
 	foreach($peerinfo as $peer){
 		// Creates new peer object
@@ -557,7 +557,7 @@ function createPeersGeo($peerinfo){
 				$ipInfo = $ipData[$index];
 				$countryCode = checkCountryCode($ipInfo['countryCode']);
 				$country = checkString($ipInfo['country']);
-				$isp = checkString($ipInfo['isp']);		 
+				$isp = checkString($ipInfo['isp']);
 				$hosted = checkHosted($isp);
 				// Adds the new peer to the save list
         $arrayPeers[$peerObj->id] = array($peerObj->ip, $countryCode, $country, $isp, $hosted, 1);
@@ -567,15 +567,15 @@ function createPeersGeo($peerinfo){
 				// If IP-Api.com call failed we set all data to Unknown and don't store the data
 				$countryCode = "UN";
 				$country = "Unknown";
-				$isp = "Unknown";		 
+				$isp = "Unknown";
 				$hosted = false;
 				// Only counted for peers older than 5 minutes
-				$peerData["newPeersCount"]++;				
+				$peerData["newPeersCount"]++;
 			}else{
 				// If peer is younger than 5 minutes
 				$countryCode = "NX";
 				$country = "New";
-				$isp = "New";		 
+				$isp = "New";
 				$hosted = false;
 			}
 		}else{
@@ -593,7 +593,7 @@ function createPeersGeo($peerinfo){
 		}
 
 		// Counts the countries
-		if(isset($peerData['countryList'][$country])){	   
+		if(isset($peerData['countryList'][$country])){
       $peerData['countryList'][$country]['count']++;
 		}else{
 			$peerData['countryList'][$country]['code'] = $countryCode;
@@ -614,7 +614,7 @@ function createPeersGeo($peerinfo){
 		$peerData["cTraffic"] += $peerObj->traffic;
 		$peerData["cTrafficIn"] += $peerObj->trafficIn;
 		$peerData["cTrafficOut"] += $peerObj->trafficOut;
-	
+
 		// Adds peer to peer array
 		$peerData["peers"][] = $peerObj;
 
@@ -633,7 +633,7 @@ function createPeersGeo($peerinfo){
     $newSerializePeers = serialize($arrayPeers);
     file_put_contents('data/geodatapeers.inc', $newSerializePeers);
   }
-	
+
 	return $peerData;
 }
 
@@ -659,18 +659,18 @@ function getIpData($ips){
 			$postvars[$j][] =  array("query" => $ips[$i+$j]);
 		}
 		$j += $i;
-  }	
-  
+  }
+
 	// Curl
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_URL,'http://ip-api.com/batch?fields=query,country,countryCode,city,isp,status');
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , CONFIG::PEERS_GEO_TIMEOUT); 
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , CONFIG::PEERS_GEO_TIMEOUT);
 	curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG::PEERS_GEO_TIMEOUT+1);
-	
+
 	// One call for each 100 ips
 	$apiData['geojson'] = [];
 	foreach($postvars as $postvar){
@@ -689,7 +689,7 @@ function getIpData($ips){
 }
 
 function createMapJs(int $peerCount, array $countryList){
-	
+
 	// Sorting country list
 	function compare($a, $b)
 	{
@@ -704,9 +704,9 @@ function createMapJs(int $peerCount, array $countryList){
 	// Creates map Legend. Top 9 countries + Others
 	foreach($countryList as $countryName => $country){
 		$jqvData .= "\"".strtolower($country['code'])."\":".$country['count'].",";
-		
+
 		if($i<9){
-			$mapDesc[$countryName] = $country;		   
+			$mapDesc[$countryName] = $country;
 			$i++;
 		}else{
 			if(isset($mapDesc['Other']['count'])){
@@ -716,19 +716,19 @@ function createMapJs(int $peerCount, array $countryList){
 			}
 		}
 	}
-	
+
 	foreach($mapDesc as &$country){
 		$country['share'] = round($country['count']/$peerCount,2)*100;
 	}
-	
+
 	$jqvData = rtrim($jqvData, ",");
 	$jqvData .= '};';
-	
+
 	// Writes data file for JVQMap
 	//file_put_contents('data/countries.js',$jqvData);
 	$map['data'] = $jqvData;
 	$map['desc'] = $mapDesc;
-	
+
 	return $map;
 }
 
