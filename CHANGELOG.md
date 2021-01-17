@@ -1,5 +1,22 @@
 # Bitcoin Node Manager Changelog
 
+## 1.2.0 - 2021-01-17
+
+The release is important for the compatibility with Bitcoin Core 0.21.0
+
+- [**New**] You can now run BNM via Docker Compose (see the README)
+- [**Improved**] See if a peer is incoming our outgoing (mouseover IP)
+- [**Improved**] Moved ping column to IP column (mouseover)
+- [**Improved**] Detect if peers support Compact Filters
+- [**Improved**] More detailed error messages if something is wrong with the Core RPC
+- [**Improved**] More reliable RPC calls
+- [**Fixed**] Mobile layout
+- [**Fixed**] Whitelist check (0.21.0 compatibility)
+- [**Fixed**] Removed banscore (0.21.0 compatibility)
+- [**Fixed**] Onion v3 address detection (0.21.0 compatibility)
+- [**Fixed**] Removed list of memory pools transaction due to size (>100MB)
+- [**Fixed**] Softfork voting time
+
 ## 1.1.0 - 2020-12-19
 
 The release brings some new features and a few bug fixes.
