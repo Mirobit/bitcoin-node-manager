@@ -12,7 +12,8 @@ class Node {
 	public $tor; // Bool: if tor active
 	public $ipv4Address = 'Unknown';
 	public $ipv6Address = 'Unknown';
-	public $torAddress = 'Unknown';
+  public $torAddress = 'Unknown';
+  public $torVersion = 'Unkown';
 	public $ipv4Proxy;
 	public $ipv6Proxy;
 	public $torProxy;
@@ -78,18 +79,21 @@ class Node {
 				$this->torProxy = $network["proxy"] ?? null;
 			}	
 		}
-		$ipAddresses =$networkInfo["localaddresses"];
+    $ipAddresses = $networkInfo["localaddresses"];
 		foreach($ipAddresses as $ipAddress){
 			if(preg_match("/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/", $ipAddress["address"])){
 				$this->ipv4Address = $ipAddress["address"];
 			}
-			if(preg_match("/^[0-9a-z]{1,4}(:[0-9a-z]{0,4}){0,6}$/", $ipAddress["address"])){
+			elseif(preg_match("/^[0-9a-z]{1,4}(:[0-9a-z]{0,4}){0,6}$/", $ipAddress["address"])){
 				$this->ipv6Address = $ipAddress["address"];
 			}
-			if(preg_match("/^[0-9a-z]{16}\.onion$/", $ipAddress["address"])){
-
+			elseif(preg_match("/^[0-9a-z]{16}\.onion$/", $ipAddress["address"])){
+        $this->torVersion = "v2";
+        $this->torAddress = $ipAddress["address"];
+			}elseif(preg_match("/^[0-9a-z]{56}\.onion$/", $ipAddress["address"])){
+        $this->torVersion = "v3";
 				$this->torAddress = $ipAddress["address"];
-			}		
+			}
 		}
 		$this->toConn = checkInt($networkInfo["connections"]);
 		$this->uptime = timeToString($uptimeInfo);
