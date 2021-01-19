@@ -25,10 +25,20 @@ if(!(empty(Config::ACCESS_IP) || $_SERVER['REMOTE_ADDR'] == "127.0.0.1" || $_SER
 	exit; 
 }
 
+// Create bitcoin core rpc client
+if(defined('App\Config::RPC_PORT')) {
+  $rpcIp = Config::RPC_IP;
+  $rpcPort = Config::RPC_PORT;
+} else {
+  preg_match("/(.*):([0-9]{1,5})$/", Config::RPC_IP, $matches);
+  $rpcIp = $matches[1];
+  $rpcPort = $matches[2];
+}
+$bitcoind = new jsonRPCClient(Config::RPC_USER, Config::RPC_PASSWORD, $rpcIp, $rpcPort);
+
 // Cronjob Rule Run
 if((isset($_GET['job']) && $_GET['job'] === substr(hash('sha256', Config::PASSWORD."ebe8d532"),0,24)) || (isset($argc) && $argv[1] === substr(hash('sha256', Config::PASSWORD."ebe8d532"),0,24))){
 	require_once 'src/Utility.php';
-	$bitcoind = new jsonRPCClient('http://'.Config::RPC_USER.':'.Config::RPC_PASSWORD.'@'.Config::RPC_IP.'/');
 	Rule::run();
 	exit;
 }
@@ -70,15 +80,6 @@ require_once 'src/Content.php';
 $error = "";
 $message = "";
 $content = "";
-if(defined('App\Config::RPC_PORT')) {
-  $rpcIp = Config::RPC_IP;
-  $rpcPort = Config::RPC_PORT;
-} else {
-  preg_match("/(.*):([0-9]{1,5})$/", Config::RPC_IP, $matches);
-  $rpcIp = $matches[1];
-  $rpcPort = $matches[2];
-}
-$bitcoind = new jsonRPCClient(Config::RPC_USER, Config::RPC_PASSWORD, $rpcIp, $rpcPort);
 
 // Content
 // Main Page
