@@ -32,8 +32,8 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 
 ## Installation
 
-1. [Download](https://github.com/Mirobit/bitcoin-node-manager/releases) Bitcoin Node Manager or clone this repository.
-2. Make sure `bitcoind` is running. If you use `bitcoin-qt` make sure `server=1` is set in the `bitcoin.conf` file.
+1. Clone this repository or [download](https://github.com/Mirobit/bitcoin-node-manager/releases) it.
+2. Make sure `bitcoind` (`-daemon`) is running. If you use `bitcoin-qt` set `server=1` in the `bitcoin.conf` file.
 3. Copy `src/Config.sample.php` and remove `.sample`. Open `src/Config.php` and enter your Bitcoin Core RPC credentials and set the BNM password.
 
 If you want to use Docker you can skip to the Docker section.
@@ -44,7 +44,7 @@ If you want to use Docker you can skip to the Docker section.
 
 ### Docker
 
-Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 -n bnm -v ${PWD}:/var/www/html php:7.4-apache` in the BNM folder. BNM should now be accessible under http://localhost:8000. You can change the port in `docker-compose.yml` or the terminal command (`8000:80`). The BNM folder is mounted as volume in Docker. So can edit your config and update BNM at any time. Don't forget to set the right RPC IP in `src/Config.php`.
+Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 -n bnm -v ${PWD}:/var/www/html php:7.4-apache` in the BNM folder. BNM should now be accessible under http://localhost:8000. You can change the port in `docker-compose.yml` or the terminal command (`8000:80`). The BNM folder is mounted as volume in Docker. So can edit `src/Config.php` and update BNM (`git pull`) at any time. Don't forget to set the right RPC IP in `src/Config.php`.
 
 ## Security
 
@@ -56,7 +56,7 @@ Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 -n bnm -v
 
 - [ ] Improve project structure
 - [ ] Improve OOP
-- [ ] Improve error handling
+- [x] Improve error handling
 - [ ] Import rules functionality
 - [ ] More help icons
 - [ ] Use popover for help
