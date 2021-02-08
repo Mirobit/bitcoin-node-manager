@@ -50,15 +50,16 @@ $passToken = hash('sha256', Config::PASSWORD."ibe81rn6");
 
 // Active Session
 if(isset($_SESSION['login']) && $_SESSION['login'] === TRUE){
-	// Nothing needs to be done
-	
+	// Nothing needs to be done	
 // Login Cookie available	
-}elseif(isset($_COOKIE["Login"]) && $_COOKIE["Login"] == $passToken){
+}elseif(isset($_COOKIE["Login"]) && $_COOKIE["Login"] === $passToken){
 		$_SESSION['login'] = TRUE;
-		$_SESSION["csfrToken"] = hash('sha256', random_bytes(20));
-
+    $_SESSION["csfrToken"] = hash('sha256', random_bytes(20));
+// Password disabled
+}elseif(Config::PASSWORD === "") {
+  // Nothind needs to be done
 // Login		
-}elseif(!isset($_SESSION['login']) && isset($_POST['password']) && $_POST['password'] == Config::PASSWORD){
+}elseif(!isset($_SESSION['login']) && isset($_POST['password']) && $_POST['password'] === Config::PASSWORD){
 	$passHashed = hash('sha256', Config::PASSWORD);
 		$_SESSION['login'] = TRUE;
 		$_SESSION["csfrToken"] = hash('sha256', random_bytes(20));
