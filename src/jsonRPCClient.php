@@ -33,16 +33,13 @@ class jsonRPCClient
      * @param string $password
      * @param string $host
      * @param int $port
-     * @param string $proto
-     * @param string $url
      */
-    public function __construct($username, $password, $host = 'localhost', $port = 8332, $url = null)
+    public function __construct($username, $password, $host = 'localhost', $port = 8332)
     {
         $this->username      = $username;
         $this->password      = $password;
         $this->host          = $host;
         $this->port          = $port;
-        $this->url           = $url;
 
         // Set some defaults
         $this->proto         = 'http';
@@ -79,7 +76,7 @@ class jsonRPCClient
         ));
 
         // Build the cURL session
-        $curl    = curl_init("{$this->proto}://{$this->host}:{$this->port}/{$this->url}");
+        $curl    = curl_init("{$this->proto}://{$this->host}:{$this->port}");
         $options = array(
             CURLOPT_HTTPAUTH       => CURLAUTH_BASIC,
             CURLOPT_USERPWD        => $this->username . ':' . $this->password,
@@ -92,6 +89,11 @@ class jsonRPCClient
             CURLOPT_CONNECTTIMEOUT => 2,
             CURLOPT_TIMEOUT        => 10
         );
+
+        if(defined('App\Config::PROXY') && !empty(Config::PROXY) && defined('App\Config::PROXY_TYPE') && !empty(Config::PROXY_TYPE)) {
+          $options[CURLOPT_PROXYTYPE] = Config::PROXY_TYPE;
+          $options[CURLOPT_PROXY] = Config::PROXY;
+        }
 
         // This prevents users from getting the following warning when open_basedir is set:
         // Warning: curl_setopt() [function.curl-setopt]:

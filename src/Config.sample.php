@@ -48,5 +48,12 @@
     const DISPLAY_BLOCKS = 25;
     // Number of forks displayed on forks page
     const DISPLAY_FORKS = 25;
+
+    /* 
+    You can connect (curl) to the bitcoin core rpc through a proxy. This not relevant for most setups.
+    Only change this if you know what you are doing. E.g "CURLPROXY_SOCKS5" and "127.0.0.1:9050".
+    */
+    const PROXY_TYPE = "";
+    const PROXY = "";
   }
 ?>
