@@ -6,3 +6,4 @@ services:
       - 8000:80
     volumes:
       - ./:/var/www/html
+    network_mode: bridge
