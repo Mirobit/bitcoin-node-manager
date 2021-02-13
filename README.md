@@ -13,14 +13,14 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 - Overview of all connected peers including country, ISP, client, traffic usage, supported services...
   - Ban or disconnect peers
   - Manage a list of web hoster to detect if peer is hosted or private
-- Overview of all banned peers
+- Manage banned peers
   - Unban specific peers
   - Export/Import your ban list
   - Generate iptables rules (reject banned peers at OS level)
-- Overview of the last received blocks
-- Overview of the last received forks (orphaned blocks / alternative chains)
-- Overview of the memory pool and containing transactions
-- Overview of the wallet (no functionality, information only)
+- Last received blocks information
+- Last received forks (orphaned blocks / alternative chains) information
+- Memory pool statitics
+- Wallet overview (no functionality, information only)
 
 ## Requirements
 
@@ -36,15 +36,24 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 2. Make sure `bitcoind` (`-daemon`) is running. If you use `bitcoin-qt` set `server=1` in the `bitcoin.conf` file.
 3. Copy `src/Config.sample.php` and remove `.sample`. Open `src/Config.php` and enter your Bitcoin Core RPC credentials and set the BNM password.
 
-If you want to use Docker you can skip to the Docker section.
+### Manual setup
 
 4. Make sure the BNM folder is in your web servers folder (e.g. `/var/www/html/`). If the server is publicly accessible, I recommend renaming the BNM folder to something unique. Although BNM is password protected and access can be limited to a specific IP, there can be security flaws and bugs.
 5. Open the URL to the folder in your browser and login with the password chosen in `src/Config.php`.
-6. Optional: Read the Security section for.
 
 ### Docker
 
-Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 --name bnm -v ${PWD}:/var/www/html php:7.4-apache` in the BNM folder. BNM should now be accessible under http://localhost:8000. You can change the port in `docker-compose.yml` or the terminal command (`8000:80`). The BNM folder is mounted as volume in Docker. This way you can edit `src/Config.php` and update BNM (`git pull`) at any time without connecting to the container. Don't forget to set the right RPC IP in `src/Config.php`.
+The BNM folder is mounted as volume in Docker. This way you can edit `src/Config.php` and update BNM (`git pull`) at any time without connecting to the container.
+
+4. Change the RPC IP in `src/Config.php` to the docker network interface IP.
+5. Run either `docker-compose up -d` or `docker run -d -p 8000:80 --name bnm -v ${PWD}:/var/www/html php:7.4-apache` in the BNM folder. 
+6. Add the following to your `bitcoin.conf`: 
+```
+rpcbind=127.0.0.1 
+rpcbind=172.17.0.1 
+rpcallowip=0.0.0.0/0
+```
+7. BNM should now be accessible under http://server-ip:8000. 
 
 ## Security
 
@@ -59,7 +68,4 @@ Run can either run `docker-compose up -d` or `docker run -d -p 8000:80 --name bn
 - [x] Improve error handling
 - [ ] Import rules functionality
 - [ ] More help icons
-- [ ] Use popover for help
 - [ ] Display expanded peer/block info (popup)
-- [ ] More customization settings
-- [ ] Highlight suspicious peers
