@@ -4108,3 +4108,8 @@ ul.notifications {
     color: white;
   } 
 }
+ .tor-address {
+  text-decoration:underline;
+  text-decoration-style: dotted;
+ }
+
