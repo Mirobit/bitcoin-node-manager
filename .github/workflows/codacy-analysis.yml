@@ -11,6 +11,7 @@ name: Codacy Security Scan
 on:
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   codacy-security-scan:
