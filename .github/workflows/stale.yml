@@ -1,4 +1,4 @@
-name: Mark stale issues and pull requests
+name: Check stale
 
 on:
   schedule:
@@ -12,15 +12,15 @@ jobs:
     - uses: actions/stale@v3
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This issue is stale because it has been open 30 days with no activity. With no activity this will be closed in 30 days.'
-        stale-pr-message: 'This PR is stale because it has been open 45 days with no activity. With no activity this will be closed in 45 days.'
-        close-issue-message: 'This issue was closed because it has been stalled for 30 days with no activity.'
-        close-pr-message: 'This PR was closed because it has been stalled for 45 days with no activity.'
+        stale-issue-message: 'This issue is stale because it has been open 30 days with no activity. With no activity this will be closed in 60 days.'
+        stale-pr-message: 'This PR is stale because it has been open 45 days with no activity. With no activity this will be closed in 90 days.'
+        close-issue-message: 'This issue was closed because it has been stalled for 60 days with no activity.'
+        close-pr-message: 'This PR was closed because it has been stalled for 90 days with no activity.'
         days-before-issue-stale: 30
         days-before-pr-stale: 45
-        days-before-issue-close: 30
-        days-before-pr-close: 45
+        days-before-issue-close: 60
+        days-before-pr-close: 90
         exempt-all-pr-milestones: true
         exempt-all-issue-milestones: true
-        stale-issue-label: 'no-activity'
-        stale-pr-label: 'no-activity'
+        stale-issue-label: 'stale'
+        stale-pr-label: 'stale'
