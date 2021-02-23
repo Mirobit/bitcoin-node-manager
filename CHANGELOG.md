@@ -1,5 +1,19 @@
 # Bitcoin Node Manager Changelog
 
+## 1.3.0 - 2021-02-23
+
+This release brings proxy support und improves the docker support.
+
+- [**New**] BNM can connect through a proxy to the Bitcoin Core RPC
+- [**Improved**] You no longer need to set a password for BNM
+- [**Improved**] `txindex=1` is no longer required
+- [**Improved**] Docker documentation
+- [**Improved**] Tor address styling
+- [**Fixed**] Run cron job rules
+- [**Fixed**] Show if own node uses compact filters
+- [**Fixed**] Docker command
+- [**Fixed**] IPv6 address detection
+
 ## 1.2.0 - 2021-01-17
 
 The release is important for the compatibility with Bitcoin Core 0.21.0
