@@ -3,53 +3,53 @@
 namespace App;
 
 class Node {
-	public $blockHeight;
-	public $pruMode;
-	public $chain;
-	public $client;
-	public $ipv4; // Bool: if ipv4 active
-	public $ipv6; // Bool: if ipv6 active
-	public $tor; // Bool: if tor active
-	public $ipv4Address = 'Unknown';
-	public $ipv6Address = 'Unknown';
+  public $blockHeight;
+  public $pruMode;
+  public $chain;
+  public $client;
+  public $ipv4; // Bool: if ipv4 active
+  public $ipv6; // Bool: if ipv6 active
+  public $tor; // Bool: if tor active
+  public $ipv4Address = 'Unknown';
+  public $ipv6Address = 'Unknown';
   public $torAddress = 'Unknown';
   public $torVersion = 'Unkown';
-	public $ipv4Proxy;
-	public $ipv6Proxy;
-	public $torProxy;
-	public $toConn; // Int: total connections of node
-	public $cTime; // Current node time
-	public $uptime; // String: uptime of node
-	public $serivces;
-	public $proVer;
-	public $localRelay;
-	public $timeOffset;
-	public $port;
-	public $minRelayFee;
-	public $mempoolTx;
-	public $sizeOfmempoolTx;
-	public $mempoolMinFee;
-	public $maxMempool;
-	public $mempoolUsage;
-	public $mempoolUsageP;
-	public $mempoolLimited; // Bool: If mempool is beeing limited
-	public $tIn;
-	public $tOut;
-	public $tTotal; // Int : Total traffic
-	public $tLimitSet; // Bool : If a t limit is set
-	public $tLimited; // Bool: Is limit is active
-	public $tUsed; // Int: In MB amount of t used in current cycle
-	public $tMax; // Int: In MB the daily t limit
-	public $tTimeLeft; // Int : Time in minutes that are left till the limit is reset
-	public $tLimitP; // Int: Percentage of Limit used
-	public $bHeight; // Int: current block height (as far as node knows)
-	public $bHeightAgo; // Int: Minutes since last received block
-	public $hHeight; // Int: current max header height (blocks not download by node)
-	public $bcSize; // Int: in GB soze of blockchain
-	public $diff; // Int: current network difficulty
-	public $hashRate; // Int: current network hash rate
-	public $mNetTime; // Int: current network mediatime
-	public $softForks; // Arr: List of current forks
+  public $ipv4Proxy;
+  public $ipv6Proxy;
+  public $torProxy;
+  public $toConn; // Int: total connections of node
+  public $cTime; // Current node time
+  public $uptime; // String: uptime of node
+  public $serivces;
+  public $proVer;
+  public $localRelay;
+  public $timeOffset;
+  public $port;
+  public $minRelayFee;
+  public $mempoolTx;
+  public $sizeOfmempoolTx;
+  public $mempoolMinFee;
+  public $maxMempool;
+  public $mempoolUsage;
+  public $mempoolUsageP;
+  public $mempoolLimited; // Bool: If mempool is beeing limited
+  public $tIn;
+  public $tOut;
+  public $tTotal; // Int : Total traffic
+  public $tLimitSet; // Bool : If a t limit is set
+  public $tLimited; // Bool: Is limit is active
+  public $tUsed; // Int: In MB amount of t used in current cycle
+  public $tMax; // Int: In MB the daily t limit
+  public $tTimeLeft; // Int : Time in minutes that are left till the limit is reset
+  public $tLimitP; // Int: Percentage of Limit used
+  public $bHeight; // Int: current block height (as far as node knows)
+  public $bHeightAgo; // Int: Minutes since last received block
+  public $hHeight; // Int: current max header height (blocks not download by node)
+  public $bcSize; // Int: in GB soze of blockchain
+  public $diff; // Int: current network difficulty
+  public $hashRate; // Int: current network hash rate
+  public $mNetTime; // Int: current network mediatime
+  public $softForks; // Arr: List of current forks
 	
 	function __construct() {
 		global $bitcoind;
@@ -84,7 +84,7 @@ class Node {
 			if(preg_match("/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/", $ipAddress["address"])){
 				$this->ipv4Address = $ipAddress["address"];
 			}
-			elseif(preg_match("/^[0-9a-z]{1,4}(:[0-9a-z]{0,4}){0,6}$/", $ipAddress["address"])){
+			elseif(preg_match("/^[0-9a-z]{1,4}(:[0-9a-z]{0,4}){1,7}$/", $ipAddress["address"])){
 				$this->ipv6Address = $ipAddress["address"];
 			}
 			elseif(preg_match("/^[0-9a-z]{16}\.onion$/", $ipAddress["address"])){
