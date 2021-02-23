@@ -2,7 +2,9 @@
 
 ![](https://user-images.githubusercontent.com/13236924/102018547-2c11e800-3d6e-11eb-96bb-e0bccf76977e.png)
 
-Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for your Bitcoin node. Check out [ElextrumX Dashboard](https://github.com/Mirobit/electrumx-dashboard) if you run an Electrumx Server.
+Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for your Bitcoin node. 
+
+Check out [ElextrumX Dashboard](https://github.com/Mirobit/electrumx-dashboard) if you run an Electrumx Server.
 
 ## Features
 
@@ -32,14 +34,15 @@ Bitcoin Node Manager (BNM) is a lightweight dashboard and control system for you
 
 ## Installation
 
-1. Clone this repository or [download](https://github.com/Mirobit/bitcoin-node-manager/releases) it.
+1. Clone the repository.
 2. Make sure `bitcoind` (`-daemon`) is running. If you use `bitcoin-qt` set `server=1` in the `bitcoin.conf` file.
 3. Copy `src/Config.sample.php` and remove `.sample`. Open `src/Config.php` and enter your Bitcoin Core RPC credentials and set the BNM password.
 
 ### Manual setup
 
 4. Make sure the BNM folder is in your web servers folder (e.g. `/var/www/html/`). If the server is publicly accessible, I recommend renaming the BNM folder to something unique. Although BNM is password protected and access can be limited to a specific IP, there can be security flaws and bugs.
-5. Open the URL to the folder in your browser and login with the password chosen in `src/Config.php`.
+5. Check that the server (e.g. `www-data`) has access (read and write) to the data folder (git will change the ownership by default).
+6. Open the URL to the folder in your browser and login with the password chosen in `src/Config.php`.
 
 ### Docker
 
@@ -59,7 +62,7 @@ rpcallowip=0.0.0.0/0
 
 - All pages and control functionality are only accessible for logged-in users. The only exception is if you use the Rules cron job functionality. But a password based token is required and the functionality is only able to apply rules.
 - Access to BNM is by default limited to localhost. This can be expanded to a specific IP or disabled. If disabled, make sure to protect the BNM folder (.htaccess or rename it to something unique that an attacker will not guess). An attacker could "guess" your password, since there is no build-in brute force protection.
-- The `data` folder contains your rules, rule logs and geo information about your peers. Make sure to protect (e.g. `chmod -R 770 data`) this sensitive information if your web server is publicly accessible. The previously mentioned IP protection doesn't work here. If you use `Apache` you are fine, since the folder is protected with `.htaccess` (make sure `AllowOverride All` is set in your Apache config file).
+- The `data` folder contains your rules, rule logs and geo information about your peers. Make sure to protect (e.g. `chmod -R 700 data`) peer information if your web server is publicly accessible. The previously mentioned IP protection doesn't work here. If you use `Apache` you are fine, since the folder is protected with `.htaccess` (make sure `AllowOverride All` is set in your Apache config file).
 
 ## Roadmap
 
