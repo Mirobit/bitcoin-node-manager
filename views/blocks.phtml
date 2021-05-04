@@ -8,8 +8,8 @@
 					  <span class="count_bottom"><span><?= $content["timeframe"] ?> </span> h timeframe</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					  <span class="count_top"><i class="fa fa-cloud-download" style="color:lightgreen;"></i> Last Block</span>
-					  <div class="count"><?= key($content["blocks"]) ?></div>
+					  <span class="count_top"><i class="fa fa-cloud-download" style="color:lightgreen;"></i> Latest Block</span>
+					  <div class="count"><?= array_key_first($content["blocks"]) ?></div>
 					  <span class="count_bottom"><span style="color:lightgreen;"><?= reset($content["blocks"])["timeago"] ?></span> min ago</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
