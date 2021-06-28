@@ -16,7 +16,7 @@ jobs:
         stale-pr-message: 'This PR is stale because it has been open 45 days with no activity. With no activity this will be closed in 90 days.'
         close-issue-message: 'This issue was closed because it has been stalled for 60 days with no activity.'
         close-pr-message: 'This PR was closed because it has been stalled for 90 days with no activity.'
-        days-before-issue-stale: 30
+        days-before-issue-stale: 60
         days-before-pr-stale: 45
         days-before-issue-close: 60
         days-before-pr-close: 90
