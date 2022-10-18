@@ -141,6 +141,10 @@ class Node {
 		$this->hashRate = round(checkInt($miningInfo["networkhashps"])/1000000000000000000,3);
 		$this->mNetTime = getDateTime($blockchainInfo["mediantime"]);
 		// Blockchain -> Soft forks
-		$this->softForks = checkSoftFork($blockchainInfo["softforks"]);		
+		if(isset($blockchainInfo["softforks"])) {
+            		$this->softForks = checkSoftFork($blockchainInfo["softforks"]);
+        	} else {
+            		$this->softForks = [];
+        	}
 	}
 }
