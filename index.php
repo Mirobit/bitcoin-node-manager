@@ -57,7 +57,7 @@ if(isset($_SESSION['login']) && $_SESSION['login'] === TRUE){
     $_SESSION["csfrToken"] = hash('sha256', random_bytes(20));
 // Password disabled
 }elseif(Config::PASSWORD === "") {
-  // Nothind needs to be done
+   $_SESSION["csfrToken"] = hash('sha256', random_bytes(20));
 // Login		
 }elseif(!isset($_SESSION['login']) && isset($_POST['password']) && $_POST['password'] === Config::PASSWORD){
 	$passHashed = hash('sha256', Config::PASSWORD);
