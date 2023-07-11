@@ -225,6 +225,7 @@ function createWalletContent(){
 	try{
 		$unspents = $bitcoind->listunspent();
 		$walletInfo = $bitcoind->getwalletinfo();
+		$watchOnlyBalance = $bitcoind->getbalances()["watchonly"]["trusted"];
 	}catch(\Exception $e){
 		$error = "Wallet disabled!";
 		return "";
@@ -232,6 +233,7 @@ function createWalletContent(){
 
 	$content['wallet']["walletversion"] = checkInt($walletInfo["walletversion"]);	
 	$content['wallet']["balance"] = checkInt($walletInfo["balance"]);	
+	$content['wallet']["watchonly"] = checkInt($watchOnlyBalance);
 	$content['wallet']["unconfirmed_balance"] = checkInt($walletInfo["unconfirmed_balance"]);	
 	$content['wallet']["immature_balance"] = checkInt($walletInfo["immature_balance"]);	
 	$content['wallet']["txcount"] = checkInt($walletInfo["txcount"]);	

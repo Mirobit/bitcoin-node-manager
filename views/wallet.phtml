@@ -6,6 +6,10 @@
 					<span class="count_top"><i class="fa fa-money"></i> Balance</span>
 					<div class="count"><?= number_format($content['wallet']["balance"],8) ?></div>
 				</div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<span class="count_top"><i class="fa fa-money"></i> Watch-Only Balance</span>
+					<div class="count"><?= number_format($content['wallet']["watchonly"],8) ?></div>
+				</div>
 				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					<span class="count_top"><i class="fa fa-long-arrow-right"></i> Unconfirmed Balance</span>
 					<div class="count"><?= number_format($content['wallet']["unconfirmed_balance"],8) ?></div>
