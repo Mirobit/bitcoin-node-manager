@@ -10,13 +10,18 @@ class Node {
   public $ipv4; // Bool: if ipv4 active
   public $ipv6; // Bool: if ipv6 active
   public $tor; // Bool: if tor active
+  public $i2p; // Bool: if i2p active
   public $ipv4Address = 'Unknown';
   public $ipv6Address = 'Unknown';
   public $torAddress = 'Unknown';
   public $torVersion = 'Unkown';
+  public $i2pAddress = 'Unkown';
   public $ipv4Proxy;
   public $ipv6Proxy;
   public $torProxy;
+  public $i2pProxy;
+  public $ipv4Score = 0;
+  public $ipv6Score = 0;
   public $toConn; // Int: total connections of node
   public $cTime; // Current node time
   public $uptime; // String: uptime of node
@@ -86,10 +91,16 @@ class Node {
     $ipAddresses = $networkInfo["localaddresses"];
 		foreach($ipAddresses as $ipAddress){
 			if(preg_match("/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/", $ipAddress["address"])){
-				$this->ipv4Address = $ipAddress["address"];
+        if($ipAddress["score"] >= $this->ipv4Score) {
+          $this->ipv4Address = $ipAddress["address"];
+          $this->ipv4Score = $ipAddress["score"];
+        }
 			}
 			elseif(preg_match("/^[0-9a-z]{1,4}(:[0-9a-z]{0,4}){1,7}$/", $ipAddress["address"])){
-				$this->ipv6Address = $ipAddress["address"];
+        if($ipAddress["score"] >= $this->ipv6Score) {
+          $this->ipv6Address = $ipAddress["address"];
+          $this->ipv6Score = $ipAddress["score"];
+        }
 			}
 			elseif(preg_match("/^[0-9a-z]{16}\.onion$/", $ipAddress["address"])){
         $this->torVersion = "v2";
