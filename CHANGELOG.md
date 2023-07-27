@@ -1,5 +1,21 @@
 # Bitcoin Node Manager Changelog
 
+## 1.4.0 - 2023-07-27
+
+The release is important for the compatibility with Bitcoin Core 25.0.0
+
+- [**Improved**] Symbol for Inbound/Outbound in peer list ([dc74dbe](https://github.com/Mirobit/bitcoin-node-manager/commit/dc74dbe0f7dfa9c7508756ca6f4189d9653f6eaa))
+- [**Improved**] I2P detection ([42e646b](https://github.com/Mirobit/bitcoin-node-manager/commit/42e646b30d15882a83db13868c95da50cfb924a9))
+- [**Improved**] Show watchonly balance (thanks @[MontejoJorge](https://github.com/MontejoJorge), [b639364](https://github.com/Mirobit/bitcoin-node-manager/commit/b6393649055e145b51b21a9184720475dce34c97))
+- [**Fixed**] Show node ip address with the highest score ([d0a16c9](https://github.com/Mirobit/bitcoin-node-manager/commit/d0a16c9b7c8453ff35a8a9b2a7dd72aa77cc6286))
+- [**Fixed**] Show Tor address instead of unkown ([da4f362](https://github.com/Mirobit/bitcoin-node-manager/commit/da4f362e2674aa39349d72571ce840c642b6e6a3))
+- [**Fixed**] Latest block number ([83eb9ef](https://github.com/Mirobit/bitcoin-node-manager/commit/83eb9efe40ba529b440bdf8743fee5db65215935))
+- [**Fixed**] Replace deprecated rpc call ([04a805c](https://github.com/Mirobit/bitcoin-node-manager/commit/04a805c82170d038e5621a830b04c7d28aff15bb))
+- [**Fixed**] Old clients softfork info (thanks @[d-rez](https://github.com/d-rez), [ae67b7c](https://github.com/Mirobit/bitcoin-node-manager/commit/ae67b7ca7d3c9da3a1ed64faaf51a3d5df07604d))
+- [**Fixed**] Set session token if not password is set (thanks @[MontejoJorge](https://github.com/MontejoJorge), [8d8adc1](https://github.com/Mirobit/bitcoin-node-manager/commit/8d8adc12c393dddd3205f34442dbcb894440fc87))
+- [**Fixed**] Typo (thanks @[MontejoJorge](https://github.com/MontejoJorge), [4794b8b](https://github.com/Mirobit/bitcoin-node-manager/commit/4794b8bd02f7da7044b7629917c85881cb89b8a3))
+- [**Fixed**] Typo (thanks @[oonqt](https://github.com/oonqt), [d6d9ffe](https://github.com/Mirobit/bitcoin-node-manager/commit/d6d9ffe34ad9736c3c81c183b29ce4b537b0ee6c))
+
 ## 1.3.0 - 2021-02-23
 
 This release brings proxy support und improves the docker support.
