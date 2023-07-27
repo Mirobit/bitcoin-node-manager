@@ -77,6 +77,10 @@ class Node {
 			elseif($network["name"] === "onion"){
 				$this->tor = ($network["reachable"] ? true : false);
 				$this->torProxy = $network["proxy"] ?? null;
+			}
+      elseif($network["name"] === "i2p"){
+				$this->i2p = ($network["reachable"] ? true : false);
+				$this->i2pProxy = $network["proxy"] ?? null;
 			}	
 		}
     $ipAddresses = $networkInfo["localaddresses"];
@@ -93,7 +97,9 @@ class Node {
 			}elseif(preg_match("/^[0-9a-z]{56}\.onion$/", $ipAddress["address"])){
         $this->torVersion = "v3";
 				$this->torAddress = $ipAddress["address"];
-			}
+      }elseif(preg_match("/*\.i2p$/", $ipAddress["address"])){
+        $this->i2pAddress = $ipAddress["address"];
+      }
 		}
 		$this->toConn = checkInt($networkInfo["connections"]);
 		$this->uptime = timeToString($uptimeInfo);
