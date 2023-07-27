@@ -159,9 +159,9 @@ class Node {
 		$this->mNetTime = getDateTime($blockchainInfo["mediantime"]);
 		// Blockchain -> Soft forks
 		if(isset($blockchainInfo["softforks"])) {
-            		$this->softForks = checkSoftFork($blockchainInfo["softforks"]);
-        	} else {
-            		$this->softForks = [];
-        	}
+      $this->softForks = checkSoftFork($blockchainInfo["softforks"]);
+    } else {
+      $this->softForks = checkSoftFork($bitcoind->getdeploymentinfo()["deployments"]);
+    }
 	}
 }
