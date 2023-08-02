@@ -25,13 +25,14 @@ class Node {
   public $toConn; // Int: total connections of node
   public $cTime; // Current node time
   public $uptime; // String: uptime of node
-  public $serivces;
+  public $services;
   public $proVer;
   public $localRelay;
   public $timeOffset;
   public $port;
   public $minRelayFee;
   public $mempoolTx;
+  public $mempoolSize;
   public $sizeOfmempoolTx;
   public $mempoolMinFee;
   public $maxMempool;
@@ -129,7 +130,7 @@ class Node {
 		$this->minRelayFee = checkInt($networkInfo["relayfee"]);
 		//Mempool
 		$this->mempoolTx = checkInt($mempoolInfo["size"]);
-		$this->mempoolSize =  round(checkInt($mempoolInfo["bytes"])/1000000,1);
+		$this->mempoolSize = round(checkInt($mempoolInfo["bytes"])/1000000,1);
 		$this->mempoolMinFee = checkInt($mempoolInfo["mempoolminfee"]);
 		$this->mempoolUsage = bytesToMb($mempoolInfo["usage"]);
 		$this->maxMempool = bytesToMb($mempoolInfo["maxmempool"]);
