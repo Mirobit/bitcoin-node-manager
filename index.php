@@ -411,7 +411,13 @@ if(empty($_GET) || $_GET['p'] == "main") {
 // About Page	
 }elseif($_GET['p'] == "about") {
 	$data = array('section' => 'about', 'title' => 'About'); 
-	
+}elseif($_GET['p'] == "logout"){
+  session_unset();
+  session_destroy();
+  $_SESSION = array();
+  setcookie("Login", "", time() - 3600);
+  header('Location: index.php');
+  exit; 	
 }else{
 	header('Location: index.php');
 	exit; 	

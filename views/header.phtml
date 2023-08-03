@@ -46,6 +46,7 @@
         <a href="?p=wallet"><i class="fa fa-money"></i> Wallet </a>
         <a href="?p=settings" ><i class="fa fa-cog"></i> Settings </a>
         <a href="?p=about"><i class="fa fa-info"></i> About </a>
+        <a href="?p=logout"><i class="fa fa-sign-out"></i> Logout </a>
       </div>
       <a href="javascript:void(0);" class="icon" onclick="openMobileMenu()">
         <i class="fa fa-bars"></i>
@@ -79,13 +80,12 @@
 				  <a href="?p=wallet" <?php if($this->section=="wallet") echo 'class="active"'; ?>><i class="fa fa-money"></i> Wallet </a>
 				  <a href="?p=settings" <?php if($this->section=="settings") echo 'class="active"'; ?>><i class="fa fa-cog"></i> Settings </a>
 				  <a href="?p=about" <?php if($this->section=="about") echo 'class="active"'; ?>><i class="fa fa-info"></i> About </a>
+          <a href="?p=logout"><i class="fa fa-sign-out"></i> Logout </a>
 				</ul>
 			  </div>
 			</div>
 			<!-- /sidebar menu -->
-
 		  </div>
 		</div>
-
 		<!-- page content -->
 		<div class="right_col" role="main" style="min-height:calc(100vh - 54px)">
