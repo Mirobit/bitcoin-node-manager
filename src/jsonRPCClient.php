@@ -23,6 +23,7 @@ class jsonRPCClient
     // Information and debugging
     public $status;
     public $error;
+    public $errorCode;
     public $raw_response;
     public $response;
 
@@ -59,6 +60,7 @@ class jsonRPCClient
     {
         $this->status       = null;
         $this->error        = null;
+        $this->errorCode    = null;
         $this->raw_response = null;
         $this->response     = null;
 
@@ -135,6 +137,7 @@ class jsonRPCClient
 
         if($this->status === 500 && $this->response['error']) {
           $this->error = $this->response['error']['message'];
+          $this->errorCode = $this->response['error']['code'];
         }elseif ($this->status !== 200) {
             // If bitcoind didn't return a nice error message, we need to make our own
             switch ($this->status) {
@@ -153,7 +156,7 @@ class jsonRPCClient
         }
 
         if ($this->error) {
-          throw new \Exception($this->error);
+          throw new \Exception($this->error, $this->errorCode);
         }
 
         return $this->response['result'];

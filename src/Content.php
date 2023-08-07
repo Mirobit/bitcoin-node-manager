@@ -227,7 +227,11 @@ function createWalletContent(){
 		$walletInfo = $bitcoind->getwalletinfo();
 		$balances = $bitcoind->getbalances();
 	}catch(\Exception $e){
-		$error = "Wallet disabled!";
+		if ($e->getCode() == -18) {
+			$error = "Invalid wallet specified!";
+		} else {
+			$error = "Wallet disabled!";
+		}
 		return "";
 	}
 
