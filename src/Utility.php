@@ -75,12 +75,6 @@ function getServices2($hex){
 
 function getVoting($hex){
 	$vote = [];
-	if($hex[7] == 2) {
-		$vote['Segwit'] = true;
-	}
-	if($hex[6] == 1) {
-		$vote['BIP91'] = true;
-	}
 	return $vote;
 }
 
@@ -394,17 +388,12 @@ function getTopClients($peers){
 
 
 function getMostPop($peers){
-	$segWitCount = 0;
 	$clCountAr = [];
 	$ctCountAr = [];
 	$htCountAr = [];
 	$result = [];
 
 	foreach($peers as $peer){
-		// Count Witness
-		if(isset($peer->services['Witness']) AND $peer->services['Witness']){
-			$segWitCount++;
-		}
 
 		// Count Client 1
 		if(array_key_exists($peer->client,$clCountAr)){
@@ -447,7 +436,6 @@ function getMostPop($peers){
 		$result['mpIspC'] = reset($htCountAr);
 	}
 
-	$result['segWitC'] = $segWitCount;
 	return $result;
 }
 

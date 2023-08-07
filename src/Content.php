@@ -33,7 +33,6 @@ function createPeerContent(){
 	$content['peers'] = $peersData["peers"];
 	$content['tPeers'] = count($peersData["peers"]);
 	$content['nPeers'] = $peersData["newPeersCount"];
-	//$content['segWitP'] = round($content['segWitC']/($content['tPeers'] > 0 ? $content['tPeers'] : 1),2)*100;
 	$content['cTraffic'] = round($peersData["cTraffic"]/1000,2);
 	$content['cTrafficIn'] = round($peersData["cTrafficIn"]/1000, 2);
 	$content['cTrafficOut'] = round($peersData["cTrafficOut"]/1000, 2);
