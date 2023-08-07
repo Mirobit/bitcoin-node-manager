@@ -157,7 +157,7 @@ function checkArray($array){
 }
 
 function checkCountryCode($countryCode){
-	if(preg_match("/^[A-Z]{2}$/", $countryCode)){
+	if ($countryCode !== null && preg_match("/^[A-Z]{2}$/", $countryCode)) {
 		return $countryCode;
 	}else{
 		return "UN";
@@ -165,9 +165,13 @@ function checkCountryCode($countryCode){
 }
 
 function checkString($string){
-	$string = substr($string,0,50);
-	if(preg_match("/^[0-9a-zA-Z- \.,&()]{2,50}$/",$string)){
-		return $string;
+	if ($string !== null){
+		$string = substr($string,0,50);
+		if(preg_match("/^[0-9a-zA-Z- \.,&()]{2,50}$/", $string)){
+			 return $string;
+		} else {
+			return "Unknown";
+		}
 	}else{
 		return "Unknown";
 	}
@@ -555,9 +559,9 @@ function createPeersGeo($peerinfo){
       $index = array_search($peerObj->ip, array_column($ipData, 'query'));
 			if(isset($ipData[0]) AND $peerObj->age > 5 AND is_numeric($index)){
 				$ipInfo = $ipData[$index];
-				$countryCode = checkCountryCode($ipInfo['countryCode']);
-				$country = checkString($ipInfo['country']);
-				$isp = checkString($ipInfo['isp']);
+				$countryCode = isset($ipInfo['countryCode']) ? checkCountryCode($ipInfo['countryCode']) : "UN";
+				$country = isset($ipInfo['country']) ? checkString($ipInfo['country']) : "Unknown";
+				$isp = isset($ipInfo['isp']) ? checkString($ipInfo['isp']) : "Unknown";
 				$hosted = checkHosted($isp);
 				// Adds the new peer to the save list
         $arrayPeers[$peerObj->id] = array($peerObj->ip, $countryCode, $country, $isp, $hosted, 1);
@@ -585,10 +589,10 @@ function createPeersGeo($peerinfo){
 				$id = array_search($peerObj->ip, array_column($arrayPeers,0));
 				$id = array_keys($arrayPeers)[$id];
 			}
-			$countryCode = $arrayPeers[$id][1];
-			$country = $arrayPeers[$id][2];
-			$isp = $arrayPeers[$id][3];
-			$hosted = $arrayPeers[$id][4];
+			$countryCode = isset($arrayPeers[$id][1]) ? $arrayPeers[$id][1] : "UN";
+			$country = isset($arrayPeers[$id][2]) ? $arrayPeers[$id][2] : "Unknown";
+			$isp = isset($arrayPeers[$id][3]) ? $arrayPeers[$id][3] : "Unknown";
+			$hosted = isset($arrayPeers[$id][4]) ? $arrayPeers[$id][4] : false;
 			$arrayPeers[$id][5] = 1;
 		}
 
