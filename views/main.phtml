@@ -25,7 +25,7 @@
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-database"></i> TX in Mempool</span>
 					  <div class="count"><?= number_format($content['node']->mempoolTx) ?></div>
-					  <span class="count_bottom"><i class="<?= $content['node']->mempoolUsageP['color'] ?>"><i class="fa <?= $content['node']->mempoolUsageP['icon'] ?>"></i> <?= $content['node']->mempoolUsageP['value'] ?>%</i> Usage</span>
+					  <span class="count_bottom" title="<?= $content['node']->mempoolUsage ?> / <?= $content['node']->maxMempool ?> MB"><i class="<?= $content['node']->mempoolUsageP['color'] ?>"><i class="fa <?= $content['node']->mempoolUsageP['icon'] ?>"></i> <?= $content['node']->mempoolUsageP['value'] ?>%</i> Usage</span>
 					</div>
 					<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
 					  <span class="count_top"><i class="fa fa-cube orange"></i> Lastest Block</span>
