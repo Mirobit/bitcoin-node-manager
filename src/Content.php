@@ -114,11 +114,12 @@ function createBlocksContent(){
 		$content["blocks"][$block["height"]]["timeago"] = round((time() - $block["time"])/60);
 		$content["blocks"][$block["height"]]["coinbasetx"] = $block["tx"][0];
 		$coinbaseTx = $bitcoind->getrawtransaction($block["tx"][0], 1, $block["hash"]);
-		if($coinbaseTx["vout"][0]["value"] != 0){
-			$content["blocks"][$block["height"]]["fees"] = round($coinbaseTx["vout"][0]["value"] - (50 / pow(2, floor($block["height"] / 210000))), 4) ;
-		}else{
-			$content["blocks"][$block["height"]]["fees"] = round($coinbaseTx["vout"][1]["value"] - (50 / pow(2, floor($block["height"] / 210000))), 4) ;
-		}
+    $currentReward = 50 / pow(2, floor($block["height"] / 210000));
+    $accuReward = 0;
+    foreach($coinbaseTx["vout"] as $vout){
+      $accuReward += $vout["value"];
+    }
+    $content["blocks"][$block["height"]]["fees"] = round($accuReward - $currentReward, 4);
 		$content["totalFees"] += $content["blocks"][$block["height"]]["fees"];
 		$content["blocks"][$block["height"]]["txcount"] = count($block["tx"]);
 		$content["totalTx"] += $content["blocks"][$block["height"]]["txcount"];
