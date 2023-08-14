@@ -253,3 +253,7 @@ body {
 	-webkit-box-shadow: inset 0px 1px 0px #93a9e9;
 	box-shadow: inset 0px 1px 0px #93a9e9;
 }
+
+.white-text {
+  color: white;
+ }

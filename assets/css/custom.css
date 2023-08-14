@@ -4109,10 +4109,6 @@ ul.notifications {
   } 
 }
  .tor-address {
-  text-decoration:underline;
+  text-decoration: underline;
   text-decoration-style: dotted;
  }
- .white-text {
-  color:white;
- }
-
