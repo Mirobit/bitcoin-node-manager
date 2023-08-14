@@ -64,7 +64,13 @@ if(isset($_SESSION['login']) && $_SESSION['login'] === TRUE){
 		$_SESSION['login'] = TRUE;
 		$_SESSION["csfrToken"] = hash('sha256', random_bytes(20));
 		if(isset($_POST['stayloggedin'])){		
-			setcookie("Login", $passToken, time()+2592000, "","",FALSE, TRUE);
+			setcookie("Login", $passToken, [
+        'expires' => time() + 2592000,
+        'path' => '*',
+        'secure' => FALSE,
+        'httponly' => TRUE,
+        'samesite' => 'Strict',
+    ]);
 		}
 
 // Not logged in or invalid data
