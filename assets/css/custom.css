@@ -4112,4 +4112,7 @@ ul.notifications {
   text-decoration:underline;
   text-decoration-style: dotted;
  }
+ .white-text {
+  color:white;
+ }
 
