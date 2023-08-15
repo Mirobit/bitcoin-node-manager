@@ -28,7 +28,7 @@ Check out [ElextrumX Dashboard](https://github.com/Mirobit/electrumx-dashboard) 
 
 - Bitcoin Core 0.19.0.1+
 - Web Server (Apache, Nginx, PHP Server)
-- PHP 7.0.0+
+- PHP 7.3.0+
   - curl extension
 - Docker (Alternative to Web Server and PHP)
 
