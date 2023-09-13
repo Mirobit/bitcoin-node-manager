@@ -297,51 +297,11 @@ In the last fourth row you need to speficy the global trigger event if you check
 	<script src="assets/js/custom.min.js"></script>
 	<script src="assets/js/bootstrap-multiselect.js"></script>
 
+  	<!-- Custom Datatables Script -->
+	<script src="assets/js/custom/datatables-rules.js"></script>
+	<!-- /Datatables -->
+
 	<script type="text/javascript">
-	$(document).ready(function() {
-		$('#clientselection').multiselect();
-		
-		var select = document.getElementById('action');	
-		var selectT = document.getElementById('trigger');
-		displayInput(select.value, "ban", "bantime");		 
-		displayInput2(selectT.value, "client", "clientselectiond", "threshold"); 
-		
-
-		
-		var handleDataTableButtons = function() {
-		  if ($("#rules").length) {
-			$("#rules").DataTable({
-			  dom: '<"dataTables_exportbtn"B>ft',
-			  paging:   false,
-			  order: [[ 0, "asc" ]],
-			  bInfo: false,
-			  buttons: [
-				{
-				  text: 'Export',
-				  extend: "csv",
-					className: "btn-sm btn-dark",
-					exportOptions: {
-						columns: [0,3,4,5]
-		  		}
-				},
-			  ],
-			  responsive: true
-			});
-		  }
-		};
-
-		TableManageButtons = function() {
-		  "use strict";
-		  return {
-			init: function() {
-			  handleDataTableButtons();
-			}
-		  };
-		}();
-
-		TableManageButtons.init();
-	});
-	
 	var hid1 = <?php echo ((isset($content['editRule']->id) AND $content['editRule']->global) ? 'false' : 'true') ?>;
 	$("#global").click (function () {
 
@@ -355,6 +315,5 @@ In the last fourth row you need to speficy the global trigger event if you check
 	});
 
 	</script>
-	<!-- /Datatables -->
   </body>
 </html>

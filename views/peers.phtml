@@ -163,26 +163,27 @@
 	<!-- Custom Theme Scripts -->
 	<script src="assets/js/custom.min.js"></script>
 
-	<!-- Datatables -->
+  <!-- Custom Datatables Script -->
+	<script src="assets/js/custom/datatables-peers.js"></script>
+	<!-- /Datatables -->
 	<script>
-	  $(document).ready(function() {
-
-		$('#connectedpeers').DataTable( {
-			paging:   false,
-			bInfo: false,
+  $(document).ready(function() {
+    $('#connectedpeers').DataTable( {
+      paging:   false,
+      bInfo: false,
       order: [[ 5, 'desc' ]],
-			dom: '<"dataTables_exportbtn"B>ft',
-			buttons: [
-						{
-						  text: 'Rules',
-						  className: "btn btn-info",
-						  action: function () {
-									document.location = "?p=peers&c=run&t=<?= $_SESSION["csfrToken"] ?>";
-								  }
-						}
-			]
+      dom: '<"dataTables_exportbtn"B>ft',
+      buttons: [
+            {
+              text: 'Rules',
+              className: "btn btn-info",
+              action: function () {
+                  document.location = "?p=peers&c=run&t=<?= $_SESSION["csfrToken"] ?>";
+                  }
+            }
+      ]
     } );
-    
+
     // Check for search query
     const searchQuery = "<?php  if(isset($_GET['q'])) echo htmlspecialchars($_GET['q']) ?>";
     if(searchQuery) {
@@ -193,6 +194,5 @@
      document.getElementsByClassName("x_content")[0].hidden = false
 	  });
 	</script>
-	<!-- /Datatables -->
   </body>
 </html>
