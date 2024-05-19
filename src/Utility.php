@@ -23,7 +23,7 @@ function formatServices($servicesArray) {
 	return $services;
 }
 
-function getServices2($hex){
+function getServices($hex){
 	$bit = base_convert($hex, 16, 2);
 	$services = [];
 
