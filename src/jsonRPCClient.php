@@ -89,7 +89,7 @@ class jsonRPCClient
             CURLOPT_POST           => true,
             CURLOPT_POSTFIELDS     => $request,
             CURLOPT_CONNECTTIMEOUT => 2,
-            CURLOPT_TIMEOUT        => 10
+            CURLOPT_TIMEOUT        => Config::REQUEST_TIMEOUT
         );
 
         if(defined('App\Config::PROXY') && !empty(Config::PROXY) && defined('App\Config::PROXY_TYPE') && !empty(Config::PROXY_TYPE)) {
