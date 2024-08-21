@@ -32,6 +32,8 @@
     const RPC_USER = "USERNAME";
     // RPC password / rpcauth specified in bitcoin.conf
     const RPC_PASSWORD = "PASSWORD";
+    // Default request timeout in seconds
+    const REQUEST_TIMEOUT = 30;
 
     /*
     Ip-api.com is used to get the country and the ISP of peers. API is limited to 15 requests per minutes.
