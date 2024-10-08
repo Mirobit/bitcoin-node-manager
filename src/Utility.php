@@ -118,7 +118,7 @@ function checkIfIpv6($ip){
 }
 
 function checkIpPort($ip){
-	if(strpos($ip, ".onion") || preg_match("/^\[{0,1}[0-9a-z:\.]{7,39}\]{0,1}:[0-9]{1,5}$/", $ip)) {
+	if(strpos($ip, ".onion") || strpos($ip, ".i2p") || preg_match("/^\[{0,1}[0-9a-z:\.]{7,39}\]{0,1}:[0-9]{1,5}$/", $ip)) {
 		return $ip;
 	}else{
 		return "Unknown";
