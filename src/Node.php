@@ -109,9 +109,9 @@ class Node {
 			}elseif(preg_match("/^[0-9a-z]{56}\.onion$/", $ipAddress["address"])){
         $this->torVersion = "v3";
 				$this->torAddress = $ipAddress["address"];
-      }elseif(preg_match("/*\.i2p$/", $ipAddress["address"])){
-        $this->i2pAddress = $ipAddress["address"];
-      }
+      }elseif(preg_match("/^[0-9a-z]{52}\.b32\.i2p$/", $ipAddress["address"]) || preg_match("/^[a-zA-Z0-9\-]+\.i2p$/", $ipAddress["address"])) {
+		$this->i2pAddress = $ipAddress["address"];
+	}
 		}
 		$this->toConn = checkInt($networkInfo["connections"]);
 		$this->uptime = timeToString($uptimeInfo);
