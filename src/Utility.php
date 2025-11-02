@@ -233,7 +233,7 @@ function formatDiff($diff, int $round = 1){
 
 function formatHash($hashes, int $round = 1){
         // Define the units (H/s, KH/s, MH/s, GH/s, TH/s, PH/s, EH/s)
-        $units = array('H/s', 'KH/s', 'MH/s', 'GH/s', 'TH/s', 'PH/s', 'EH/s');
+        $units = array('H/s', 'KH/s', 'MH/s', 'GH/s', 'TH/s', 'PH/s', 'EH/s', 'ZH/s');
         $i = 0;
 
         // Loop until the hashrate is less than 1000, incrementing the unit
@@ -751,5 +751,6 @@ function createMapJs(int $peerCount, array $countryList){
 }
 
 ?>
+
 
 
