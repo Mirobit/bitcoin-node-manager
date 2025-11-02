@@ -155,9 +155,7 @@ class Node {
 		$blockInfo = $bitcoind->getblock($blockchainInfo["bestblockhash"]);
 		$this->bHeightAgo = round((time()-checkInt($blockInfo["time"]))/60, 1);
 		$this->bcSize = bytesToGb($blockchainInfo["size_on_disk"], 1);
-		// $this->diff = checkInt($blockchainInfo["difficulty"]);
 		$this->diff = formatDiff($blockchainInfo["difficulty"], 2);
-		//$this->hashRate = round(checkInt($miningInfo["networkhashps"])/1000000000000000000,3);
 		$this->hashRate = formatHash($miningInfo["networkhashps"], 3);
 		$this->mNetTime = getDateTime($blockchainInfo["mediantime"]);
 		// Blockchain -> Soft forks
@@ -168,4 +166,5 @@ class Node {
     }
 	}
 }
+
 
