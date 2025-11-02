@@ -216,19 +216,19 @@ function bytesToGb($size, int $round = 1){
 	return $size;
 }
 
-function formatDiff($hashes, int $round = 1){
-        // Define the units (H/s, KH/s, MH/s, GH/s, TH/s, PH/s, EH/s)
+function formatDiff($diff, int $round = 1){
+        // Define the units ('', Kb, Mb, Gb, Tb, Pb, Eb)
         $units = array('', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb', 'Eb');
         $i = 0;
 
         // Loop until the hashrate is less than 1000, incrementing the unit
-        while ($hashes >= 1000 && $i < count($units) - 1) {
-            $hashes /= 1000;
+        while ($diff >= 1000 && $i < count($units) - 1) {
+            $diff /= 1000;
             $i++;
         }
 
         // Format the number with the specified precision and append the unit
-        return number_format($hashes, $round) . ' ' . $units[$i];
+        return number_format($diff, $round) . ' ' . $units[$i];
 }
 
 function formatHash($hashes, int $round = 1){
@@ -751,4 +751,5 @@ function createMapJs(int $peerCount, array $countryList){
 }
 
 ?>
+
 
