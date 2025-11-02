@@ -216,6 +216,36 @@ function bytesToGb($size, int $round = 1){
 	return $size;
 }
 
+function formatDiff($hashes, int $round = 1){
+        // Define the units (H/s, KH/s, MH/s, GH/s, TH/s, PH/s, EH/s)
+        $units = array('', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb', 'Eb');
+        $i = 0;
+
+        // Loop until the hashrate is less than 1000, incrementing the unit
+        while ($hashes >= 1000 && $i < count($units) - 1) {
+            $hashes /= 1000;
+            $i++;
+        }
+
+        // Format the number with the specified precision and append the unit
+        return number_format($hashes, $round) . ' ' . $units[$i];
+}
+
+function formatHash($hashes, int $round = 1){
+        // Define the units (H/s, KH/s, MH/s, GH/s, TH/s, PH/s, EH/s)
+        $units = array('H/s', 'KH/s', 'MH/s', 'GH/s', 'TH/s', 'PH/s', 'EH/s');
+        $i = 0;
+
+        // Loop until the hashrate is less than 1000, incrementing the unit
+        while ($hashes >= 1000 && $i < count($units) - 1) {
+            $hashes /= 1000;
+            $i++;
+        }
+
+        // Format the number with the specified precision and append the unit
+        return number_format($hashes, $round) . ' ' . $units[$i];
+}
+
 function getDateTime($timestamp){
 	$date = date("Y-m-d H:i:s",(int) $timestamp);
 	return $date;
@@ -721,3 +751,4 @@ function createMapJs(int $peerCount, array $countryList){
 }
 
 ?>
+
