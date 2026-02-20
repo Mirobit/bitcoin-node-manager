@@ -147,7 +147,7 @@ function createForksContent(){
 	$lastTime = 0;
 
 	foreach($forks as $fork){
-		if($i == Config::DISPLAY_FORKS){
+		if($i > Config::DISPLAY_FORKS){
 			break;
 		}
 
@@ -168,7 +168,7 @@ function createForksContent(){
 			$content["blocks"][$i]["timeago"] = round((time() - $block["time"])/ (($i === 0) ? 60 : 86400));
 			$content["blocks"][$i]["txcount"] = count($block["tx"]);
 
-			if($content["blocks"][$i]["time"] >= $timeAgo){
+			if($block["time"] >= $timeAgo && $fork["status"] != "active"){
 				$content["recentForks"]++;
 			}
 		}
